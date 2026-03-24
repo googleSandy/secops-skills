@@ -33,7 +33,7 @@ Covers: understanding the rule lifecycle (test → retrohunt → deploy) · choo
 Clone the repo and point your agent at the `skills/` directory:
 
 ```bash
-git clone https://github.com/your-org/secops-skills.git
+git clone https://github.com/googleSandy/secops-skills.git
 ```
 
 Each skill is a self-contained directory under `skills/`. How you load them depends on your agent:
