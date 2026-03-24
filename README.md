@@ -19,6 +19,9 @@ Syntax reference and field guidance for authoring SecOps SIEM queries for invest
 
 Covers: UDM filter queries · stats/aggregation · event-event joins · raw log search · reference list lookups · entity investigations · enriched data (geolocation, VirusTotal) · entity context (`graph.*`) · data availability timing
 
+<img width="804" height="629" alt="image" src="https://github.com/user-attachments/assets/c03058a4-9203-4f3b-85d5-eae2917d2fdb" />
+
+
 ### [`secops-yara-l`](skills/secops-yara-l/SKILL.md)
 
 Syntax reference and patterns for authoring YARA-L 2.0 detection rules and search queries. Rules should always be tested in your environment before deployment.
