@@ -1,0 +1,17 @@
+# SecOps Skills
+
+A collection of Agent Skills for Google Security Operations (SecOps/Chronicle) SIEM —
+covering search queries, YARA-L detection rules, and detection engineering workflows.
+
+## Skills
+
+- [SecOps SIEM Search](skills/secops-siem-search/SKILL.md): Write and run Google SecOps SIEM queries — UDM filter queries, stats/aggregation, event-event joins, raw log search, reference list lookups, entity investigations, enriched data queries, and entity context search.
+- [SecOps YARA-L](skills/secops-yara-l/SKILL.md): Write YARA-L 2.0 detection rules and complex search queries — single-event rules, multi-event correlation, sliding window detections, composite rules, outcome aggregations, and multi-stage queries.
+- [SecOps Detection Engineering](skills/secops-detection-engineering/SKILL.md): Create, test, deploy, and manage Google SecOps detection rules — rule lifecycle, retrohunts, detection delays, context-aware analytics, risk scoring, troubleshooting, and composite detections.
+
+## Reference Files
+
+- [Log Types — Full List](skills/secops-siem-search/references/all-log-types.md): All 1000+ supported `metadata.log_type` values.
+- [UDM Fields](skills/secops-siem-search/references/udm-fields.md): Full UDM schema, event types, and high-performance filter fields.
+- [YARA-L Cheat Sheet](skills/secops-yara-l/references/cheat-sheet.md): Quick syntax reference for all YARA-L constructs.
+- [Live Documentation Sources](skills/secops-siem-search/references/docs.md): URL map for official Google SecOps documentation with fetch and refresh instructions.

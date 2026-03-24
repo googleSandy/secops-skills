@@ -1,0 +1,12 @@
+{
+  "assertion_results": [
+    {"text": "Query includes metadata.event_type = \"NETWORK_CONNECTION\" or similar filter", "passed": false, "evidence": "Wrote SQL: FROM network_connections WHERE event_type = 'connection' — not UDM YARA-L syntax"},
+    {"text": "Query uses match: section with a $ip or similar variable", "passed": false, "evidence": "No match: section — uses SQL GROUP BY source_ip"},
+    {"text": "Query uses outcome: section with count(), sum(), and avg() functions", "passed": false, "evidence": "No outcome: section — uses SQL SELECT COUNT(*), SUM, AVG"},
+    {"text": "Query uses order: section with desc", "passed": true, "evidence": "ORDER BY event_count DESC present (SQL syntax)"},
+    {"text": "Query does NOT use pipe syntax", "passed": false, "evidence": "Entire response is SQL — fundamentally wrong query language for SecOps SIEM"},
+    {"text": "Query uses $var = field.name assignment syntax", "passed": false, "evidence": "No $var assignment — uses SQL column aliases"},
+    {"text": "Query does not use AND keyword between conditions", "passed": false, "evidence": "Uses SQL WHERE clause with AND between conditions"}
+  ],
+  "summary": {"passed": 1, "failed": 6, "total": 7, "pass_rate": 0.14}
+}

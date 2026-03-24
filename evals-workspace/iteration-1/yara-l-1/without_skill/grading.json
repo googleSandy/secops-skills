@@ -1,0 +1,12 @@
+{
+  "assertion_results": [
+    {"text": "Response produces a rule { } block with proper YARA-L structure", "passed": true, "evidence": "rule multiple_failed_logins_10min { } block present"},
+    {"text": "Rule includes meta: section with at least author and description", "passed": true, "evidence": "meta: includes author, description, severity"},
+    {"text": "events: filters USER_LOGIN and security_result.action = FAIL", "passed": false, "evidence": "Uses metadata.fail_reason != null instead of security_result.action = \"FAIL\"; uses == operator instead of =; includes hallucinated field metadata.log_source == \"AUTH\""},
+    {"text": "events: uses placeholder variable for user", "passed": false, "evidence": "Uses $login_failed as an event variable, not a placeholder variable for join key; grouping condition `where $login_failed.user_name == $login_failed.user_name` is tautological and wrong"},
+    {"text": "match: groups by user variable over 10m", "passed": false, "evidence": "Uses `with max_span = 10m` which is invalid YARA-L syntax; grouping logic is malformed"},
+    {"text": "condition: checks count threshold >= 5 or > 4", "passed": false, "evidence": "#$login_failed >= 5 is wrong syntax — # prefix should not include $ for the variable name"},
+    {"text": "Rule does NOT use regex on metadata.event_type", "passed": true, "evidence": "No regex on event_type — uses == comparison (though == itself is wrong operator)"}
+  ],
+  "summary": {"passed": 3, "failed": 4, "total": 7, "pass_rate": 0.43}
+}

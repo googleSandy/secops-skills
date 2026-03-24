@@ -1,0 +1,9 @@
+{
+  "assertion_results": [
+    {"text": "Response includes WINEVTLOG as the log type value", "passed": true, "evidence": "Response lists WINEVTLOG as the primary option"},
+    {"text": "Response uses correct backtick or code formatting for the value", "passed": true, "evidence": "Values use backtick formatting"},
+    {"text": "Response does not suggest an incorrect value", "passed": true, "evidence": "All suggested values are real log types; agent read the reference files from disk"}
+  ],
+  "summary": {"passed": 3, "failed": 0, "total": 3, "pass_rate": 1.0},
+  "notes": "Agent had local file access and read premium-log-types.md — gave more complete answer than with_skill. This test is a weak discriminator; both pass but for different reasons."
+}

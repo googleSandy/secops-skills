@@ -1,0 +1,10 @@
+{
+  "assertion_results": [
+    {"text": "Response mentions Run Test as the first step for validation", "passed": true, "evidence": "Step 2 mentions 'Use the built-in Test Rule feature' and clicking the Test button"},
+    {"text": "Response explicitly states saving does NOT enable the rule", "passed": false, "evidence": "Never states this; implies a staged enablement flow that doesn't match SecOps reality"},
+    {"text": "Response mentions retrohunt as a way to test against historical data", "passed": true, "evidence": "Step 4 mentions 'Run retroactive detection (if your SecOps instance supports it)'"},
+    {"text": "Response explains Run Test results are non-persistent and generate no alerts", "passed": false, "evidence": "States 'Confirm that positive test cases generate an alert' — incorrect; Run Test generates no real alerts"},
+    {"text": "Response does not suggest the rule automatically starts detecting after saving", "passed": false, "evidence": "Suggests 'ENABLED - TEST mode' that doesn't exist; workflow implies staged auto-enablement which is misleading"}
+  ],
+  "summary": {"passed": 2, "failed": 3, "total": 5, "pass_rate": 0.4}
+}

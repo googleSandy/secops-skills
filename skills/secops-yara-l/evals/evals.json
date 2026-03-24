@@ -1,0 +1,57 @@
+{
+  "skill_name": "secops-yara-l",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a YARA-L detection rule that fires when the same user has 5 or more failed login attempts within 10 minutes.",
+      "expected_output": "A valid YARA-L rule with meta, events filtering USER_LOGIN + FAIL action, match section over 10m, outcome with count, and condition checking count > 4 or #e > 4.",
+      "assertions": [
+        "Response produces a rule { } block with proper YARA-L structure",
+        "Rule includes meta: section with at least author and description fields",
+        "events: section filters metadata.event_type = \"USER_LOGIN\" and security_result.action = \"FAIL\"",
+        "events: section uses a placeholder variable for user (e.g., $user = $e.target.user.userid or similar)",
+        "match: section groups by $user over 10m",
+        "condition: section checks for count threshold (e.g., #e > 4 or $count > 4)",
+        "Rule does NOT use regex on metadata.event_type (e.g., /USER_LOGIN/ is invalid)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have this YARA-L rule fragment and it's giving a compile error. What's wrong?\n\nevents:\n  $e.metadata.event_type = /USER_LOGIN|USER_LOGOUT/\n  $e.principal.hostname = $host",
+      "expected_output": "Identification that regex cannot be used on enumerated fields like metadata.event_type, with the corrected version using OR between exact string values.",
+      "assertions": [
+        "Response correctly identifies that regex is not valid on enumerated fields like metadata.event_type",
+        "Response provides the corrected syntax using explicit OR between string values",
+        "Corrected version uses (metadata.event_type = \"USER_LOGIN\" or metadata.event_type = \"USER_LOGOUT\") or equivalent",
+        "Response does not suggest the regex syntax is valid in some contexts"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a YARA-L detection rule that fires when a process is launched on a host that has a risk score of 700 or higher.",
+      "expected_output": "A valid YARA-L multi-event rule joining a UDM PROCESS_LAUNCH event with an entity graph risk score lookup via graph.risk_score fields.",
+      "assertions": [
+        "Rule uses two event variables — one for UDM event ($e or $proc) and one for entity graph ($ctx or $entity)",
+        "UDM event filters metadata.event_type = \"PROCESS_LAUNCH\"",
+        "Entity graph event uses graph.risk_score.normalized_risk_score >= 700 or graph.risk_score.risk_score >= threshold",
+        "Both events are joined via a shared placeholder (hostname or IP)",
+        "Rule includes match: section (required for multi-event rules)",
+        "Rule includes condition: requiring both event variables",
+        "Rule does NOT only use a single event variable"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Write a YARA-L multi-stage search query to find IP address pairs with unusually high network traffic compared to their 30-day baseline. An IP pair is suspicious if its hourly bytes are more than 3 standard deviations above the mean.",
+      "expected_output": "A multi-stage YARA-L search query using stage {} blocks — at minimum a hourly aggregation stage and a root stage computing stddev and mean, then filtering on z-score or stddev threshold.",
+      "assertions": [
+        "Response uses stage <name> { } syntax for at least one named stage",
+        "Named stage computes hourly byte totals using by hour or by 1h in match section",
+        "Root stage or a subsequent stage computes avg() and stddev() across the hourly data",
+        "Query correctly references stage output with $stage_name.variable syntax",
+        "Response does NOT write a rule { } detection rule block (this is a search query)",
+        "Response includes a condition or filter checking for values > 3 stddev from mean"
+      ]
+    }
+  ]
+}

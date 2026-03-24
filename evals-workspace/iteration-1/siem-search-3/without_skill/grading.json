@@ -1,0 +1,13 @@
+{
+  "assertion_results": [
+    {"text": "Query uses events: section", "passed": false, "evidence": "Uses SQL/pipe syntax: events | filter ... | join(...)  — completely wrong syntax"},
+    {"text": "Query uses two distinct event variables like $e1/$e2", "passed": false, "evidence": "No $e1/$e2 event variables — uses SQL join syntax"},
+    {"text": "Query joins on a shared placeholder variable", "passed": false, "evidence": "Uses SQL ON login_user = deletion_user — not YARA-L placeholder syntax"},
+    {"text": "First event filters for USER_LOGIN with ALLOW action", "passed": false, "evidence": "Filters for eventStatus = SUCCESS instead of security_result.action = ALLOW — wrong field"},
+    {"text": "Second event filters for FILE_DELETION", "passed": true, "evidence": "FILE_DELETION is referenced in the SQL join target"},
+    {"text": "Query uses match: with over 30m window", "passed": false, "evidence": "Uses timediff(deletion_timestamp, login_timestamp) <= 30m — wrong syntax"},
+    {"text": "Query uses condition: with both event variables", "passed": false, "evidence": "No condition: section — uses SQL WHERE clause"},
+    {"text": "Query does NOT write a YARA-L rule { } detection rule block", "passed": true, "evidence": "No rule { } block written — but the query syntax used is wrong (SQL-like)"}
+  ],
+  "summary": {"passed": 2, "failed": 6, "total": 8, "pass_rate": 0.25}
+}

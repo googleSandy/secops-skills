@@ -1,0 +1,67 @@
+{
+  "skill_name": "secops-siem-search",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What metadata.log_type value should I use to search Windows Event Logs in SecOps SIEM?",
+      "expected_output": "The correct log type value WINEVTLOG, with a note that it covers standard Windows Event Log formats.",
+      "assertions": [
+        "Response includes WINEVTLOG as the log type value",
+        "Response uses correct backtick or code formatting for the value",
+        "Response does not suggest an incorrect value like WINDOWS_EVENTS or WIN_EVT"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a SecOps SIEM stats query to show network connection activity grouped by source IP. Include total bytes sent, event count, and average bytes sent. Order by event count descending.",
+      "expected_output": "A valid YARA-L stats query with filter conditions, match section grouping by IP, outcome section with count/sum/avg functions, and order section. No pipe syntax.",
+      "assertions": [
+        "Query includes metadata.event_type = \"NETWORK_CONNECTION\" or similar filter",
+        "Query uses match: section with a $ip or similar variable",
+        "Query uses outcome: section with count(), sum(), and avg() or window.avg() functions",
+        "Query uses order: section with desc",
+        "Query does NOT use pipe syntax (| groupby, | select, | sort)",
+        "Query uses $var = field.name assignment syntax for placeholder variables",
+        "Query does not use AND keyword between filter conditions on separate lines (implicit AND)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a SecOps SIEM query to find cases where a user logged in successfully and then deleted a file within 30 minutes. Show the username, login host, and deleted file path.",
+      "expected_output": "A valid YARA-L join query using events: section with $e1/$e2 event variables, a shared placeholder variable for the join key, match: over 30m, and condition: with both events present.",
+      "assertions": [
+        "Query uses events: section (not just filter conditions)",
+        "Query uses two distinct event variables like $e1/$e2 or $login/$del",
+        "Query joins on a shared placeholder variable (e.g., $user = $e1.principal.user.userid)",
+        "First event filters for USER_LOGIN with ALLOW action",
+        "Second event filters for FILE_DELETION",
+        "Query uses match: with over 30m window",
+        "Query uses condition: with both event variables",
+        "Query does NOT write a YARA-L rule { } detection rule block"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I ingested some logs 15 minutes ago but they're not showing up in my UDM search. What's happening and how do I check if ingestion worked?",
+      "expected_output": "Explanation that UDM search requires ingestion+parsing+normalization+indexing+enrichment pipeline (not immediate), raw log search is available immediately, and guidance on how to verify ingestion using raw log search.",
+      "assertions": [
+        "Response explains that UDM search is NOT immediate after ingestion",
+        "Response mentions the pipeline stages (parsing, normalization, indexing, or enrichment)",
+        "Response recommends using raw log search (raw = ...) to verify the data arrived",
+        "Response does NOT suggest the data is lost or that ingestion failed"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Write a SecOps SIEM query to find all network connections going to countries that are commonly restricted — specifically Russia, China, North Korea, and Iran. Group by destination country and source IP.",
+      "expected_output": "A valid YARA-L stats query using ip_geo_artifact.location.country_or_region field for filtering, with match/outcome/order sections.",
+      "assertions": [
+        "Query uses target.ip_geo_artifact.location.country_or_region or principal.ip_geo_artifact.location.country_or_region field",
+        "Query filters for at least Russia, China, North Korea, and Iran",
+        "Query does NOT use a hallucinated field like target.geo.country or network.country",
+        "Query includes metadata.event_type = \"NETWORK_CONNECTION\" filter",
+        "If using stats sections, uses match:/outcome:/order: not pipe syntax"
+      ]
+    }
+  ]
+}

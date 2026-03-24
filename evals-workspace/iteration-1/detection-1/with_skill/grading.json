@@ -1,0 +1,10 @@
+{
+  "assertion_results": [
+    {"text": "Response mentions Run Test as the first step for validation", "passed": true, "evidence": "Step 1 is explicitly 'Run Test (Validation Phase)'"},
+    {"text": "Response explicitly states saving does NOT enable the rule", "passed": true, "evidence": "\"Critical Reminder: Saving a rule does NOT automatically enable it. The toggle must be manually activated.\""},
+    {"text": "Response mentions retrohunt as a way to test against historical data", "passed": true, "evidence": "Step 2 is 'Retrohunt (Generate Real Detections)' with full instructions"},
+    {"text": "Response explains Run Test results are non-persistent and generate no alerts", "passed": true, "evidence": "\"Results are NON-PERSISTENT (they won't be stored or trigger alerts)\""},
+    {"text": "Response does not suggest the rule automatically starts detecting after saving", "passed": true, "evidence": "Explicitly states the opposite — manual toggle required"}
+  ],
+  "summary": {"passed": 5, "failed": 0, "total": 5, "pass_rate": 1.0}
+}

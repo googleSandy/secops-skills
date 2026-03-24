@@ -1,0 +1,44 @@
+{
+  "skill_name": "secops-detection-engineering",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just finished writing a new YARA-L detection rule and saved it. Now I want to make sure it works before enabling it for live detections. Walk me through what I should do.",
+      "expected_output": "A clear workflow: Run Test (non-persistent, no alerts) → Retrohunt on known historical data (real detections) → Enable Live Rule toggle. Should note that saving does NOT automatically enable the rule.",
+      "assertions": [
+        "Response mentions Run Test as the first step for validation",
+        "Response explicitly states that saving a rule does NOT enable it — the Live Rule toggle must be manually enabled",
+        "Response mentions retrohunt as a way to test against historical data",
+        "Response explains that Run Test results are non-persistent and generate no alerts",
+        "Response does not suggest the rule automatically starts detecting after saving"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "My detection rule has been running as a live rule for 2 hours. I know the events it should be matching are being ingested — I can see them in raw log search — but I'm getting zero detections. What should I check?",
+      "expected_output": "A structured troubleshooting checklist covering: Live Rule toggle enabled?, Alerting enabled?, Detection delays for rule type, UDM field names correct (not hallucinated), match window and run frequency appropriate, zero-value join gotchas.",
+      "assertions": [
+        "Response includes checking that the Live Rule toggle is enabled",
+        "Response includes checking alerting status on the rule",
+        "Response mentions verifying UDM field names are correct (not hallucinated)",
+        "Response mentions detection delays — especially run frequency and match window",
+        "Response mentions zero-value joins as a potential source of false negatives",
+        "Response suggests using Run Test as a diagnostic step"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "How do I write a detection rule that uses Google Safe Browsing data to detect when a process launches with a hash that Safe Browsing flags as malicious?",
+      "expected_output": "A complete YARA-L rule joining a PROCESS_LAUNCH event with the Safe Browsing entity graph using SHA256 hash as the join key. Key fields: graph.metadata.product_name = 'Google Safe Browsing', graph.metadata.entity_type = 'FILE', graph.metadata.source_type = 'GLOBAL_CONTEXT'.",
+      "assertions": [
+        "Response produces a complete YARA-L rule block",
+        "Rule joins a UDM PROCESS_LAUNCH (or FILE_CREATION) event with an entity graph variable",
+        "Entity graph filter uses graph.metadata.product_name = \"Google Safe Browsing\"",
+        "Entity graph filter uses graph.metadata.source_type = \"GLOBAL_CONTEXT\"",
+        "Join is performed via SHA256 hash (e.g., $sha256 = $e.target.process.file.sha256 = $ctx.graph.entity.file.sha256)",
+        "Rule includes match: section (required for multi-event/entity join rules)",
+        "Response mentions that Safe Browsing data requires no import — it is available by default"
+      ]
+    }
+  ]
+}

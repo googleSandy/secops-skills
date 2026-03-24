@@ -1,0 +1,53 @@
+{
+  "iteration": 1,
+  "date": "2026-03-20",
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": { "mean": 1.0, "by_eval": {
+        "siem-search-1": 1.0,
+        "siem-search-2": 1.0,
+        "siem-search-3": 1.0,
+        "yara-l-1": 1.0,
+        "yara-l-2": 1.0,
+        "detection-1": 1.0
+      }},
+      "total_assertions": 34,
+      "passed_assertions": 34
+    },
+    "without_skill": {
+      "pass_rate": { "mean": 0.37, "by_eval": {
+        "siem-search-1": 1.0,
+        "siem-search-2": 0.14,
+        "siem-search-3": 0.25,
+        "yara-l-1": 0.43,
+        "yara-l-2": 0.0,
+        "detection-1": 0.4
+      }},
+      "total_assertions": 34,
+      "passed_assertions": 13
+    },
+    "delta": {
+      "pass_rate": 0.63,
+      "note": "Skills improve assertion pass rate by 63 percentage points on average"
+    }
+  },
+  "patterns": {
+    "always_pass_both": ["siem-search-1"],
+    "skill_clearly_adds_value": ["siem-search-2", "siem-search-3", "yara-l-1", "yara-l-2", "detection-1"],
+    "perfect_discriminators": ["yara-l-2"],
+    "findings": [
+      "siem-search-1 is a weak discriminator: without_skill agent read local reference files and gave a richer answer. Test needs a harder variant that can't be answered from files.",
+      "siem-search-2: without_skill produced SQL — fundamental language confusion. Skill critical.",
+      "siem-search-3: without_skill produced SQL/pipe join syntax — completely wrong. Skill critical.",
+      "yara-l-1: without_skill used invalid operators (==), hallucinated fields (metadata.log_source), and wrong match syntax (max_span). Partial structure correct.",
+      "yara-l-2 (perfect discriminator): without_skill misdiagnosed the error entirely (said 'missing match:' instead of 'regex on enumerated field'). With skill: perfect.",
+      "detection-1: without_skill invented 'ENABLED - TEST mode' (does not exist) and never mentioned that saving ≠ enabling. Critical workflow gotcha missed."
+    ]
+  },
+  "action_items": [
+    "Replace siem-search-1 with a harder log type test (e.g., ask for a vendor not in the reference files, or ask which is premium vs standard)",
+    "Add an eval testing the stats aggregation data delay gotcha (2-hour delay for newly ingested data)",
+    "Add an eval testing the nocase-on-string-literal gotcha",
+    "yara-l skills are performing strongly — consider adding multi-stage query eval"
+  ]
+}

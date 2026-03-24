@@ -1,0 +1,9 @@
+{
+  "assertion_results": [
+    {"text": "Correctly identifies enumerated field + regex as the root cause", "passed": true, "evidence": "\"Enumerated fields (like metadata.event_type) CANNOT use regex patterns\" — correct root cause"},
+    {"text": "Provides corrected syntax using explicit OR between string values", "passed": true, "evidence": "($e.metadata.event_type = \"USER_LOGIN\" or $e.metadata.event_type = \"USER_LOGOUT\")"},
+    {"text": "Corrected version uses = \"VALUE\" or = \"VALUE\" pattern", "passed": true, "evidence": "Exact corrected syntax provided"},
+    {"text": "Does not suggest the regex syntax is valid in some contexts", "passed": true, "evidence": "Clearly states regex is invalid on enumerated fields — no hedging"}
+  ],
+  "summary": {"passed": 4, "failed": 0, "total": 4, "pass_rate": 1.0}
+}

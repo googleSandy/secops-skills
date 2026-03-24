@@ -1,0 +1,12 @@
+{
+  "assertion_results": [
+    {"text": "Response produces a rule { } block with proper YARA-L structure", "passed": true, "evidence": "rule MultipleFailedLogins { } with all required sections"},
+    {"text": "Rule includes meta: section with at least author and description", "passed": true, "evidence": "meta: includes author, description, severity, detection_type"},
+    {"text": "events: filters USER_LOGIN and security_result.action = FAIL", "passed": true, "evidence": "Exact strings: \"USER_LOGIN\" and \"FAIL\" — no regex used"},
+    {"text": "events: uses placeholder variable for user", "passed": true, "evidence": "$user = $e.target.user.userid"},
+    {"text": "match: groups by $user over 10m", "passed": true, "evidence": "match: $user over 10m"},
+    {"text": "condition: checks count threshold > 4 or similar", "passed": true, "evidence": "condition: #e > 4"},
+    {"text": "Rule does NOT use regex on metadata.event_type", "passed": true, "evidence": "Uses exact string = \"USER_LOGIN\", not /regex/"}
+  ],
+  "summary": {"passed": 7, "failed": 0, "total": 7, "pass_rate": 1.0}
+}

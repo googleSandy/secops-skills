@@ -1,0 +1,13 @@
+{
+  "assertion_results": [
+    {"text": "Query uses events: section", "passed": true, "evidence": "events: section is the outer wrapper for both event conditions"},
+    {"text": "Query uses two distinct event variables like $e1/$e2", "passed": true, "evidence": "$e1 for login, $e2 for file deletion"},
+    {"text": "Query joins on a shared placeholder variable", "passed": true, "evidence": "$user = $e1.principal.user.userid and $user = $e2.principal.user.userid"},
+    {"text": "First event filters for USER_LOGIN with ALLOW action", "passed": true, "evidence": "$e1.metadata.event_type = \"USER_LOGIN\" and $e1.security_result.action = \"ALLOW\""},
+    {"text": "Second event filters for FILE_DELETION", "passed": true, "evidence": "$e2.metadata.event_type = \"FILE_DELETION\""},
+    {"text": "Query uses match: with over 30m window", "passed": true, "evidence": "match: $user over 30m"},
+    {"text": "Query uses condition: with both event variables", "passed": true, "evidence": "condition: $e1 and $e2"},
+    {"text": "Query does NOT write a YARA-L rule { } detection rule block", "passed": true, "evidence": "No rule { } wrapper — correct ad-hoc search join syntax"}
+  ],
+  "summary": {"passed": 8, "failed": 0, "total": 8, "pass_rate": 1.0}
+}

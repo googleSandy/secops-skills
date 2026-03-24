@@ -1,0 +1,8 @@
+{
+  "assertion_results": [
+    {"text": "Response includes WINEVTLOG as the log type value", "passed": true, "evidence": "Response states: metadata.log_type = \"WINEVTLOG\" in a code block"},
+    {"text": "Response uses correct backtick or code formatting for the value", "passed": true, "evidence": "Value is shown in a fenced code block"},
+    {"text": "Response does not suggest an incorrect value", "passed": true, "evidence": "Only WINEVTLOG is given — no hallucinated alternatives"}
+  ],
+  "summary": {"passed": 3, "failed": 0, "total": 3, "pass_rate": 1.0}
+}

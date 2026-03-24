@@ -1,0 +1,12 @@
+{
+  "assertion_results": [
+    {"text": "Query includes metadata.event_type = \"NETWORK_CONNECTION\" or similar filter", "passed": true, "evidence": "First line: metadata.event_type = \"NETWORK_CONNECTION\""},
+    {"text": "Query uses match: section with a $ip or similar variable", "passed": true, "evidence": "match: $source_ip"},
+    {"text": "Query uses outcome: section with count(), sum(), and avg() functions", "passed": true, "evidence": "count(metadata.id), sum(network.sent_bytes), math.round(avg(...))"},
+    {"text": "Query uses order: section with desc", "passed": true, "evidence": "order: $event_count desc"},
+    {"text": "Query does NOT use pipe syntax", "passed": true, "evidence": "No | operators — uses match:/outcome:/order: sections"},
+    {"text": "Query uses $var = field.name assignment syntax", "passed": true, "evidence": "$source_ip = principal.ip"},
+    {"text": "Query does not use AND keyword between filter conditions on separate lines", "passed": true, "evidence": "Conditions are on separate lines with implicit AND"}
+  ],
+  "summary": {"passed": 7, "failed": 0, "total": 7, "pass_rate": 1.0}
+}
