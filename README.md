@@ -1,4 +1,9 @@
-# SecOps Agent Skills
+# 🛡️ SecOps Agent Skills
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Updater](https://img.shields.io/badge/Automated_Updates-Active-success)](.github/workflows/update-references.yml)
+[![Agent Skills](https://img.shields.io/badge/Agent_Skills-Compatible-5865F2)](https://agentskills.io)
+[![SecOps](https://img.shields.io/badge/Google-SecOps-4285F4)](https://cloud.google.com/security/products/security-operations)
 
 Agent Skills for [Google Security Operations](https://cloud.google.com/security/products/security-operations) (SecOps / Chronicle) — giving AI agents accurate, up-to-date knowledge to write SIEM queries, build detection rules, and navigate the detection engineering workflow.
 
@@ -6,7 +11,7 @@ Built to the [Agent Skills](https://agentskills.io) open specification — works
 
 ---
 
-## Skills
+## 📚 Skills
 
 ### [`secops-siem-search`](skills/secops-siem-search/SKILL.md)
 
@@ -28,7 +33,7 @@ Covers: understanding the rule lifecycle (test → retrohunt → deploy) · choo
 
 ---
 
-## Installation
+## 🚀 Installation
 
 Clone the repo and point your agent at the `skills/` directory:
 
@@ -45,7 +50,7 @@ Each skill is independent — install one, two, or all three depending on what y
 
 ---
 
-## Structure
+## 📁 Structure
 
 ```
 secops-skills/
@@ -94,7 +99,7 @@ secops-skills/
 
 ---
 
-## Keeping References Up to Date
+## 🔄 Keeping References Up to Date
 
 Reference files (log types, UDM fields, YARA-L functions) are scraped from Google's live documentation. They can go stale as Google updates their docs.
 
@@ -118,7 +123,7 @@ The update script uses **timestamp-based diffing** — it reads the `Last Update
 
 ---
 
-## Evaluation
+## 🧪 Evaluation
 
 Each skill includes test cases in `evals/evals.json` following the [AgentSkills evaluation format](https://agentskills.io/skill-creation/evaluating-skills). Results comparing with-skill vs. without-skill are in `evals-workspace/`.
 
@@ -126,7 +131,7 @@ To run evals, follow the [AgentSkills evaluation guide](https://agentskills.io/s
 
 ---
 
-## Compatibility
+## ⚙️ Compatibility
 
 - **Google SecOps (SecOps / Chronicle) SIEM** required
 - **Detection Engine** required for `secops-yara-l` and `secops-detection-engineering`
@@ -135,7 +140,7 @@ To run evals, follow the [AgentSkills evaluation guide](https://agentskills.io/s
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 Contributions welcome — especially:
 
@@ -154,7 +159,7 @@ Open an issue or PR. For new examples, please source them from the official [chr
 
 ---
 
-## License
+## ⚖️ License
 
 Apache 2.0 — see [LICENSE](LICENSE).
 
