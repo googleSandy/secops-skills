@@ -15,3 +15,9 @@ covering search queries, YARA-L detection rules, and detection engineering workf
 - [UDM Fields](skills/secops-siem-search/references/udm-fields.md): Full UDM schema, event types, and high-performance filter fields.
 - [YARA-L Cheat Sheet](skills/secops-yara-l/references/cheat-sheet.md): Quick syntax reference for all YARA-L constructs.
 - [Live Documentation Sources](skills/secops-siem-search/references/docs.md): URL map for official Google SecOps documentation with fetch and refresh instructions.
+
+## Community Resources & Feeds (Best Practices)
+
+- [That SIEM Guy](https://medium.com/feed/@thatsiemguy): RSS feed for That SIEM Guy blog (Best practices).
+- [b.sim619](https://medium.com/feed/@b.sim619): RSS feed for b.sim619 blog (Best practices).
+- [grku](https://medium.com/feed/@grku): RSS feed for grku blog (Best practices).
