@@ -75,7 +75,7 @@ secops-skills/
 
 ## 🔄 Keeping References Up to Date
 
-Reference files are scraped from Google's live documentation using a combination of a general recursive crawler (`scripts/crawler.py`) and a specialized updater (`scripts/update_references.py`) for structured tables. These maintenance scripts are hosted in the private publisher repository to keep the public repository focused on clean, consumable content.
+Reference files are scraped from Google Cloud's live documentation using a combination of a general recursive crawler and a specialized updater (`scripts/update_references.py`) for structured tables.
 
 ### Automated (GitHub Actions)
 
