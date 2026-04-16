@@ -59,70 +59,41 @@ Each skill is independent — install one, two, or all three depending on what y
 secops-skills/
 ├── llms.txt                          # Skill index for LLM discovery
 ├── scripts/
-│   └── update_references.py          # Maintenance: fetch fresh docs from Google
-├── .github/workflows/
-│   └── update-references.yml         # Automated bi-weekly reference refresh
+│   ├── crawler.py                    # Maintenance: recursive crawler to fetch docs
+│   └── crawler_config.json           # Config for crawler (seeds, filters)
 └── skills/
     ├── secops-siem-search/
     │   ├── SKILL.md                  # Skill entry point
     │   ├── evals/evals.json          # Test cases for evaluation
-    │   └── references/               # On-demand reference files
-    │       ├── docs.md               # Live documentation URLs + refresh instructions
-    │       ├── all-log-types.md      # All 1000+ supported log types (searched via lookup script)
-    │       ├── all-log-types.md      # All 1000+ supported log types
-    │       ├── udm-fields.md         # Full UDM schema and event types
-    │       ├── functions.md          # Aggregate + built-in functions
-    │       ├── best-practices.md     # Query performance and section order
-    │       ├── enriched-data.md      # Geolocation and VirusTotal fields
-    │       ├── entity-context.md     # graph.* namespace reference
-    │       ├── data-availability.md  # When data is searchable by method
-    │       └── raw-log-search.md     # RE2 regex, limits, optimization
+    │   └── references/               # Auto-generated reference files (UDM, search)
     ├── secops-yara-l/
     │   ├── SKILL.md
     │   ├── evals/evals.json
-    │   └── references/
-    │       ├── cheat-sheet.md        # Quick syntax reference
-    │       ├── syntax.md             # Full section-by-section syntax
-    │       ├── expressions.md        # Operators, regex, maps, any/all
-    │       ├── functions.md          # All YARA-L functions
-    │       ├── examples.md           # Production rules from chronicle/detection-rules
-    │       ├── multi-stage.md        # Multi-stage queries, MAD, Z-score
-    │       └── best-practices.md     # Known issues and performance tips
+    │   └── references/               # Auto-generated reference files (YARA-L syntax)
     └── secops-detection-engineering/
         ├── SKILL.md
         ├── evals/evals.json
-        └── references/
-            ├── workflow.md           # Rule lifecycle: create → test → retrohunt → deploy
-            ├── delays-and-performance.md  # Detection latency and MTTD
-            ├── context-and-risk.md   # Entity graph, Safe Browsing, threat intel
-            ├── troubleshooting.md    # Runtime error table and fixes
-            ├── composite-detections.md    # Composite rule patterns
-            └── docs.md               # Live documentation URLs
+        └── references/               # Auto-generated reference files (Workflows, rules)
 ```
 
 ---
 
 ## 🔄 Keeping References Up to Date
 
-Reference files (log types, UDM fields, YARA-L functions) are scraped from Google's live documentation. They can go stale as Google updates their docs.
+Reference files are scraped from Google's live documentation using a recursive crawler.
 
 ### Automated (GitHub Actions)
 
-The included workflow runs automatically on the 1st and 15th of every month. If the source documentation has changed, it fetches the updated content and commits it. You can also trigger it manually from the Actions tab.
+The included workflow can be configured to run periodically to keep the reference library up to date.
 
 ### Manual
 
 ```bash
-python3 scripts/update_references.py
+python3 scripts/crawler.py
 ```
 
-No dependencies — uses Python 3 standard library only (`urllib`, `html.parser`). The script checks the `Last Updated` timestamp on each source page before fetching — it skips files that haven't changed, so it's safe to run frequently.
+No dependencies — uses Python 3 standard library only (`urllib`, `html.parser`). The crawler reads seeds and scoping rules from `scripts/crawler_config.json` and organizes the extracted Markdown files into the appropriate skill directories based on keywords.
 
-### How it works
-
-The update script uses **timestamp-based diffing** — it reads the `Last Updated` date from each Google documentation page and compares it to the date stored in the local reference file. Only changed files are re-fetched and rewritten. This keeps network requests minimal and avoids unnecessary commits.
-
-**Important:** The update script is a maintenance tool for humans and CI, not for agents. Skills do not instruct agents to run it. If an agent needs to verify whether a reference file is current, it should consult `references/docs.md` for the source URL and check it directly.
 
 ---
 

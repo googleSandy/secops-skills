@@ -6,8 +6,9 @@ covering search queries, YARA-L detection rules, and detection engineering workf
 ## Skills
 
 - [SecOps SIEM Search](skills/secops-siem-search/SKILL.md): Write and run Google SecOps SIEM queries — UDM filter queries, stats/aggregation, event-event joins, raw log search, reference list lookups, entity investigations, enriched data queries, and entity context search.
-- [SecOps YARA-L](skills/secops-yara-l/SKILL.md): Write YARA-L 2.0 detection rules and complex search queries — single-event rules, multi-event correlation, sliding window detections, composite rules, outcome aggregations, and multi-stage queries.
-- [SecOps Detection Engineering](skills/secops-detection-engineering/SKILL.md): Create, test, deploy, and manage Google SecOps detection rules — rule lifecycle, retrohunts, detection delays, context-aware analytics, risk scoring, troubleshooting, and composite detections.
+- [SecOps YARA-L](skills/secops-yara-l/SKILL.md): Core language reference for YARA-L 2.0 — syntax, functions, operators, and foundational overviews used for both search and rules.
+- [SecOps Detection Engineering](skills/secops-detection-engineering/SKILL.md): Create, test, deploy, and manage Google SecOps detection rules — rule building guides, multi-event correlation, best practices, and detection workflows.
+
 
 ## Reference Files
 
