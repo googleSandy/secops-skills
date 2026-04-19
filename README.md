@@ -1,4 +1,4 @@
-# <img src="https://github.com/user-attachments/assets/32f05820-2a00-4e91-afd5-93777bf5cabb" width="4%"> Google SecOps Agent Skills
+## <img src="https://github.com/user-attachments/assets/32f05820-2a00-4e91-afd5-93777bf5cabb" width="4%"> Google SecOps Agent Skills
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Updater](https://img.shields.io/badge/Automated_Updates-Active-success)](.github/workflows/update-references.yml)

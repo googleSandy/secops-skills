@@ -148,8 +148,9 @@ condition:
 
 - `events:` wraps all conditions; reference each event as `$e1.field` / `$e2.field`
 - Shared `$variable` assigned from both events is the join key (enforces equality)
-- `match:` uses `over Xm` / `Xh` for correlation window (max 48h)
-- `condition:` controls presence: `$e1 and $e2`, `$e1 and not $e2`
+- `match:` uses `over Xm` / `Xh` for correlation window (max 48h). **Note**: Standard hop windows do NOT enforce chronological order!
+- **Enforce Order**: Add `$e1.metadata.event_timestamp.seconds < $e2.metadata.event_timestamp.seconds` in the `events:` section if sequence matters.
+- `condition:` controls presence (`$e1 and $e2`) or counts (`#e1 > 4`).
 - `array_first()` does not exist — use `array()` or `array_distinct()` in `outcome:`
 - Limits: max 2 UDM events per query; join types: Event-Event, Event-ECG, Datatable-Event
 
@@ -300,6 +301,8 @@ Environment-specific facts that defy reasonable assumptions:
 | `approx_count_distinct(field)` | Not valid — use `count_distinct(field)` |
 | `array_first(field)` | Does not exist — use `array()` or `array_distinct()` in `outcome:` |
 | Wrote a YARA-L `rule { ... }` block for join | Ad-hoc joins: `events:` + `match: $var over Xm` + `condition:` |
+| Wrote timestamp comparison in `condition` | Put it in `events:` section: `$e1.metadata.event_timestamp.seconds < $e2.metadata.event_timestamp.seconds` |
+| Assumed `condition:` is only for presence | Supports counts too: `#e1 > 4` |
 | `metadata.raw_log = /pattern/i` | Raw log: `raw = /pattern/ nocase` |
 | `/pattern/i` for case-insensitive | SecOps uses `/pattern/ nocase`, not `/i` flag |
 | `= "VALUE" nocase` | `nocase` only works with regex: `= /VALUE/ nocase` |
