@@ -13,17 +13,18 @@ For an overview of parsing raw logs to the Unified Data Model (UDM) format, see 
 Google SecOps typically updates its prebuilt parsers during the fourth week of each month. These updates are first made available to customers for early access and testing. As upcoming parser updates become available, they are marked as Pending update in the parser list. You can examine the difference between the earlier and the newer parser versions, or make the parser update active early to test it, or skip the update and create a custom parser. Important: This feature requires automatic parser updates to be active. To turn on this setting, see Opt in and out of automatic parser updates.
 To view the pending update do the following:
 Log in to your Google SecOps instance.
-Select Settings >SIEM Settings > Parsers.
+Select Settings > SIEM Settings > Parsers.
 Click filter_alt Filter.
 Select Prebuilt, Active, and Prebuilt Extended from the list.
 A list of active (default), prebuilt parsers displays. Upcoming parser updates are marked as Pending in the Update column.
 Click more_vert Menu and select View pending update from the list.
 The Compare parsers page appears. Here, you can view the following:
-The code difference between current and the upcoming parser version.
-The changelogs in the Change logs tab.
-The generated UDM event for the sampled raw log.
-The date and time the parser was created.
-The date and time the parser code was last updated.
+The code difference between current and the upcoming parser version
+Analyze the impact of the upcoming parser version on your detection rules
+The changelogs in the Change logs tab
+The generated UDM event for the sampled raw log
+The date and time the parser was created
+The date and time the parser code was last updated
 You can either make the parser update active early, skip the update and create a custom parser, or wait for the update to be auto-applied during the fourth week of the month.
 ### Make the parser update active early
 The parser management feature lets you make the parser update active early. For example, if you want to test it.
@@ -51,6 +52,16 @@ Click Revert to previous version.
 The Revert to previous dialog appears. You can click Compare Parsers on the dialog to see the difference between the current and the previous versions.
 Click Confirm to revert the parser to its previous version.
 The parser is reverted to its previous version after 20 minutes.
+### Analyze the impact of the upcoming parser version
+Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.
+Note: This feature is not available to all customers in all regions.
+The impact check lets you assess the potential impact of the upcoming parser version on your detection rules before applying the changes. For any negatively affected rules, you can follow the links to investigate and update your rules accordingly.
+For single-event rules, the analysis checks the detections that your detection rules generated over the last 30 days. It runs both the current and the upcoming parser versions on the events corresponding to those detections. This process regenerates the detections to check for mismatches.
+For multi-event rules, the analysis uses a sample of your events rather than all events to perform a heuristic analysis. If events don't match, this analysis marks the outcome as Potentially failing.
+To run an analysis of the impact of the upcoming parser version on your detection rules, do the following:  In the Google SecOps Console, go to Settings > SIEM Settings > Parsers. Select a specific Log type (prebuilt parser). Select one of the parser update options: Update to latest version, Rollback to last used version, or Opt-in to a Release Candidate. Go to the parser Impact tab and click Check impact on rules. The impact check may take some time to complete.
+Upon completion, the system displays the following:  Parser metadata and a list of rules that the new version affects, detailing the rule type and the UDM fields showing differences.
+The system categorizes any negatively affected rules as follows:  Failing: The new parser did not raise a detection, but the current parser did. Potentially failing: Rules (including multi-event) where UDM fields in the rule logic have changed. You must further investigate these rules.
+For each of these, follow the link to the rule editor to investigate and edit the rule to get it to work with the new parser version.
 ## Manage prebuilt parser versions
 Google SecOps provides and maintains prebuilt parsers to make sure your logs are parsed correctly. You can control how new parser versions are applied in your environment to meet your organization's needs.
 This section describes the full parser version management lifecycle in Google SecOps. This includes opting in and out of automatic updates, comparing the logic between versions, manually updating to new versions, and rolling back to previous versions. Note: You can preview Google prebuilt parsers to test new versions. However, you cannot use the preview tool to test an updated prebuilt parser while you have an active custom parser running. You must deactivate your custom parser and revert to using a prebuilt one.

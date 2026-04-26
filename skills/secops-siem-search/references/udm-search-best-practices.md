@@ -19,7 +19,7 @@ Writing optimized queries is key to maximize speed and minimize resource consump
 `udm-field operator value`
 For example: `principal.hostname = "win-server"` Note: The more focused and precise your query, the faster it runs and the less compute resources it requires.
 ## Narrow the time range for your search
-Because Google SecOps can ingest a large amount of data during a search, you must minimize the time range of your query to narrow the scope and improve search performance.  Note: The platform enforces a maximum search time range of 90 days for any single query.
+Because Google SecOps can ingest a large amount of data during a search, minimizing the time range and narrowing the scope of your query can improve search performance.
 ## Use regular expressions in search query
 You can use standard logical and comparison operators when constructing your UDM search queries to build complex expressions:  Logical operators: Use `AND`, `OR`, and `NOT` to combine conditions. `AND` is assumed if you omit an operator between two conditions. Operator precedence: Use parentheses () to override the default order of precedence. There is a maximum limit of 169 logical operators (`OR`, `AND`, `NOT`) that you can use within parentheses. Comparison operators: Depending on the UDM field type (string, integer, timestamp), field operators can include: `=`, `!=`, `>=`, `>`, `<`, `<=`
 Alternatively, for efficient searching of a large set of values, you can use the reference lists. Note: Queries that contain multiple regular expressions may take longer to complete.
