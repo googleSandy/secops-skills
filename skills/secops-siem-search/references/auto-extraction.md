@@ -24,3 +24,5 @@ The newly created extractor is labeled as `EXTRACTOR`. Extracted fields are disp
 ### View extractor details
 Go to the extractor row in the PARSERS table and click more_vert Menu > Extend Parser > View Extension. On the VIEW CUSTOM PARSERS page, click the Extensions and Extracted Fields tab.
 This tab displays information on parser extensions and extractor fields. You can modify or remove fields and preview the parser output from the VIEW CUSTOM PARSERS page.
+### Limitations
+If a batch UDM event size exceeds 8.2 MB, all extracted fields are dropped. If a single UDM event exceeds 500 KB, the extracted fields are dropped.

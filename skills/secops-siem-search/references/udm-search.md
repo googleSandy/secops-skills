@@ -33,7 +33,7 @@ The event results are displayed in the Events timeline table on the Search page.
 Optional: Narrow the results by adding additional UDM filters manually or using the console.
 ### Format the data value to search for
 Format the data value using the following guidelines:
-Data type: Format the data value based it's the data type:
+Data type: Format the data value based on the data type:
 Enumerated values: Use a valid enumerated value defined for the selected UDM field.
 For example: A text value, all caps enclosed in double quotes:
 `metadata.event_type = "NETWORK_CONNECTION"`
@@ -322,13 +322,37 @@ You can download a maximum of 1 million normalized UDM events as a CSV file for 
 This feature is designed for teams that require external analysis processing or audit trails where you must preserve the relationship between normalized data and original ingestion. Note: Before you download, use the Column Manager to specify which UDM fields to include in the CSV. The Raw Log column is appended based on your selection.
 To download all search results (up to 1 million events):  Click more_vertMore and select Download as CSV. In the configuration dialog, enable the Include raw logs option to append the source log data to each UDM record in the download.
 The console displays the exact number of specified events.
+#### Supported fields
+You can download the following fields to a CSV file from the platform:
+user
+hostname
+process name
+timestamp
+raw log (valid only when raw logs are enabled for the customer)
+All fields starting with `udm.additional`
+#### Valid field types
+You can download the following field types to a CSV file:
+double
+float
+int32
+uint32
+int64
+uint64
+bool
+string
+enum
+bytes
+google.protobuf.Timestamp
+google.protobuf.Duration
+#### Unsupported fields
+Fields meeting any of the following criteria cannot be downloaded to CSV:  Field Type: Data types defined as a Message or Group in the UDM proto. Field Depth: Fields nested more than 10 levels deep. Specific UI Fields: The following fields shown in the UI are not supported for direct download:  Event Fields:  Event Status Event Summary Event Type Note: To download Event Type, select the `metadata.event_type` field in the Column Manager.  Entity Context Graph:  First Seen Last Seen Timestamp  Federated Search:  Instance Code
 ### View events in the Event Viewer
 To open the Event Viewer, hold the pointer over an event in the Events table and click the  switch_access_2  icon.
 The Event Viewer includes these tabs:  Event Fields Raw Log Alerts Entities
 #### Event Fields tab
 Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.
 By default, the Event Fields tab displays UDM event fields in a hierarchical tree structure, which is labeled Selected.
-Use the Event Fields tab to do the following:  View a field definition. Hold the pointer over the field name to view its definition. Pin a field for quick access. In the Selected list, select a field, and click keep  pin. . The field is then displayed in the Pinned list. Fields remain in the Selected list, and their hierarchy in the Pinned list is shown in dot-delimited notation with the `udm` prefix (for example, `udm.metadata.event_type`). Add to columns or copy multiple fields. Select the checkbox next to a node or field, then choose Add to Columns or Copy.
+Use the Event Fields tab to do the following:  View a field definition. Hold the pointer over the field name to view its definition. Pin a field for quick access. In the Selected list, select a field, and click keep  pin. The field is then displayed in the Pinned list. Fields remain in the Selected list, and their hierarchy in the Pinned list is shown in dot-delimited notation with the `udm` prefix (for example, `udm.metadata.event_type`). Add to columns or copy multiple fields. Select the checkbox next to a node or field, then choose Add to Columns or Copy.
 Perform the following actions:
 Filters: Apply the following filters to the Selected list:
 Show unenriched fields
@@ -403,35 +427,6 @@ Click Close to exit Search Manager.
 Shared searches let you share searches with your team. In the Saved tab, you can share or delete searches. You can also filter your searches by clicking filter_altFilter next to the search bar and sort searches by Show all, Google SecOps defined, Authored by Me, or Shared.
 You cannot edit a shared search that is not your own. Note: You cannot share with just one person. If you share your search, it is shared with your whole organization.  Click Saved. Click the search you want to share. Click more_horizMore on the right side of the search. A dialog with the option to share your search appears. Click Share With Your Organization. A dialog appears that says Sharing your search will be visible to people in your organization. Are you sure you want to share? Click Share.
 If you want the search to only be visible to you, click more_horizMore and click Stop Sharing. If you stop sharing, only you can use this search.
-## UDM fields that can or cannot be downloaded to CSV from the platform
-Supported and unsupported UDM fields for downloading are shown in the following subsections.
-### Supported fields
-You can download the following fields to a CSV file from the platform:
-user
-hostname
-process name
-event type
-timestamp
-raw log (valid only when raw logs are enabled for the customer)
-All fields starting with `udm.additional`
-### Valid field types
-You can download the following field types to a CSV file:
-double
-float
-int32
-uint32
-int64
-uint64
-bool
-string
-enum
-bytes
-google.protobuf.Timestamp
-google.protobuf.Duration
-### Unsupported fields
-Fields that start with "udm" (not udm.additional) and meet either of the following conditions cannot be downloaded to CSV:
-The nesting of the field is more than 10 deep in udm proto.
-The data type is Message or Group.
 ## Factors that limit search results
 When conducting searches, the following factors can limit the number of results returned:
 Maximum search results: 1M events. When results exceed 1M, only 1M results are shown.

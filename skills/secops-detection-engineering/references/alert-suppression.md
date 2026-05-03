@@ -23,7 +23,7 @@ On the Rules Editor tab, select the rule, and click Test.
 Adjust the time range selector to analyze the last seven days of data. If a rule generates over 100 detections daily, it's likely too broad.
 Click more_vert Menu and click View rule detections. The detection details page appears.
 In the Procedural Filtering panel, identify contributing UDM fields.
-Modify the `match` section or `$suppressi_key` to reduce the volume of detections.
+Modify the `match` section or `$suppression_key` to reduce the volume of detections.
 #### Example: Identify unique logins by location
 To identify unique logins by location while preventing alert fatigue, you can suppress detections from the same state. Look for the UDM field `event.principal.location.state` to see the detection count per state.
 If a specific state shows an excessively high count, add that field to your `suppression` or `match` key. This ensures the system fires only a single detection for each unique login location.

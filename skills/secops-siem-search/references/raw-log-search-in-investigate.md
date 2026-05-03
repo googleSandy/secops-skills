@@ -21,3 +21,8 @@ Raw log: If you click a raw log, Google SecOps shows you the entire raw log line
 To download raw log results to a CSV file, on the Raw log results table, click more_vert Menu > Download as CSV.
 By default, the CSV file includes these columns: Timestamp, Event Type, and Raw Log. The Raw Log column is always present in the CSV file. You can use the Column manager to remove or add the other two columns. If you add other columns, you'll see them in the table, but they won't be downloaded in the CSV file.
 To download UDM fields: run a UDM search, select the required columns, and then download as a CSV file.
+If the `Failed to execute 'showSaveFilePicker'` error appears in Google Chrome, perform the following steps:
+Go to Devices > Chrome > Settings.
+Select Users & browsers1.
+Locate the File system write access setting.
+Add `prefix.backstory.chronicle.security` to the list of allowed sites.
