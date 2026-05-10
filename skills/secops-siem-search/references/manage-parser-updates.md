@@ -117,6 +117,7 @@ Select an appropriate log source from the Log Source list.
 Select Start with Raw Logs Only to create a new parser according to your requirements.
 Click Create.
 Enter your code in the Parser Code Terminal. For more information, see Create a code snippet mapping instruction.
+Note: Make sure that your custom parser logic correctly maps and produces valid, current timestamps. If a custom parser incorrectly maps timestamps to a date outside of your standard retention window, the data is successfully ingested but will remain unsearchable in the user interface. Since search features rely on event timestamps for filtering, data mapped to an incorrect date is effectively invisible despite successful ingestion.
 Optional: Click edit Edit to edit the existing raw log or copy.
 Optional: Click refresh Load to load the latest raw log.
 Click Preview to view the UDM output. An error message is displayed if the code is incorrect.

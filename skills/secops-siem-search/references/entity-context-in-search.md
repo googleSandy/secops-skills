@@ -7,6 +7,15 @@ The Entity Context in Search feature enhances security investigations and incide
 Security analysts and threat hunters can query contextual information about entities. Help root cause analysis, threat hunting, and forensics. Users can run statistical searches on entity context to understand telemetry patterns and impacted entities through telemetry analysis.
 ## Use Entity Context in Search
 You can use entity context to gain insights from your search results in the following ways:  Search using UDM entity field names: Build your search queries using UDM entity field names. For example, to find all context events associated with a specific hostname, create a search using `graph.entity.hostname`. Access the Overview tab: The Overview tab provides a high-level summary of entities found in your search, leveraging information from the query that a user enters to display information. The Overview page displays information for entity types, such as `DOMAIN_NAME`, `IP_ADDRESS`, `ASSET`, `USER`, `FILE`, `GROUP`, and `RESOURCE`. Use the Entity tab: The Entity tab lists all entity context events received, including subcomponents like Trend Over Time, Snapshot Filter, Aggregations, and Events. The entities are categorized into timed and timeless entities, displayed in separate tabs. View aggregates: Aggregates are displayed for fields, similar to the UDM event search. The aggregations are further categorized into context types: Entity Context, Derived Context, and Global Context.  Note: The search feature has an autocomplete function. To receive suggestions in the drop-down, type specific elements such as `graph.entity` or `graph.metadata`. Typing generic terms like `graph` doesn't show relevant autocomplete options.
+## Entity Context Graph Search Console
+The Entity Context Graph (ECG) Search Console provides several tabs to help you analyze entity context data:
+Results tab: Displays `Timed Data` and `Timeless Data`.  Timed Data: Shows entities that had a value for `metadata.interval.end_time` during ingestion. Timeless Data: Shows entities that had no value for `metadata.interval.end_time`.
+The Search Console shows a maximum of 10k timed or timeless data entries.
+Alerts tab: Displays any alerts associated with the entities found in the search.
+Overview tab: Presents information about the entity in the search query.
+Activity Over Time graph:
+Shows the number of Entities and the Entity Context that are valid within each time bucket. You can use the slider to zoom in or out of the time range.
+Total changed entities: The Entity Context Graph (ECG) stores data in time buckets within their validity period. It also copies this data forward to the next time bucket, provided the entity remains valid (based on `end_time`). This graph updates whenever an entity property changes between two time buckets.
 ## Use case: Investigate a compromised user account
 Consider the following scenario: a security analyst needs to investigate a potentially compromised user account (email@company.com). Follow these steps to investigate:
 Identify the compromised user: An alert flags user email@company.com has been identified as a suspicious account.
@@ -80,7 +89,7 @@ Domains first seen within the last 7 days:
 graph.metadata.source_type = "DERIVED_CONTEXT"
 graph.metadata.entity_type = "DOMAIN_NAME"
 //optional, filter to only return FQDN
-graph.entity.domain.name = /^([a-zA-Z0–9]([a-zA-Z0–9-]{0,61}[a-zA-Z0–9])?\.)+[a-zA-Z]{2,}$/
+graph.entity.domain.name = /^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/
 graph.entity.domain.first_seen_time.hours >= timestamp.current_hours()-(86400 * 7)
 
 ```

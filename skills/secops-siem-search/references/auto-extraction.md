@@ -11,7 +11,7 @@ The benefit of auto extraction is reduced reliance on parsers, ensuring that dat
 Parsing: Google SecOps attempts to parse logs using a parser specific to the log type, if available. If no specific parser exists, or if parsing fails, Google SecOps uses a general parser to extract basic information like ingested timestamp, log type, and metadata labels.
 Data Extraction: Auto extraction is not enabled by default. Opt-in and select the specific fields (data points) you want to extract from the logs.
 Event Enrichment: Google SecOps combines the parsed data and any custom-formatted fields to create enriched events, providing more context and detail.
-Downstream Data Transfer: These enriched events are then sent to other systems for further analysis and processing.
+Downstream Data Transfer: These enriched events are then sent to other systems for further analysis and processing.  Note: Auto-extraction behavior depends on whether a parser is available for the log type:  When there is a parser: Default auto-extraction does not occur. You must explicitly opt-in to the specific fields needed, as explained in the Work with extractors section. When there is no parser: Auto-extraction kicks in automatically and extracts the first 100 fields.
 ## Work with extractors
 Extractors let you extract fields from all supported log sources, and are designed to optimize log management. By using extractors, you can reduce event size, enhance parsing efficiency, and gain better control over data extraction. This is especially useful for managing new log types or minimizing processing time.
 You can create extractors using the SIEM Settings menu or by performing a raw log search.
