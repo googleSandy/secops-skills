@@ -114,6 +114,13 @@ Use a single-line comment:
 You can set the maximum number of search results in UDM search settings. These settings are user-specific.
 Click Search settings from the more_vertMore next to Run search.
 Select Max results to return. The options are `1K`, `30K`, `100K`, `1M` and `custom`, which can take values between `1` and `1M`. The default value is `1M`. Queries usually run faster when you choose a smaller result set size.
+## Set the date and time range
+Specify the required time period for your search using the Time Range menu. You can set either a relative or an absolute time window.
+To set a time range:  Next to the search bar, click Time Range. Select a mode: Absolute or Relative. Configure the time range. Click Run Search.
+### Relative time range
+Use relative time range to search backwards from the current time. The time when you click Run Search is set as the end time for your query.  Select Relative from the Time Range menu. Enter an integer in the text field. Select a time unit from the menu: Seconds, Minutes, Hours, Days, Weeks, Months, or Years.
+### Absolute time range
+Use absolute time range to select a fixed start and end time.  Select Absolute from the Time Range menu. Click calendar_month to open the Set Date and Time Range window. On the Range tab, configure the time using one of the following methods:  Use presets: Select a preset range from the sidebar, such as All Time. Select dates: Click a start date and an end date on the calendar. Set times: Select specific times using the time menus below the calendars.  To specify a date and time range based on an event, click the Event Time tab, select a date on the calendar, and configure the timeframe:  Exact time: Click the Event field to select or enter the specific time the event occurred. Time buffer: Select a predefined time range from the list.  Click Apply.
 ## Use auto-suggestions to build queries
 When you write a query, the editor provides auto-suggestions to help you build queries efficiently.
 ### Navigate and select suggestions
