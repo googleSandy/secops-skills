@@ -3,7 +3,7 @@
 # Events section syntax
 Supported in:    Google secops   SIEM
 The `events` section must immediately follow the `meta` section in a rule. It defines which events the query should examine and what specific attributes those events must possess to be considered relevant for a potential detection.
-The `events` section is mandatory for rules, but optional for Search and Dashboards.
+The `events` section is mandatory for rules, search, and dashboards.
 Use the `events` section to list the predicates specifying the following:  Variable declarations Event variable filters Event variable joins
 ## Define events section
 Rules and queries that are focused on only one event type can include a single event variable, such as:
@@ -33,7 +33,7 @@ Both are equivalent, as shown in the following examples:  `$e.source.hostname = 
 This declaration indicates that this variable represents the specified field for the event variable. When the event field is a repeated field, the `match` variable can represent any value in the array. You can also assign multiple event fields to a single match or placeholder variable. This is called a transitive join condition.
 For example, the following:  `$e1.source.ip = $ip` `$e2.target.ip = $ip`
 Are equivalent to:  `$e1.source.ip = $ip` `$e1.source.ip = $e2.target.ip`
-When a variable is used, the variable must be declared through variable declaration. If a variable is used without any declaration, it triggers a compilation error. Note: Event variables are required in Rules. However, they are not needed in Search and Dashboards.
+When a variable is used, the variable must be declared through variable declaration. If a variable is used without any declaration, it triggers a compilation error. Note: Event variables are required in Rules. However, they are not needed in search and dashboards.
 For more information about variables, see Expressions, operators, and other constructs.
 ## Event variable filters
 A boolean expression that acts on a single event variable is considered a filter.
