@@ -9,6 +9,9 @@ UDM enrichment: Merges normalized data from context sources into UDM event sourc
 Entity Context Graph (ECG): Combines customer log data, asset information, user identity, and multiple sources of threat intelligence to construct both timed and timeless entities and computed attributes (for example, prevalence, first seen, or last seen). Data tables: Act as lookup tables with defined columns. The data is stored in rows that are joined at query time with your UDM events. You can define the data in data tables and manage their lifecycle.
 Aliasing, UDM enrichment, and ECG are derived from your parsed security data.
 For more information on sources that can provide context data, see the following topics:  Ingest data using the entity data model Key UDM fields: Search for aliasing to view the important UDM fields.
+## Viewing events
+View events in the Event Viewer's Event Fields tab. This tab displays UDM event fields in a hierarchical tree structure, labeled Selected. Each UDM field is labeled with an icon indicating whether the field contains enriched or unenriched data. The icon labels are the following:  U: Unenriched fields pull values directly from the original raw log during the normalization process. E: Enriched fields contain values that Google SecOps generates to provide additional context about artifacts in your environment.
+Enriched fields show all associated sources to help you with validation, troubleshooting, auditing, and compliance. You also filter fields by their enrichment source to refine your view.
 ## Supported aliasing and UDM enrichment capabilities
 Google SecOps supports aliasing and enrichment for the following:  Assets Users Processes File hash metadata (VirusTotal) Geographic locations Cloud resources
 ## Supported ECG capabilities

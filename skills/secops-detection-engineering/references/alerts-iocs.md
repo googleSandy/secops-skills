@@ -184,7 +184,7 @@ GROUP BY 3,4
 ```
 Note: The Google SecOps Data Lake typically retains data for six months.
 #### UDM Search and Search API
-UDM Search: Supports using data tables (previously called reference lists) for single-dimension searches (for example, a list of hashes). However, it doesn't support complex `OR` logic across multiple distinct groups (for example, `(IP1 AND Port1) OR (IP2 AND Port2)`). The UDM Search API also has a default quota of 360 QPH, limiting its use for large-scale IOC matching. Search API: The older Search API can be effective for IOC matching on hashes, IP addresses, and domain names, returning matching assets.
+UDM Search: Supports using data tables (previously called reference lists) for single-dimension searches (for example, a list of hashes). However, it doesn't support complex `OR` logic across multiple distinct groups (for example, `(IP1 AND Port1) OR (IP2 AND Port2)`). Search API: The older Search API can be effective for IOC matching on hashes, IP addresses, and domain names, returning matching assets.
 ### Filter IOC matches
 You can use filters to narrow down the list of IOCs that are displayed in the IOCs table.
 Perform the following steps to add filters for the list of IOCs:  Click the Filter icon in the upper-left corner of the IOCs table to open the Filters dialog.

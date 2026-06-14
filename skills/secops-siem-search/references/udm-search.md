@@ -6,8 +6,9 @@ The search function lets you find Unified Data Model (UDM) events and alerts in 
 On systems that use data RBAC, you can only see data that matches your scopes. For more information, see data RBAC impact on Search.
 For Google SecOps customers, alerts can also be ingested from connectors and webhooks. You can use search to find these alerts as well.
 For more information about UDM, see Format log data as UDM and UDM field list.
+You can also search for cases using the SIEM search functionality. For more information, see Search cases and case history.
 ## Search limits and quotas
-Google SecOps enforces limits on search queries to ensure platform stability and consistent performance across programmatic and web interface. These limits apply to both Backstory and Chronicle APIs.    Feature Programmatic access limit Web interface limit     QPH limit 2,000 1,000   Simple query concurrency 40 40   Complex query concurrency 10 10
+Google SecOps enforces limits on search queries to ensure platform stability and consistent performance across programmatic and web interface. These limits apply to both Backstory and Chronicle APIs.    Feature Programmatic access limit Web interface limit     QPH limit 2,000 1,000   Simple query concurrency 180 180   Complex query concurrency 180 180
 ### Concurrency limits
 Concurrency limits define the number of simultaneous search operations allowed per tenant:  Simple queries: Queries that span less than one day, use a single data source, and don't include stats. Complex queries: Queries that span more than 1 day, use multiple sources, or include stats.
 If your simple query concurrency limit is exhausted, they automatically consume available complex query quota.
@@ -137,9 +138,10 @@ Click Save.
 The query editor provides immediate, contextual feedback to help you resolve syntax and runtime errors. If you enter a query with a syntax or compilation error, the editor displays a red squiggly line directly beneath the problematic text. Hold the pointer over the red squiggly line to view a tooltip that displays the specific error description. Note: The query editor highlights only one error at a time. This means that you must fix errors sequentially.
 ### View runtime errors
 If your query returns an error, the specific runtime error message appears persistently in the Results panel. This persistent display ensures the error context remains visible, helping you troubleshoot and resolve the error.
-## Search returns too many results
+## Search result set limits
 If your search is too broad, Google SecOps displays a warning message indicating that not all search results can be shown.
 In such cases, the system retrieves only the latest results, up to the search limit of 1M events and 1,000 alerts. However, there may be many more matching events and alerts that are not displayed.
+Result set limits    Search type or Data source Maximum number of events or rows in search results     UDM search 1,000,000   ECG search 1,000,000   Data table search 1,000,000   UDM to UDM join 1,000,000   UDM to ECG join 1,000,000   UDM to Data table join 1,000,000   Cases and case history 1,000,000   Stats 100,000   Detections 100,000
 To capture all relevant results, refine your search by applying additional filters.  Narrow the time range to reduce the dataset size. Use specific search queries or filters instead of broad terms. Query precise UDM fields instead of grouped fields when you need results for a single field.
 The search results page displays the latest 10,000 results. You can filter and refine the search results to display the older results, as an alternative to modifying and rerunning the search.
 ## Limit results
@@ -156,6 +158,8 @@ Use the Rows per page list, on the Events table, to select the number of rows to
 25 to 1,000 events. This pagination applies to the 10,000 results displayed in the table.
 ## Search large result sets
 Google SecOps supports returning and navigating up to 1 million results. This lets you investigate large datasets directly in the web interface without exporting results. For large searches, the visible fields are limited by default. Note: After results load, you can apply filters to refine the data without rerunning the search. This helps you narrow the result sets quickly.
+### Result limits for data sources
+The following table lists the maximum number of results returned for each data source:    Search type or Data source Maximum number of events or rows in search results     UDM 1,000,000   ECG 1,000,000   Data table 1,000,000   UDM to UDM join 1,000,000   UDM to ECG join 1,000,000   UDM to Data table join 1,000,000   Cases and case history 1,000,000   Stats 100,000   Detections 100,000
 ### Configure result limits
 Use the UDM search settings dialog to control the number of results a search returns.  Click settings on the Search page to view the UDM Search Settings dialog.
 Select the maximum result limit from the following options:  1k 30k (default) 100k 1M Custom
@@ -164,6 +168,9 @@ Select how the results should be returned If a search exceeds the configured lim
 Click Apply.
 ### Navigate result sets
 To improve browser stability and performance when loading a large number of events, Google SecOps provides paginated search results. Use the Rows per page list in the Events table to select the number of rows to display per page. Options range from 25 to 1,000 events.
+### Navigate entity result sets
+Entity search results support pagination up to 1 million results. The results are organized into two tabs:  Timed: Entities that have a defined time range. Timeless: Entities that do not have a specific time range.
+Each tab supports separate pagination and sorting, letting you navigate and analyze timed and timeless entity data independently.
 ### View aggregated results
 For statistics-based searches, Google SecOps supports large aggregated result sets.  Charts show a limited number of values to maintain readability.
 When results exceed the visualization limit, the tool displays a notice.
@@ -357,7 +364,6 @@ Fields meeting any of the following criteria cannot be downloaded to CSV:  Field
 To open the Event Viewer, hold the pointer over an event in the Events table and click the  switch_access_2  icon.
 The Event Viewer includes these tabs:  Event Fields Raw Log Alerts Entities
 #### Event Fields tab
-Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.
 By default, the Event Fields tab displays UDM event fields in a hierarchical tree structure, which is labeled Selected.
 Use the Event Fields tab to do the following:  View a field definition. Hold the pointer over the field name to view its definition. Pin a field for quick access. In the Selected list, select a field, and click keep  pin. The field is then displayed in the Pinned list. Fields remain in the Selected list, and their hierarchy in the Pinned list is shown in dot-delimited notation with the `udm` prefix (for example, `udm.metadata.event_type`). Add to columns or copy multiple fields. Select the checkbox next to a node or field, then choose Add to Columns or Copy.
 Perform the following actions:

@@ -2,7 +2,16 @@
 
 # Manage prebuilt and custom parsers
 Supported in:    Google secops   SIEM
-This document provides guidance on how to manage parsers within Google Security Operations. It details how to handle updates to prebuilt and custom parsers, create parser extensions, and control access to parser management features:  Manage prebuilt parser updates Manage prebuilt parser versions Manage custom parsers Create an extension Control access to parser management  Note: Only UTF-8 characters are supported in UDM field mappings. Using other encodings can cause parsing failures and make logs unsearchable.
+This document provides guidance on how to manage parsers within Google Security Operations. It details how to handle updates to prebuilt and custom parsers, create parser extensions, and control access to parser management.
+### What are parsers?
+In Google Security Operations, a parser is a set of instructions that transforms raw log data from various sources into the Unified Data Model (UDM) format. Normalizing raw logs into UDM is essential because it allows Google SecOps to analyze, search, and correlate security events effectively across all your ingested data, regardless of the original log format. For a general overview of log parsing, see Overview of log parsing.
+### Why are parsers needed?
+Parsers are crucial for making your security data usable within Google SecOps. Without proper parsing, raw logs remain unstructured and cannot be effectively searched, correlated with other security events, or used by detection rules. The normalization process enriches the raw data, mapping key fields into a standardized schema that powers Google SecOps's analytical capabilities.
+### Which parsers appear in the platform?
+The Parsers page in the Google SecOps platform displays prebuilt parsers only for the log types for which you have already ingested data. If you have not yet ingested any logs for a specific log type, the corresponding prebuilt parser won't appear in the platform.
+For example, log types like `UDM` (ingested using the `udmevents` API or without raw logs) and certain Mandiant logs (ingested using the `CreateEntities` API) don't require or have associated parsers since they are already in a structured format. Consequently, these won't be listed on the Parsers page.
+To see a prebuilt parser in the platform, make sure that you have successfully ingested data for that specific log type.
+This document covers the following key aspects of parser management:  Manage prebuilt parser updates Manage prebuilt parser versions Manage custom parsers Create an extension Control access to parser management  Note: Only UTF-8 characters are supported in UDM field mappings. Using other encodings can cause parsing failures and make logs unsearchable.
 ### Parser types
 Understanding parser types and their functions:    Parser type Description     Prebuilt Parsers created by Google SecOps that include built-in mappings to transform original log data into UDM fields.   Prebuilt extended A prebuilt parser created by customers with additional mapping instructions to extract additional data from an original raw log and insert it into the UDM record.   Custom A parser that is not prebuilt and has custom data mapping instructions to transform original log data to UDM fields.    Custom extended A custom parser with additional mapping instructions that uses a parser extension to extract additional data from an original raw log and insert it into the UDM record.
 ## Manage prebuilt parser updates
@@ -18,7 +27,7 @@ The Compare parsers page appears. Here, you can view the following:
 The code difference between current and the upcoming parser version
 Analyze the impact of the upcoming parser version on your detection rules
 The changelogs in the Change logs tab
-The generated UDM event for the sampled raw log
+The generated UDM event for the sampled raw log Note: The displayed sample is random and might not show all changed fields. You can change the log sample by clicking edit Edit and entering your own sample. Then, click refresh Refresh to update.
 The date and time the parser was created
 The date and time the parser code was last updated
 You can either make the parser update active early, skip the update and create a custom parser, or wait for the update to be auto-applied during the fourth week of the month.
