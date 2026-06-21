@@ -115,6 +115,13 @@ Use a single-line comment:
 You can set the maximum number of search results in UDM search settings. These settings are user-specific.
 Click Search settings from the more_vertMore next to Run search.
 Select Max results to return. The options are `1K`, `30K`, `100K`, `1M` and `custom`, which can take values between `1` and `1M`. The default value is `1M`. Queries usually run faster when you choose a smaller result set size.
+## Configure query editor behavior
+You can configure the query editor to automatically collapse after you run a search. This maximizes the screen space available for viewing your search results.
+To enable the auto-collapse feature, follow these steps:
+In the search editor panel, click Settings.
+From the list, select Query Editor.
+In the Query Editor dialog, select Auto-Collapse Query Editor.
+The Default setting leaves the query editor expanded after running a search.
 ## Set the date and time range
 Specify the required time period for your search using the Time Range menu. You can set either a relative or an absolute time window.
 To set a time range:  Next to the search bar, click Time Range. Select a mode: Absolute or Relative. Configure the time range. Click Run Search.
