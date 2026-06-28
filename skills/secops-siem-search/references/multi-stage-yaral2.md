@@ -1,6 +1,6 @@
-# Source: https://docs.cloud.google.com/chronicle/docs/investigation/multi-stage-yaral
+# Source: https://docs.cloud.google.com/chronicle/docs/investigation/multi-stage-yaral2
 
-# Create multi-stage queries
+# Create multi-stage queries in YARA-L
 Supported in:    Google secops   SIEM
 This document describes how multi-stage queries in YARA-L let you feed the output of one query stage directly into the input of a subsequent stage. This process gives you greater control over data transformation than a single, monolithic query.
 ## Integrate multi-stage queries with existing features

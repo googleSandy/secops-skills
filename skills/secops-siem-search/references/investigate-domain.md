@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/investigate-domain
 
-# Investigate a domain
+# Investigate domains
 Supported in:    Google secops   SIEM
 Google Security Operations lets you to investigate specific domains to determine if any are present within your enterprise, and what impact these outside systems might have had on your assets.
 To access Domain view in Google SecOps, complete the following steps:

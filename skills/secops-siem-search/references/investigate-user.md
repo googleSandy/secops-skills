@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/investigate-user
 
-# Investigate a user
+# Investigate users
 Supported in:    Google secops   SIEM
 Google Security Operations User view enables customers to better understand how users within an enterprise are impacted by security events. By focusing on the behavior of individual users, security administrators can search for activity indicating an account compromise or other security concerns. Make sure you are ingesting and normalizing data from devices on your network, such as EDR, firewall, web proxy, user context, and authentication, etc.
 ## Search for a user

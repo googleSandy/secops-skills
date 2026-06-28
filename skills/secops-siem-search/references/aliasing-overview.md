@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/aliasing-overview
 
-#  Aliasing
+#  Configure aliasing
 Supported in:    Google secops   SIEM
 Aliasing enables enrichment. For example, aliasing lets you find IP and MAC addresses for a hostname, or job titles and employment status for a user ID.
 Like other features in Google Security Operations, aliasing requires data ingestion and indexing. It includes the following categories:  Customer-specific data: Data unique to a customer. For example, only `Cymbal` can provide data for `tim.smith@cymbal.com`. Customer-specific aliasing types include assets, users, and processes. Global data: Data that applies to all customers. Google ingests and indexes this data on your behalf. For example, you can use Google Threat Intelligence data about a malicious file to check for its presence in your enterprise by using a matching file hash value. For more information, see Enrich events with VirusTotal file metadata. Google SecOps also provides GeoIP data to map IP addresses found in your customer-specific data to geographic locations. For more information, see IP geolocation enrichment.

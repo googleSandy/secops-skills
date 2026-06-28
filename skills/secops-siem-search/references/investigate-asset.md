@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/investigate-asset
 
-# Investigate an asset
+# Investigate assets
 Supported in:    Google secops   SIEM
 To investigate an asset in Google Security Operations using Asset view:
 Enter the hostname, client IP address, or MAC address for the asset you want to investigate:  Hostname: Either short (for example, `mattu`) or fully qualified (for example, `mattu.ads.altostrat.com`). Internal IP address: Internal IP address for the client (for example, `10.120.89.92`). Both IPv4 and IPv6 are supported. MAC address: MAC address for any device within your enterprise (for example, `00:53:00:4a:56:07`).

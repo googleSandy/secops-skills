@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/entity-graph
 
-# Using the Entity Context Graph (ECG)
+#  Entity Context Graph overview
 Supported in:    Google secops   SIEM
 This document provides an overview of the Entity Context Graph (ECG), covering its data sources, processing pipeline, and applications in rules and search. The ECG is a core entity data model that provides essential context for advanced threat detection, investigation, and threat hunting in detection rules, search, and dashboards. The ECG processing pipeline (merges) contextual information from across each Google SecOps environment.
 The ECG also calculates summary metrics for entities. These include prevalence (how often a specific entity occurs in your UDM data compared to other entities), and an entity's `first-seen-time` and `last-seen-time`. It also identifies key enrichment sources and indicators of compromise (IOC) sources like Google Threat Intelligence (GTI), Safe Browsing, WHOIS, and VirusTotal data.

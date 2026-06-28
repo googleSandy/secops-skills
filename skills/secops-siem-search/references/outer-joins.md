@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/outer-joins
 
-# Correlate data with outer joins
+# Correlate data using outer joins
 Supported in:
 Google secops   SIEM
 Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.

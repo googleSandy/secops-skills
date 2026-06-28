@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/search-raw-logs
 
-# Use raw log search
+# Search raw logs with regex
 Supported in:    Google secops   SIEM
 When you perform a search, Google Security Operations first examines the security data that's been ingested, parsed, and normalized. If the information isn't found in the normalized data, you can use Raw log search to examine the raw, unparsed logs. You can also use regular expressions to examine the raw logs in more detail. Note: The search field is limited to 150 characters.
 You can use Raw log search to investigate artifacts that appear in logs (but aren't indexed), including:  Usernames Filenames Registry keys Command-line arguments Raw HTTP request-related data Domain names based on regular expressions Asset namespaces and addresses

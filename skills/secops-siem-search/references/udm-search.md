@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/udm-search
 
-# Search for events and alerts
+# Understand search
 Supported in:    Google secops   SIEM
 The search function lets you find Unified Data Model (UDM) events and alerts in your Google Security Operations instance using YARA-L 2.0 syntax. Search includes options to refine and navigate through your UDM data. You can search for individual UDM events and groups of UDM events that match the same query. Note: UDM search is limited to 100 UDM fields per single query in the UDM Search prompt.
 On systems that use data RBAC, you can only see data that matches your scopes. For more information, see data RBAC impact on Search.
@@ -148,7 +148,7 @@ If your query returns an error, the specific runtime error message appears persi
 ## Search result set limits
 If your search is too broad, Google SecOps displays a warning message indicating that not all search results can be shown.
 In such cases, the system retrieves only the latest results, up to the search limit of 1M events and 1,000 alerts. However, there may be many more matching events and alerts that are not displayed.
-Result set limits    Search type or Data source Maximum number of events or rows in search results     UDM search 1,000,000   ECG search 1,000,000   Data table search 1,000,000   UDM to UDM join 1,000,000   UDM to ECG join 1,000,000   UDM to Data table join 1,000,000   Cases and case history 1,000,000   Stats 100,000   Detections 100,000
+Result set limits    Search type or Data source Maximum number of events or rows in search results     UDM search 1,000,000   ECG search 1,000,000   Data table search 1,000,000   UDM to UDM join 1,000,000   UDM to ECG join 1,000,000   UDM to Data table join 1,000,000   Cases and case history 1,000,000   Stats 100,000 (UI and long-running operation API only)   Detections 100,000
 To capture all relevant results, refine your search by applying additional filters.  Narrow the time range to reduce the dataset size. Use specific search queries or filters instead of broad terms. Query precise UDM fields instead of grouped fields when you need results for a single field.
 The search results page displays the latest 10,000 results. You can filter and refine the search results to display the older results, as an alternative to modifying and rerunning the search.
 ## Limit results

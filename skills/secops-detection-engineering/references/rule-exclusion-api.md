@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/rule-exclusion-api
 
-# Manage rule exclusion using the API
+# Manage rule exclusions
 Supported in:    Google secops   SIEM
 This document explains how to programmatically manage rule exclusions in Google Security Operations using the API. Exclusions serve as filters that you define based on Unified Data Model (UDM) fields to prevent specific detections from generating alerts. By identifying known or safe activities, these filters stop unnecessary noise in your dashboard.
 ## Create an exclusion with outcome filters

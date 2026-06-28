@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/parsing-overview
 
-# Overview of log parsing
+# Parsers overview
 Supported in:    Google secops   SIEM
 This document provides an overview of how Google Security Operations parses raw logs to the Unified Data Model (UDM) format.
 Google SecOps can receive log data originating from the following ingestion sources:  Google SecOps forwarder Chronicle API Feed Chronicle Ingestion API Third-party technology partner

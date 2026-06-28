@@ -1,6 +1,6 @@
-# Source: https://docs.cloud.google.com/chronicle/docs/yara-l/yara-l-overview
+# Source: https://docs.cloud.google.com/chronicle/docs/yara-l/getting-started2
 
-# Get started with YARA-L
+# Get Started: YARA-L 2.0 in SecOps
 Supported in:    Google secops   SIEM
 YARA-L 2.0 is the unique, highly structured query language powering Google Security Operations for all search, dashboards, and rule-based threat detection. This document helps you understand the core YARA-L structure and provides practical steps for using it, whether you're a Security Analyst hunting for threats or a Detection Engineer building robust new logic.
 This document explains YARA-L and its syntax, showing how you can use it to express everything from a basic filter query to a rule that looks for complex patterns. Use the sections in a YARA-L query to support aggregated functions, condition logic, and add context through joins, pattern matching, and more.

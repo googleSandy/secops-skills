@@ -1,6 +1,6 @@
-# Source: https://docs.cloud.google.com/chronicle/docs/yara-l/yara-l-2-0-examples
+# Source: https://docs.cloud.google.com/chronicle/docs/yara-l/yara-l-2-0-examples2
 
-# Single and multiple event rules
+# YARA-L 2.0 query reference library
 Supported in:    Google secops   SIEM
 This document shows queries written in YARA-L 2.0. Each example demonstrates how to correlate events within the query rule language to identify security threats, monitor entity behavior, and enrich detections with business logic.
 Use the examples as the building blocks of YARA-L 2.0, including single-event detection, regular expression matching, and network range filtering. These examples are organized into functional categories to help you progress from basic logic to advanced multi-event correlation and composite detections.

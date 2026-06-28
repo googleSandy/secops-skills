@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/alerts-iocs
 
-# View alerts and IOC matches
+# Manage alerts and IOC matches
 Supported in:    Google secops   SIEM
 The Alerts & IOCs page displays all the alerts and Indicators of Compromise (IOCs) that are impacting your enterprise.   To open the Alerts & IOCs page, click Detection > Alerts & IOCs.
 The page contains the Alerts tab and the IOC Matches tab:

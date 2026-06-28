@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/auto-extraction
 
-# Auto Extraction overview
+# Auto extraction overview
 Supported in:    Google secops   SIEM
 This document provides an overview of how data is automatically extracted to enhance the ability to ingest, process, and analyze data.
 Google Security Operations uses prebuilt parsers to extract and structure log data using the Unified Data Model (UDM) schema. Managing and maintaining these parsers can be challenging due to several limitations: incomplete data extraction, the growing number of parsers to manage, and the requirement for frequent updates as log formats evolve.

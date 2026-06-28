@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/data-tables
 
-# Use data tables
+# Search data tables
 Supported in:    Google secops   SIEM
 Data tables are multicolumn data constructs that let you input your own data into Google Security Operations. Data tables can act as lookup tables with defined columns and the data stored in rows. You can create or import a data table to your Google SecOps account using the Google SecOps web interface, the data tables API, or by using a Overview of YARA-L 2.0 query.
 ## Assign scopes to data tables using data RBAC

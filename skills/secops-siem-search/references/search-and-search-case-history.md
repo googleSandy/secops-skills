@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/search-and-search-case-history
 
-# Search cases and case history
+# Search cases overview
 Supported in:    Google secops
 This guide is for security analysts who want to analyze security telemetry, including Unified Data Model (UDM) events, entities, cases, and case history. It explains how to leverage SIEM Search within Google Security Operations to seamlessly correlate case details with other security data. By following this method, workflows are streamlined, reducing context switching between different interfaces. Successful completion accelerates incident response.
 ## Common use cases

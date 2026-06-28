@@ -196,5 +196,3 @@ LOCATION/instances/INSTANCE_ID
 ```
 To fetch the subsequent page of results, use the returned `nextPageToken` value in the `page_token` query parameter of your next `ListSearchedResults` request. The `resultRow` field contains the actual data.
 Continue calling `ListSearchedResults` with the `next_page_token` value from each response. When `next_page_token` returns empty, all results have been retrieved.
-## Limitations
-LRO APIs don't support statistics and aggregations.

@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/overview-of-aliasing-and-enrichment
 
-#  UDM enrichment and aliasing overview
+#  Data enrichment and aliasing overview
 Supported in:    Google secops   SIEM
 This document provides an overview of how Google Security Operations enriches raw logs after converting them to normalized Unified Data Model (UDM) events. Google SecOps provides different enrichment capabilities during ingestion and search.
 ## Enrichment during ingestion

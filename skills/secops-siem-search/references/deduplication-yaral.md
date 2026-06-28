@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/deduplication-yaral
 
-# Use deduplication in Search and Dashboards
+# Deduplicate search results
 Supported in:    Google secops   SIEM
 In Google Security Operations, search results can include duplicates when multiple systems log the same event (for example, an authentication system and a firewall both logging a single login).
 To return only unique results, use the `dedup` section in your YARA-L syntax. Adding UDM fields to this section makes sure that the query returns a single result for each distinct combination of values.

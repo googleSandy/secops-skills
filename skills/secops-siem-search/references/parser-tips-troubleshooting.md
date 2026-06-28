@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/parser-tips-troubleshooting
 
-# Tips and troubleshooting when writing parsers
+# Troubleshoot parser code
 Supported in:    Google secops   SIEM
 This document describes issues you might encounter when you write parser code.
 When writing parser code, you might encounter errors when parsing instructions don't work as expected. Situations that might generate errors include the following:  A `Grok` pattern fails A `rename` or `replace` operation fails Syntax errors in parser code

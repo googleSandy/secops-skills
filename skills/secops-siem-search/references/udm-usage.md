@@ -90,7 +90,7 @@ Purpose:  Single IP address associated with a network connection. One or more IP
 Purpose: Source or destination network port number when a specific network connection is described within an event. Encoding: Valid TCP/IP port number from 1 through 65,535.
 Examples:  80 443  Note: If a port number is specified, there must be one and only one IP address specified in the same Noun.
 ### Noun.mac
-Purpose: One or more MAC addresses associated with a device. Encoding: Valid MAC address (EUI-48) in ASCII. Repeatability: Vendor might provide all of the associated MAC addresses for the device at the time of the event. Examples:  fedc:ba98:7654:3210:fedc:ba98:7654:3210 1080:0:0:0:8:800:200c:417a 00:a0:0:0:c9:14:c8:29
+Purpose: One or more MAC addresses associated with a device. Encoding: Valid MAC address (EUI-48) in ASCII. Repeatability: Vendor might provide all of the associated MAC addresses for the device at the time of the event. Examples:  00:24:98:7B:19:02 00:00:5e:00:53:2a
 ### Noun.administrative_domain
 Purpose: Domain that the device belongs to (for example, the Windows domain). Encoding: Valid domain name string (128 characters maximum). Example: corp.altostrat.com
 ### Noun.registry

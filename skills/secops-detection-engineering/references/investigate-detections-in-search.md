@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/investigate-detections-in-search
 
-# Investigate detections in Search
+# Investigate detections in search
 Supported in:    Google secops   SIEM
 This guide is for security analysts who want to query, filter, and analyze detections within Google Security Operations Search. This capability lets you search across all alerting and non-alerting detections using any detection attribute and get a holistic workflow for threat investigation.
 ## Common use cases

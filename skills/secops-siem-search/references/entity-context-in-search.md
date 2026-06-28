@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/entity-context-in-search
 
-# Conduct a search for entity context data
+# Conduct entity context searches
 Supported in:    Google secops   SIEM     Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.
 The Entity Context in Search feature enhances security investigations and incident response by letting users search for and view context events related to entities within their Google Security Operations account. Unlike searches limited to the standard Unified Data Model (UDM) event schema, this feature addresses the need to search beyond UDM event data, including UDM entity context, and providing deeper insights into security incidents.
 ## Key benefits

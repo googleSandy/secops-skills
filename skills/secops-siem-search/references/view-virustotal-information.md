@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/view-virustotal-information
 
-# View information from VirusTotal
+# View VirusTotal information
 Supported in:    Google secops   SIEM
 Use Google Security Operations's integration with VirusTotal to pivot from finding domains linked to an asset in Google SecOps to viewing information about that domain from VirusTotal and launching VirusTotal Graph.
 VirusTotal Graph is a visualization tool built on top of the VirusTotal dataset. It analyzes the relationship between files, URLs, domains, IP addresses, and other items encountered. VirusTotal Graph helps to illustrate the interconnections between potentially malicious domains and the assets within your enterprise. Note: Some of the VirusTotal information is only available with a VirusTotal Enterprise account.

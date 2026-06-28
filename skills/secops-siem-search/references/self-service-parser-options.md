@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/self-service-parser-options
 
-# Self-service parser options
+# Manage self-service parser options
 Supported in:    Google secops   SIEM
 The Google Security Operations platform's Unified Data Model (UDM) provides comprehensive support for threat detection and data normalization. Google SecOps actively develops and updates prebuilt parsers for many commercial products. However, a strict service level governs custom requests: Google Engineering processes requests for new parsers or additional field mapping in existing parsers on a best-effort basis. You must review and understand the Parser support levels for complete details.
 To achieve the best results—including immediate control over log ingestion, faster time-to-value, and instant deployment of updates—you must take advantage of the following self-service options.

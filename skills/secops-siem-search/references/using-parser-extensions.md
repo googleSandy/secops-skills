@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/using-parser-extensions
 
-# Parser extensions
+# Develop parser extensions
 Supported in:    Google secops   SIEM
 This document explains how to create parser extensions to extract fields from raw log data and map them to destination UDM (Unified Data Model) fields within the Google Security Operations platform.
 The document outlines the parser extension creation process:  Create parser extensions. Prerequisites and limitations. Identify source fields in the raw log data. Select the appropriate destination UDM fields.
@@ -57,7 +57,7 @@ Search the Parsers table for the log type you want to extend.  If that log type 
 #### Ensure the parser is active for the log type
 To check if a parser is active for a log type, perform the following steps:  In the navigation bar, select SIEM Settings > Parsers.
 Search the Parsers table for the log type you want to extend.
-If the parser for the log type is not active, activate it:  For default parsers see, Manage prebuilt parser updates. For custom parsers see, Manage custom parser updates.
+If the parser for the log type is not active, activate it:  For default parsers see, Manage prebuilt parser updates. For custom parsers see, Configure custom parsers.
 ### Identify the fields to extract from the raw logs
 Analyze the raw log you want to extract data from to identify the fields not extracted by the default (or custom) parser. Pay attention to how the default (or custom) parser extracts raw log fields and maps them to their corresponding UDM fields.
 To identify the specific fields you want to extract from the raw logs, you can use the search tools to identify the fields:

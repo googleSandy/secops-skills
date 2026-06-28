@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/block-enrichment-flows
 
-# Block enrichment from specific flows
+# Manage enrichment blocks
 This document explains how enrichment blocks give you granular control over the data enrichment process. The default enrichment process uses contextual data from different sources, analyzes the data, and overwrites Unified Data Model (UDM) field data according to internal logic. The default process usually works as expected. However, in certain cases, overwriting the UDM field data causes unexpected behavior, such as improperly triggering detection-engine rules. Note: To use enrichment blocks, you must be a user with global access for Data RBAC.
 ## Configure and view enrichment blocks
 Only Google Security Operations users with Chronicle Admin and Editor privileges can configure enrichment blocks; all Google SecOps users can view the Enrichment Blocks interface.
