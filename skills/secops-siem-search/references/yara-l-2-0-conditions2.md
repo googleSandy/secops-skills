@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/yara-l-2-0-conditions2
 
-# Use the condition syntax in search and dashboards
+# Use conditions in search and dashboards
 Supported in:    Google secops   SIEM
 This document provides a technical overview of the `condition` section within the YARA-L 2.0 syntax. This section defines the specific criteria used to filter and include data in search results.
 These conditions are evaluated against event and placeholder variables previously established in the events section. To refine logic or enforce multiple requirements, you can combine these conditions using the `and` keyword.

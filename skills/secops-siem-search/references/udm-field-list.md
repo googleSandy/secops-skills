@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/unified-data-model/udm-field-list
 
-# Unified Data Model field list
+# UDM field dictionary reference
 This document provides a list of fields available in the Unified Data Model schema. When specifying a field, use the following format: `<prefix>.<field_name1>.<field_name2>.<...>.<field_nameN>=<value>`
 When writing rules for Detect Engine, use the <prefix> pattern `$event` for Event fields and `$entity` for Entity fields. For example:  `$event.metadata.event_type` `$event.network.dhcp.opcode` `$event.principal.user.location.city` `$entity.graph.entity.hostname` `$entity.graph.metadata.product_name`
 When you write configuration-based normalizer (CBN) parsers, use the <prefix> pattern `event.idm.read_only_udm` for UDM Event fields and `event.idm.graph` for UDM Entity fields. For example:  `event.idm.read_only_udm.metadata.event_type` `event.idm.read_only_udm.network.dhcp.opcode` `event.idm.read_only_udm.principal.user.location.city` `event.idm.graph.entity.user.user_display_name` `event.idm.graph.entity.asset.hostname`

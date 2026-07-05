@@ -30,6 +30,11 @@ Reference a rule by a rule name: use the `detection.detection.rule_name` field t
 ## Join inputs in `match` section
 To connect related detections, events, or entities in a composite rule, define the `match` section using variables defined in the `events` section. These variables can include rule labels, outcome variables, match variables, detection fields, or collection elements.
 For information about the syntax, see Match section syntax.
+### Composite rules: time intervals and hop windows
+Composite rules match detections and events against a time interval rather than a single point in time. They match a composite hop window if the input detection time window overlaps with that hop window (for example, the activity was active during that block of time).
+A single detection can trigger multiple alerts if the detection spans the boundary between adjacent hop windows (due to pipeline delays, these historical matches appear later). Specifically, a composite rule hop window triggers a match if the input detection time window (`WindowStart` to `WindowEnd`) overlaps with the hop window.
+For example:  A composite rule has 60-minute hop windows: Hop 1 (18:58 - 19:58) and Hop 2 (19:58 - 20:58). An upstream producer detection has a window of 19:57:54 - 20:56:54 (59-minute duration). Since the producer window started at 19:57:54 (6 seconds before Hop 1 ended) and ended at 20:56:54 (during Hop 2), it overlaps with both hop windows. This triggers two composite detections (one for Hop 1 and one for Hop 2), helping to prevent false negatives. If the producer rule didn't match on overlap, the partially overlapping detection wouldn't be considered for either Hop 1 or Hop 2 and the correlation between the detection and other events would be missed.  Note: If you want to prevent this type of boundary duplication, configure a suppression window (for example, `12h` or `24h`) in the composite rule to enforce rate-limiting (for example, one alert per campaign per day).
+For more information and examples on how to specify hop windows, see Hop windows.
 ## Define `condition` section
 Define the `condition` section to evaluate the results of the `match` section. If the condition is `true`, an alert is generated. For information about the syntax, see Condition section syntax.
 ## Apply advanced techniques to composite rules

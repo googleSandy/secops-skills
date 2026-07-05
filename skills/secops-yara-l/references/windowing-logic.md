@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/windowing-logic
 
-# YARA-L 2.0 windowing logic
+# Apply YARA-L 2.0 windowing logic
 Supported in:    Google secops   SIEM
 This guide helps Security Engineers choose the correct window type for queries to avoid "variable not bounded" compiler errors. Transitioning from sliding windows to tumbling windows lets you build logic that depends on the absence of events, such as a missing heartbeat or a failed log source.
 ## Before you begin
@@ -25,6 +25,7 @@ If your comparison fails, verify that your string follows the GoogleSQL canonica
 A hop window creates overlapping time intervals so events happening near the boundaries of a window aren't missed.  Use case: Best for detections where you need to catch a specific scenario regardless of exactly when the window interval starts or ends. Support: Supported for aggregation in Search and Dashboards.
 YARA-L queries with a `match` section use hop windows to correlate multiple events over time. The system divides the time range of the query's execution into a set of fixed, overlapping hop windows. While you specify the duration of these windows in the `match` section, the system defines the overlap interval and window alignment. Events then correlate within each of these predetermined windows. Note: Use the hop window unless you require a specific sequence of events (order A then order B). Only use sliding windows when event sequencing is critical or when you search for missing events.
 Learn more about the `match` section syntax.
+Hop windows have specific implications for composite rule detections. For more information, see Composite rules: time intervals and hop windows.
 #### Example: Overlapping hop windows for continuous correlation
 The following example shows a query run over the time range `[1:00, 2:00]`, with a `match` section `$user over 30m`. A possible set of overlapping hop windows the system generates is `[1:00, 1:30]`, `[1:03, 1:33]`, and `[1:06, 1:36]`.
 ### Rule

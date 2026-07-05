@@ -664,3 +664,5 @@ For example, the following is not supported:
     )
 
 ```
+### Limitations when renaming or deleting data tables with Chronicle API or Terraform
+Renaming is not supported through the platform or the API. You can't delete a data table (through the platform or the API) if it is currently being referenced by a rule. In Terraform, renaming a data table triggers a destroy and re-create operation. If the data table is referenced by a rule, this operation will fail because the API blocks the deletion of the old table. Data loss risk in Terraform: Even if a data table is not referenced by a rule, attempting to rename it via Terraform carries significant data loss risks. If a search or rule is actively updating the old data table, those updates will be lost when Terraform destroys the old table and creates the new one, as the new table will not retain that data. Recommended workaround:  Create a new data table with the new name.  Update the rule(s) to start using the new data table.  Delete the old data table.

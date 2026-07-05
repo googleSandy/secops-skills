@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/raw-log-search-in-investigate
 
-# Conduct a raw log search
+# Search raw logs
 Supported in:    Google secops   SIEM
 This document explains how you can use Google Security Operations to search the raw logs ingested into your Google SecOps tenant and get relevant context, including associated events and entities.
 Raw log searches correlate raw events with their generated UDM events. A raw log search helps you to identify normalization gaps and identify unparsed logs that aren't being processed by the parsers.

@@ -1,6 +1,6 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/unified-data-model/udm-usage
 
-#  UDM usage guide
+# UDM usage guide
 This document provides the following:  Detailed descriptions of Unified Data Model (UDM) schema fields Required and optional fields for entity types Required and optional fields for each event type
 For details about particular UDM fields (for example, enum numbers), refer to the Unified Data Model field list.
 UDM field name formats:  For rules engine evaluation, the prefix begins with udm. For configuration-based normalizer (CBN), the prefix begins with event.idm.read_only_udm.
@@ -131,7 +131,7 @@ Purpose: BOOTP op code (see section 3 of RFC 951). Encoding: Enumerated type. Po
 ### Dhcp.requested_address
 Purpose: Client identifier. See RFC 2132, DHCP Options and BOOTP Vendor Extensions, for more information. Encoding: Valid IPv4 or IPv6 address (RFC 5942) encoded in ASCII.
 ### Dhcp.seconds
-Purpose: Seconds elapsed since the client began the address acquisition/renewal process. Encoding: 32-bit unsigned integer.
+Purpose: Seconds elapsed since the client began the address acquisition or renewal process. Encoding: 32-bit unsigned integer.
 ### Dhcp.sname
 Purpose: Name of the server that the client has requested to boot from. Encoding: String.
 ### Dhcp.transaction_id
@@ -191,7 +191,7 @@ Purpose: Stores the code specifying the type of the query. Encoding: 32-bit inte
 ## Population of DNS Resource Record metadata
 The DNS resource record metadata fields capture the information contained within the resource record of a domain protocol message.
 ### ResourceRecord.binary_data
-Purpose: Stores the raw bytes of any non-UTF8 strings that might be included as part of a DNS response. This field must only be used if the response data returned by the DNS server contains non-UTF8 data. Otherwise, place the DNS response in the data field below. This type of information must be stored here rather than in ResourceRecord.data.
+Purpose: Stores the raw bytes of any non-UTF8 strings that might be included as part of a DNS response. This field must only be used if the response data returned by the DNS server contains non-UTF8 data. Otherwise, place the DNS response in the 'data' field. This type of information must be stored here rather than in ResourceRecord.data.
 Encoding: Bytes. Note: This field is not specified in RFC 1035 (unlike the other DNS resource record fields), but has been defined by Google SecOps for the UDM.
 ### ResourceRecord.class
 Purpose: Stores the code specifying the class of the resource record. Encoding: 32-bit integer.
@@ -216,11 +216,11 @@ Purpose: Stores the cc email addresses. Encoding: String.
 ### Email.bcc
 Purpose: Stores the bcc email addresses. Encoding: String.
 ### Email.mail_id
-Purpose: Stores the mail (or message) id. Encoding: String. Example: 192544.132632@email.example.com
+Purpose: Stores the mail (or message) ID. Encoding: String. Example: 192544.132632@email.example.com
 ### Email.subject
 Purpose: Stores the email subject line. Encoding: String. Example: "Please read this message."
 ## Population of Extensions metadata
-Event types with first-class metadata that are not already categorized by the Google SecOps UDM.
+Event types with built-in metadata that are not already categorized by the Google SecOps UDM.
 ### Extensions.auth
 Purpose: Extension to the authentication metadata. Encoding: String. Examples:  Sandbox metadata (all behaviors exhibited by a file, for example, FireEye). Network Access Control (NAC) data. LDAP details about a user (for example, role, organization, etc.).
 ### Extensions.auth.auth_details
@@ -322,7 +322,7 @@ Purpose: Specify a security action. Encoding: Enumerated type. Possible values: 
 ### SecurityResult.action_details
 Purpose: Vendor-provided details of the action taken as a result of the security incident. Security actions often best translate into the more general Security_Result.action UDM field. However, you might need to write rules for the exact vendor-provided description of the action. Encoding: String. Examples: drop, block, decrypt, encrypt.
 ### SecurityResult.category
-Purpose: Specify a security category. Encoding: Enum. Possible values: Google SecOps UDM defines the following security categories:  ACL_VIOLATION—Unauthorized access attempted, including attempted access to files, web services, processes, web objects, etc. AUTH_VIOLATION—Authentication failed, such as a bad password or bad 2-factor authentication. DATA_AT_REST—DLP: sensor data found at rest in a scan. DATA_DESTRUCTION—Attempt to destroy/delete data. DATA_EXFILTRATION—DLP: sensor data transmission, copy to thumb drive. EXPLOIT—Attempted overflows, bad protocol encodings, ROP, SQL injection, etc, both network and host-based. MAIL_PHISHING—Phishing email, chat messages, etc. MAIL_SPAM—Spam email, message, etc. MAIL_SPOOFING—Spoofed source email address, etc. NETWORK_CATEGORIZED_CONTENT NETWORK_COMMAND_AND_CONTROL—If the command and control channel is known. NETWORK_DENIAL_OF_SERVICE NETWORK_MALICIOUS—Command and control, network exploit, suspicious activity, potential reverse tunnel, etc. NETWORK_SUSPICIOUS—Non-security related, for example, the URL is linked to gambling, etc. NETWORK_RECON—Port scan detected by an IDS, probing by a web application. POLICY_VIOLATION—Security policy violation, including firewall, proxy, and HIPS rule violations or NAC block actions. SOFTWARE_MALICIOUS—Malware, spyware, rootkits, etc. SOFTWARE_PUA—Potentially unwanted app, such as adware, etc. SOFTWARE_SUSPICIOUS UNKNOWN_CATEGORY
+Purpose: Specify a security category. Encoding: Enum. Possible values: Google SecOps UDM defines the following security categories:  ACL_VIOLATION—Unauthorized access attempted, including attempted access to files, web services, processes, web objects, etc. AUTH_VIOLATION—Authentication failed, such as a bad password or bad 2-factor authentication. DATA_AT_REST—DLP: sensor data found at rest in a scan. DATA_DESTRUCTION—Attempt to destroy or delete data. DATA_EXFILTRATION—DLP: sensor data transmission, copy to thumb drive. EXPLOIT—Attempted overflows, bad protocol encodings, ROP, SQL injection, etc, both network and host-based. MAIL_PHISHING—Phishing email, chat messages, etc. MAIL_SPAM—Spam email, message, etc. MAIL_SPOOFING—Spoofed source email address, etc. NETWORK_CATEGORIZED_CONTENT NETWORK_COMMAND_AND_CONTROL—If the command and control channel is known. NETWORK_DENIAL_OF_SERVICE NETWORK_MALICIOUS—Command and control, network exploit, suspicious activity, potential reverse tunnel, etc. NETWORK_SUSPICIOUS—Non-security related, for example, the URL is linked to gambling, etc. NETWORK_RECON—Port scan detected by an IDS, probing by a web application. POLICY_VIOLATION—Security policy violation, including firewall, proxy, and HIPS rule violations or NAC block actions. SOFTWARE_MALICIOUS—Malware, spyware, rootkits, etc. SOFTWARE_PUA—Potentially unwanted app, such as adware, etc. SOFTWARE_SUSPICIOUS UNKNOWN_CATEGORY
 ### SecurityResult.confidence
 Purpose: Specify a confidence with regards to a security event as estimated by the product. Encoding: Enum. Possible values: Google SecOps UDM defines the following product confidence categories:  UNKNOWN_CONFIDENCE LOW_CONFIDENCE MEDIUM_CONFIDENCE HIGH_CONFIDENCE
 ### SecurityResult.confidence_details
@@ -401,22 +401,80 @@ Purpose: Specifies whether to display the alert in Enterprise Insights. Encoding
 ### idm.is_alert
 Purpose: Identifies whether the event is an alert. Encoding: Boolean.
 ## Required and optional fields for entity types
-Entity type Entity-specific requirements     `IP_ADDRESS`   `entity.ip` must contain at least one valid IP address.     `FILE`   `entity.file` must be present and contain at least one field.     `DOMAIN_NAME`   `entity.hostname` must be present and represent a valid hostname. `Optional`: If `entity.domain.whois_server` is populated, the `entity.domain` message must have no more than 50 fields set.     `URL`   `entity.url` must be present and not empty.     `MUTEX`   `entity.resource` must be present. `entity.resource.resource_type` must be `MUTEX`. `entity.resource.name` must be present and not empty.     `USER`   `entity.user` must be present. `entity.user` must have at least one email address specified.     `RESOURCE`   `entity.resource` must be present. `entity.resource.resource_type` must be either `MUTEX` or `STORAGE_OBJECT`.  If `resource_type` is `MUTEX`: See `MUTEX` requirements above. If `resource_type` is `STORAGE_OBJECT`:  `entity.resource.resource_subtype` must be present and not empty. At least one of the following must be present and not empty: `entity.registry.registry_key` `entity.registry.registry_value_data` `entity.registry.registry_value_name`      `CIDR_BLOCK`   `entity.network.ip_subnet_range` must be present and include a valid CIDR in the following format: `ip_address/prefix_length`.
+Entity type Entity-specific requirements     `IP_ADDRESS`   `entity.ip` must contain at least one valid IP address.     `FILE`   `entity.file` must be present and contain at least one field.     `DOMAIN_NAME`   `entity.hostname` must be present and represent a valid hostname. `Optional`: If `entity.domain.whois_server` is populated, the `entity.domain` message must have no more than 50 fields set.     `URL`   `entity.url` must be present and not empty.     `MUTEX`   `entity.resource` must be present. `entity.resource.resource_type` must be `MUTEX`. `entity.resource.name` must be present and not empty.     `USER`   `entity.user` must be present. `entity.user` must have at least one email address specified.     `RESOURCE`   `entity.resource` must be present. `entity.resource.resource_type` must be either `MUTEX` or `STORAGE_OBJECT`.  If `resource_type` is `MUTEX`: See `MUTEX` requirements. If `resource_type` is `STORAGE_OBJECT`:  `entity.resource.resource_subtype` must be present and not empty. At least one of the following must be present and not empty: `entity.registry.registry_key` `entity.registry.registry_value_data` `entity.registry.registry_value_name`      `CIDR_BLOCK`   `entity.network.ip_subnet_range` must be present and include a valid CIDR in the following format: `ip_address/prefix_length`.
 ## Required and optional fields for each event type
 This section describes the required and optional fields that should be populated for each UDM event type.
 For details about particular UDM fields (for example, enum numbers), refer to the Unified Data Model field list.
-### EMAIL_TRANSACTION
-Required fields:  metadata: Include the required fields. principal: Populate with information about the machine that the email message originated from (for example, the IP address of the sender). network.email: Email sender or recipient information.
-Optional fields:  about: URLs, IPs, domains, and any file attachments embedded in the email body. securityResult.about: Bad URLs, IPs, and files embedded within the email body. principal: If there is client machine data on who sent the email, populate the server details in principal (for example, the client process, port numbers, username, etc.). target: If there is destination email server data, populate the server details in target (for example, the IP address). intermediary: If there is mail server data or mail proxy data, populate the server details in intermediary.
-Notes:  Never populate principal.email or target.email. Only populate the email field in security_result.about or network.email. Top level security results generally have a noun set (optional for spam).
-### FILE_CREATION, FILE_DELETION, FILE_MODIFICATION, FILE_READ, and FILE_OPEN
+### EMAIL_TRANSACTION, EMAIL_UNCATEGORIZED
+Required fields:  metadata: Include the required fields. principal: Populate with information about the machine that the email message originated from (for example, the IP address of the sender).
+Optional fields:  about: URLs, IPs, domains, and any file attachments embedded in the email body. Note that about.file.hash is not an Indexed field for file hashes. Hash views won't be populated from an attachment hash normalized to this field. securityResult.about: Bad URLs, IPs, and files embedded within the email body. network.email: Email sender or recipient information. Note that network.email is not an aliasing field. If you require aliasing and enrichment for Search or Detection, you will need to index into principal or target using a parser extension. principal: If there is client machine data on who sent the email, populate the server details in principal (for example, the client process, port numbers, username, etc.). target: If there is destination email server data, populate the server details in target (for example, the IP address). intermediary: If there is mail server data or mail proxy data, populate the server details in intermediary.
+Notes:  Never populate principal.email or target.email. Only populate the email field in security_result.about or network.email. Top level security results generally have a noun set (optional for spam). EMAIL_URL_CLICK is marked as deprecated.
+##### UDM example for EMAIL_TRANSACTION
+The following example illustrates how an event of type EMAIL_TRANSACTION would be formatted for the Google SecOps UDM:
+```
+metadata {
+  event_timestamp: "2023-07-06T06:26:10.448584Z"
+  event_type: EMAIL_TRANSACTION
+}
+principal {
+  ip: "1.2.3.4"
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device that originated the email.
+### FILE_CREATION, FILE_DELETION, FILE_MODIFICATION, FILE_READ, FILE_OPEN, and FILE_UNCATEGORIZED
 Required fields:  metadata: Include the required fields. principal:  At least one machine identifier. (Optional) Populate principal.process with information about the process accessing the file.  target:  If the file is remote (for example SMB share), the target must include at least one machine identifier for the target machine, otherwise all machine identifiers must be blank. Populate target.file with information about the file.
 Optional fields:  security_result: Describe the malicious activity detected. principal.user: Populate if user information is available about the process.
+##### UDM example for FILE_MODIFICATION
+The following example illustrates how an event of type FILE_MODIFICATION would be formatted for the Google SecOps UDM:
+```
+metadata {
+  event_timestamp: "2023-07-03T12:14:38.164507Z"
+  event_type: FILE_MODIFICATION
+}
+principal {
+  hostname: "pinguino-01"
+}
+target {
+  file {
+    full_path: "foo.bar"
+  }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device where the file modification occurred. target: Information about the modified file.
 ### FILE_COPY
 Required fields:  metadata: Include the required fields as described. principal:  At least one machine identifier. (Optional) Populate principal.process with information about the process performing the file copy operation.  src:  Populate src.file with information about the source file. If the file is remote (for example SMB share), src must include at least one machine identifier for the source machine storing the source file.  target:  Populate target.file with information about the target file. If the file is remote (for example SMB share), the target field must include at least one machine identifier for the target machine that holds the target file.
 Optional fields:  security_result: Describe the malicious activity detected. principal.user: Populate if user information is available about the process.
-### MUTEX_CREATION
-Required fields:  metadata: Include the required fields. principal:  At least one machine identifier. Populate principal.process with information about the process creating the mutex.  target:  Populate target.resource. Populate target.resource.type with MUTEX. Populate target.resource.name with the name of the mutex created.
+### FILE_MOVE, FILE_SYNC
+Required fields:  metadata: Background information about the event. principal: At least one machine identifier (for example, principal.hostname). src: Include src.file.full_path to represent the original file. target: Include target.file.full_path to represent the destination file.
+##### UDM example for FILE_MOVE
+The following example illustrates how an event of type FILE_MOVE would be formatted for the Google SecOps UDM:
+```
+{
+    "metadata": {
+        "event_timestamp": "2023-07-03T12:45:02.557878Z",
+        "event_type": "FILE_MOVE"
+    },
+    "src": {
+        "file": {
+            "full_path": "foo.bar"
+        }
+    },
+    "principal": {
+        "hostname": "pinguino-01"
+    },
+    "target": {
+        "file": {
+            "full_path": "foo.bar"
+        }
+    }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device where the file move occurred. src: Information about the source file. target: Information about the destination file.
+### MUTEX_CREATION, MUTEX_UNCATEGORIZED
+Required fields:  metadata: Include the required fields. principal:  At least one machine identifier. Populate principal.process with information about the process creating the mutex. UDM validation requires a process object in principal. You cannot pass UDM validation with a process only in target.  target:  Populate target.resource. Populate target.resource.type with MUTEX. Populate target.resource.name with the name of the mutex created.
 Optional fields:  security_result: Describe the malicious activity detected. principal.user: Populate if user information is available about the process.
 ##### UDM example for MUTEX_CREATION
 The following example illustrates how an event of type MUTEX_CREATION would be formatted for the Google SecOps UDM:
@@ -445,13 +503,65 @@ target {
 
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Device and process details. target: Information about the mutex.
-### NETWORK_CONNECTION
+### NETWORK_CONNECTION, NETWORK_FLOW, NETWORK_FTP, NETWORK_SMTP
 Required fields:  metadata: event_timestamp principal: Include detail about the machine that initiated the network connection (for example, source). target: Include details about the target machine if different from the principal machine. network: Capture details about the network connection (ports, protocol, etc.).
-Optional fields:  principal.process and target.process: Include process information associated with the principal and target of the network connection (if available). principal.user and target.user: Include user information associated with the principal and target of the network connection (if available).  Note: For all network events, if the principal or target has a port specified, the ip and mac fields must include only one value each (if available), that is the IP address and MAC associated with the port. Otherwise, if no port is specified, you can specify any number of IP and MAC addresses associated with the device at the time of the event (no particular order is required).
+Optional fields:  principal.process and target.process: Include process information associated with the principal and target of the network connection (if available). principal.user and target.user: Include user information associated with the principal and target of the network connection (if available). network: Capture details about the network connection, including ports and protocol.  Note: For all network events, if the principal or target has a port specified, the ip and mac fields must include only one value each (if available), that is the IP address and MAC associated with the port. Otherwise, if no port is specified, you can specify any number of IP and MAC addresses associated with the device at the time of the event (no particular order is required).
+### NETWORK_DHCP
+Required fields:  metadata: Background information about the event. principal: At least one machine identifier (for example, principal.ip). network: Must specify network.application_protocol as DHCP. Also requires network.dhcp.opcode to be populated (for example, BOOTREQUEST or BOOTREPLY).  Note: Google SecOps evaluates only BOOTREQUEST or BOOTREPLY for Asset aliasing.
+##### UDM example for NETWORK_DHCP
+The following example illustrates how an event of type NETWORK_DHCP would be formatted for the Google SecOps UDM:
+```
+{
+    "metadata": {
+        "event_timestamp": "2023-07-04T18:52:22.142364Z",
+        "event_type": "NETWORK_DHCP"
+    },
+    "principal": {
+        "ip": [
+            "1.2.3.4"
+        ]
+    },
+    "network": {
+        "application_protocol": "DHCP",
+        "dhcp": {
+            "opcode": "BOOTREPLY"
+        }
+    }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device requesting or receiving the DHCP lease. network: Details about the DHCP network connection and operation code.
+### NETWORK_DNS
+Required fields:  principal: At least one machine identifier (for example, principal.ip). network: Must specify network.application_protocol as DNS. Also requires network.dns.questions.name. metadata: Background information about the event.
+##### UDM example for NETWORK_DNS
+The following example illustrates how an event of type NETWORK_DNS would be formatted for the Google SecOps UDM:
+```
+{
+    "metadata": {
+        "event_timestamp": "2023-07-04T18:54:15.943301Z",
+        "event_type": "NETWORK_DNS"
+    },
+    "principal": {
+        "ip": [
+            "1.2.3.4"
+        ]
+    },
+    "network": {
+        "application_protocol": "DNS",
+        "dns": {
+            "questions": {
+                "name": "www.acme.com"
+            }
+        }
+    }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device making the DNS request. network: Details about the DNS network connection and the queried domain name.
 ### NETWORK_HTTP
 The NETWORK_HTTP event type represents an HTTP network connection from a principal to a target web server.
 Required fields:  metadata: Include the required fields. target: Represents the web server. Include device information and an optional port number.  If a target port number is available, specify only one IP address in addition to the port number associated with that network connection (although multiple other machine identifiers could be provided for the target). For `target.url`, populate with the URL accessed.
-Optional fields:  principal: Represents the client initiating the web request. Include at least one machine identifier (for example, hostname, IP, MAC, proprietary asset identifier) or a user identifier (for example, username).  If a specific network connection is described and a client port number is available, specify only one IP address along with the port number associated with that network connection (although other machine identifiers could be provided to better describe the participant device). If no source port is available, you could specify any and all IP and MAC addresses, asset identifiers, and hostname values describing the principal device.  network: Include details of the network connection. You must populate the following fields:  network.ip_protocol network.application_protocol  about: Represents other entities found in the HTTP transaction (for example, an uploaded or downloaded file). intermediary: Represents a proxy server (if different from the principal or target). metadata: Populate the other metadata fields. network: Populate other network fields. network.email: If the HTTP network connection originated from a URL that appeared in an email message, populate network.email with the details. network.http: If the HTTP network connection method is present, populate `network.http.method`. observer: Represents a passive sniffer (if present). security_result: Add one or more items to the security_result field to represent the malicious activity detected.
+Optional fields:  principal: Represents the client initiating the web request. Include at least one machine identifier (for example, hostname, IP, MAC, proprietary asset identifier) or a user identifier (for example, username).  If a specific network connection is described and a client port number is available, specify only one IP address along with the port number associated with that network connection (although other machine identifiers could be provided to better describe the participant device). If no source port is available, you could specify any and all IP and MAC addresses, asset identifiers, and hostname values describing the principal device.  network and network.http: Includes details on the HTTP network connection. You must populate the following fields:  network.ip_protocol network.application_protocol network.http.method  about: Represents other entities found in the HTTP transaction (for example, an uploaded or downloaded file). intermediary: Represents a proxy server (if different from the principal or target). metadata: Populate the other metadata fields. network: Populate other network fields. network.email: If the HTTP network connection originated from a URL that appeared in an email message, populate network.email with the details. observer: Represents a passive sniffer (if present). security_result: Add one or more items to the security_result field to represent the malicious activity detected.
 ##### UDM example for NETWORK_HTTP
 The following example illustrates how a Sophos antivirus event of type NETWORK_HTTP would be converted to the Google SecOps UDM format.
 The following is the original Sophos antivirus event:
@@ -534,25 +644,26 @@ Optional fields:  security_result: Describe the malicious activity detected. pri
 ##### UDM example for PROCESS_MODULE_LOAD
 The following example illustrates how you would format a PROCESS_MODULE_LOAD event using the Google SecOps UDM syntax:
 ```
-metadata {
-  event_timestamp: "2020-01-01T13:27:41+00:00"
-  event_type: PROCESS_MODULE_LOAD
-  vendor_name: "Microsoft"
-  product_name: "Windows"
-}
-principal {
-  hostname: "example.com"
-  process {
-    pid: "0x123"
-  }
-}
-target {
-  process {
-    pid: "0xc45"
-    file {
-      full_path: "C:\\Windows\\regedit.exe"
+{
+    "metadata": {
+        "event_timestamp": "2023-07-03T20:40:29.854097Z",
+        "event_type": "PROCESS_MODULE_LOAD"
+    },
+    "principal": {
+        "hostname": "pinguino-01",
+        "process": {
+            "file": {
+                "full_path": "foo.bar"
+            }
+        }
+    },
+    "target": {
+        "process": {
+            "file": {
+                "full_path": "foo.bar"
+            }
+        }
     }
-  }
 }
 
 ```
@@ -561,36 +672,36 @@ As shown in this example, the event has been divided into the following UDM cate
 Required fields:  metadata: Include the required fields. principal:  At least one machine identifier. principal.process: Process loading the module. principal.user: User loading the module.
 Optional fields:  security_result: Describe the malicious activity detected.
 ##### UDM example for PROCESS_PRIVILEGE_ESCALATION
-The following example illustrates how you would format a PROCESS_PRIVILEGE_ESCALATION event using the Google SecOps UDM syntax:
+The following example illustrates how an event of type PROCESS_PRIVILEGE_ESCALATION would be formatted for the Google SecOps UDM:
 ```
-metadata {
-  event_timestamp: "2020-01-01T13:27:41+00:00"
-  event_type: PROCESS_PRIVILEGE_ESCALATION
-  vendor_name: "Microsoft"
-  product_name: "Windows"
-}
-principal {
-  hostname: "example.com"
-  process {
-    pid: "0x123"
-  }
-  user {
-    userid: "test"
-    windows_sid: "ABCDEFGH-123456789-1111111-1000"
-  }
-}
-target {
-  process {
-    pid: "0xc45"
-    file {
-      full_path: "C:\\Windows\\regedit.exe"
+{
+    "metadata": {
+        "event_timestamp": "2023-07-04T19:04:12.573338Z",
+        "event_type": "PROCESS_PRIVILEGE_ESCALATION"
+    },
+    "principal": {
+        "user": {
+            "userid": "pinguino"
+        },
+        "hostname": "pinguino-01",
+        "process": {
+            "file": {
+                "full_path": "foo.bar"
+            }
+        }
+    },
+    "target": {
+        "process": {
+            "file": {
+                "full_path": "foo.bar"
+            }
+        }
     }
-  }
 }
 
 ```
-As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Details about the device, the user, and the process loading the module. target: Process and module details.
-### REGISTRY_CREATION, REGISTRY_MODIFICATION, REGISTRY_DELETION
+As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Details about the device, the user, and the process initiating the escalation. target: Details about the process being escalated.
+### REGISTRY_CREATION, REGISTRY_MODIFICATION, REGISTRY_DELETION, REGISTRY_UNCATEGORIZED
 Required fields:  metadata: Include the required fields. principal:  At least one machine identifier. If a user-mode process performs the registry modification, principal.process must include information about the process modifying the registry. If a kernel process performs the registry modification, the principal must not include process information.  target:  target.registry: If the target registry is remote, target must include at least one identifier for the target machine (for example, an IP address, MAC, hostname, or third party asset identifier). target.registry.registry_key: All registry events must include the affected registry key.
 Optional fields:  security_result: Describe the malicious activity detected. For example, a bad registry key. principal.user: Populate if user information is available about the process.
 ##### UDM example for REGISTRY_MODIFICATION
@@ -625,7 +736,67 @@ target {
 
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Device, user, and process details. target: Registry entry affected by the modification.
+### RESOURCE
+Event Types:  RESOURCE_CREATION RESOURCE_DELETION RESOURCE_PERMISSIONS_CHANGE RESOURCE_READ RESOURCE_WRITTEN
+Minimal UDM Event:
+```
+{
+   "metadata": {
+       "event_timestamp": "2023-07-04T20:19:53.394745Z",
+       "event_type": "RESOURCE_CREATION"
+   },
+   "principal": {
+       "user": {
+           "userid": "pinguino"
+       }
+   },
+   "target": {
+       "resource": {
+           "name": "foo.bar"
+       }
+   }
+}
+
+```
 ### SCAN_FILE, SCAN_HOST, SCAN_PROCESS, SCAN_VULN_HOST, SCAN_VULN_NETWORK
+For SCAN_FILE:
+```
+{
+  "metadata": {
+    "event_timestamp": "2023-07-06T06:57:08.443142Z",
+    "event_type": "SCAN_FILE"
+  },
+  "principal": {
+    "hostname": "pinguino-01"
+  },
+  "target": {
+    "file": {
+      "full_path": "foo.bar"
+    }
+  }
+}
+
+```
+For SCAN_PROCESS:
+```
+{
+  "metadata": {
+    "event_timestamp": "2023-07-06T06:59:17.690425Z",
+    "event_type": "SCAN_PROCESS"
+  },
+  "principal": {
+    "hostname": "pinguino-01"
+  },
+  "target": {
+    "process": {
+      "file": {
+        "full_path": "foo.bar"
+      }
+    }
+  }
+}
+
+```
 Required fields:  metadata: event_timestamp and background information about the event. observer: Capture information about the scanner itself. If the scanner is remote, the machine details must be captured by the observer field. For a local scanner, leave empty. target: Capture information about the machine that holds the object being scanned. If a file is being scanned, target.file must capture information about the scanned file. If a process is being scanned, target.process must capture information about the scanned process. extensions: For SCAN_VULN_HOST and SCAN_VULN_NETWORK, define the vulnerability using the extensions.vuln field.
 Optional fields:  principal: Represents the device initiating the connection and includes at least one machine identifier (for example, hostname, IP address, MAC address, proprietary asset identifier) or a user identifier. target: User detail about the target object (for example, file creator or process owner) should be captured in target.user. security_result: Describe the malicious activity detected.
 ##### UDM example for SCAN_HOST
@@ -731,28 +902,31 @@ security_result: {
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Device that scheduled the suspicious task. target: Software targeted by the suspicious task. intermediary: Intermediary involved with the suspicious task. security_result: Security details about the suspicious task.
 ### SETTING_UNCATEGORIZED, SETTING_CREATION, SETTING_MODIFICATION, SETTING_DELETION
-Required fields:  principal: Must be present, non-empty, and include a machine identifier. target: Must be present, non-empty, and include a resource with its type specified as SETTING
+Required fields:
+principal: Must be present, non-empty, and include a machine identifier.
+Note, setting `resource.type` is deprecated. Use resource.resource_type.
+target: Must be present, non-empty, and include a resource with its type specified as SETTING
 ##### UDM example for event type SETTING_MODIFICATION
 The following example illustrates how an event of type SETTING_MODIFICATION would be formatted for the Google SecOps UDM:
 ```
-metadata {
-  event_timestamp: "2020-01-01T13:27:41+00:00"
-  event_type: SETTING_MODIFICATION
-  vendor_name: "Microsoft"
-  product_name: "Windows"
-}
-principal {
-  hostname: "test.win.com"
-}
-target {
-  resource {
-    type: "SETTING"
-    name: "test-setting"
-  }
+{
+    "metadata": {
+        "event_timestamp": "2023-07-05T14:15:27.070909Z",
+        "event_type": "SETTING_MODIFICATION"
+    },
+    "principal": {
+        "hostname": "foo.bar"
+    },
+    "target": {
+        "resource": {
+            "type": "SETTING",
+            "name": "foo.bar"
+        }
+    }
 }
 
 ```
-As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device on which the setting modification occurred. target: Resource details.
+As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device on which the setting modification occurred. target: Details about the setting resource.
 ### SERVICE_UNSPECIFIED, SERVICE_CREATION, SERVICE_DELETION, SERVICE_START, SERVICE_STOP
 Required fields:  target: Include the user identifier and specify either process or application. principal: Include at least one machine identifier (IP or MAC ADDRESS, hostname, or asset identifier).
 ##### UDM example for SERVICE_UNSPECIFIED
@@ -840,6 +1014,28 @@ principal {
 
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Device and user details.
+### USER_BADGE_IN
+Required fields:  metadata: Include the required fields. target: Must include at least one machine identifier (for example, target.hostname). extensions: The authentication mechanism must be provided in extensions.auth.type.
+##### UDM example for USER_BADGE_IN
+The following example illustrates how an event of type USER_BADGE_IN would be formatted for the Google SecOps UDM:
+```
+{
+    "metadata": {
+        "event_timestamp": "2023-07-05T20:31:18.303584Z",
+        "event_type": "USER_BADGE_IN"
+    },
+    "target": {
+        "hostname": "jamon-01"
+    },
+    "extensions": {
+        "auth": {
+            "type": "MACHINE"
+        }
+    }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. target: Information about the device or location where the badge-in occurred. extensions: Details regarding the authentication mechanism used.
 ### USER_CHANGE_PASSWORD, USER_CHANGE_PERMISSIONS
 Required fields:  metadata: Include the required fields. principal: If the user account is modified from a remote location, populate principal with information about the machine from where the user modification originated. target: Populate target.user with information about the user that has been modified. intermediary: For SSO logins, intermediary must include at least one machine identifier for the SSO server if available.
 ### USER_COMMUNICATION
@@ -850,6 +1046,28 @@ Required fields:  metadata: event_timestamp. principal: Include information abou
 Optional fields:  principal: User and process details for the machine where the user creation or deletion request was initiated. target: Information about the target machine (if different than the principal machine).
 ### USER_LOGIN, USER_LOGOUT
 Required fields:  metadata: Include the required fields. principal: For remote user activity (for example, remote login), populate principal with information about the machine originating the user activity. For local user activity (for example, local login), don't set principal. target: Populate target.user with information about the user that has logged on or logged off. If principal is not set (for example, local login), target must also include at least one machine identifier identifying the target machine. For machine to machine user activity (for example, remote login, SSO, Cloud Service, VPN), target must include information on either the target application, target machine, or target VPN server. intermediary: For SSO logins, intermediary must include at least one machine identifier for the SSO server if available. network and network.http: If the login occurs over HTTP, you must place all available details in network.ip_protocol, network.application_protocol, and network.http. authentication extension: Must identify the type of authentication system that the event is related to (for example, machine, SSO, or VPN) and the mechanism employed (username and password, OTP, etc.). security_result: Add a security_result field to represent the login status if it fails. Specify security_result.category with the AUTH_VIOLATION value if authentication fails.
+##### UDM example for USER_LOGIN
+The following example illustrates how an event of type USER_LOGIN would be formatted for the Google SecOps UDM:
+```
+{
+    "metadata": {
+        "event_timestamp": "2023-07-05T20:48:50.657334Z",
+        "event_type": "USER_LOGIN"
+    },
+    "target": {
+        "user": {
+            "userid": "jamon"
+        }
+    },
+    "extensions": {
+        "auth": {
+            "type": "MACHINE"
+        }
+    }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. target: Information about the user logging in. extensions: Details regarding the authentication mechanism used.
 ### USER_RESOURCE_ACCESS
 Required fields:  principal: Populate the principal.user field with details about attempts to access a cloud resource (for example, a Salesforce case, Office365 calendar, Google Doc, or ServiceNow ticket). target: Populate the target.resource field with information about the target cloud resource.
 Optional fields:  target.application: (Recommended) Populate the target.application field with information about the target cloud application.
