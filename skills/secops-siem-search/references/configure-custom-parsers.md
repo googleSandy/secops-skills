@@ -58,3 +58,5 @@ The custom parser is deleted and the current prebuilt parser version is activate
 ## Create an extension
 Parser extensions provide a flexible way to extend the capabilities of existing custom parsers. They don't replace custom parsers. Instead, they enable the seamless extraction of additional fields from the original raw log into the UDM record. A parser extension is different from a custom parser.
 To create a parser extension, see Using parser extensions.
+## Validation status
+The Validation column displays the status of the validation test for either the custom parser or for the parser extension.  Parser failed: Custom parser validation failed Parser Validation passed: Custom parser validation successful Skipped: Custom parser is not validated Skipped for Extension: Parser extension is not validated

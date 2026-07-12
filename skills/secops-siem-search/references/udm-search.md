@@ -79,7 +79,9 @@ metadata.event_type = "PROCESS_LAUNCH" and
   target.process.file.full_path = /powershell.exe/)
 ```
 Search key-value pairs in `additional` and `labels` fields:
-The `additional` and `labels` fields act as customizable containers for event data that doesn't map to standard UDM fields. Each entry stores a single key-value pair.  `additional` fields may contain multiple key-value pairs. `labels` fields can only contain a single key-value pair.
+The `additional` and `labels` fields act as customizable containers for event data that doesn't map to standard UDM fields. Each entry stores a single key-value pair.
+`additional` fields may contain multiple key-value pairs. Note: `additional.fields` only support string values in search.
+`labels` fields can only contain a single key-value pair.
 Use this syntax to specify the key-value pairs to search in the `additional` and `labels` fields:
 `field[key\] = value`.
 For example:
@@ -166,7 +168,7 @@ Use the Rows per page list, on the Events table, to select the number of rows to
 ## Search large result sets
 Google SecOps supports returning and navigating up to 1 million results. This lets you investigate large datasets directly in the web interface without exporting results. For large searches, the visible fields are limited by default. Note: After results load, you can apply filters to refine the data without rerunning the search. This helps you narrow the result sets quickly.
 ### Result limits for data sources
-The following table lists the maximum number of results returned for each data source:    Search type or Data source Maximum number of events or rows in search results     UDM 1,000,000   ECG 1,000,000   Data table 1,000,000   UDM to UDM join 1,000,000   UDM to ECG join 1,000,000   UDM to Data table join 1,000,000   Cases and case history 1,000,000   Stats 100,000   Detections 100,000
+The following table lists the maximum number of results returned for each data source:    Search type or Data source Maximum number of events or rows in search results     UDM 1,000,000   ECG 1,000,000   Data table 1,000,000   UDM to UDM join 1,000,000   UDM to ECG join 1,000,000   UDM to Data table join 1,000,000   Cases and case history 1,000,000   Stats 100,000   Detections 100,000    Note: The limits are the same whether you're using the platform or the API. See Asynchronous Search APIs for information about the API limits.
 ### Configure result limits
 Use the UDM search settings dialog to control the number of results a search returns.  Click settings on the Search page to view the UDM Search Settings dialog.
 Select the maximum result limit from the following options:  1k 30k (default) 100k 1M Custom
