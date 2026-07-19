@@ -26,23 +26,23 @@ You can map single data fields to a data column, and map repeated data fields to
 In both the web interface and the API, separate the data field values using a pipe (`|`). In the web interface, if any value includes a pipe (`|`), it's treated as a repeated value by default.
 For API requests, set `repeated_values` to `true`.
 For more information, see Repeated fields.
-In the following example, the data table column `Field_value` contains values for multiple fields:   Field_value  Field_name    altostrat.com  FQDN    192.0.2.135  IP    charlie  userid    example  hostname
-The preceding table is split into four columns with each column mapped to only one field type before it can be used for any of the data table use cases presented in this document.   FQDN  IP  Userid  Hostname    altostrat.com  192.0.2.135  charlie  example    …  …  …  …
+In the following example, the data table column `Field_value` contains values for multiple fields:    Field_value Field_name     altostrat.com  FQDN    192.0.2.135  IP    charlie  userid    example  hostname
+The preceding table is split into four columns with each column mapped to only one field type before it can be used for any of the data table use cases presented in this document.    FQDN IP Userid Hostname     altostrat.com  192.0.2.135  charlie  example    …  …  …  …
 #### Designate key columns
 When you add a new data table, you can designate specific columns as key columns.
-Marking a column as a key column uniquely identifies the values in that column, prevents data duplication, and improves data discovery for rules and searches. Note: By default, all columns are treated as key columns, unless specified otherwise during data table creation.
+Marking a column as a key column uniquely identifies the values in that column, prevents data duplication, and improves data discovery for rules and searches. Note: By default, all columns are treated as key columns, unless specified otherwise during data table creation.Note: Combining key columns with repeated fields You can configure a column in a data table to have both the `key_column` and `repeated_values` attributes set to `true`. While a key column typically uses a singular value to uniquely identify each row, allowing repeated values in a key column is supported. This design accommodates specific scenarios, such as a data table with a single column where that column must function as the key and also store multiple values. When a column is set with both `key_column: true` and `repeated_values: true`, the uniqueness constraint for the key applies to the entire set of values within the cell for that column, rather than to the individual elements within the array of values.For example, ["value1", "value2"] and ["value2", "value1"] are treated as unique keys.
 #### Designate columns to support repeated fields
 When you add a new data table, you can designate specific columns to support repeated fields.
 Columns intended to store multi-value fields or repeated fields, must be explicitly designated as repeated when the data table is created.
 #### Map column names to entity fields (optional)
 When you add a new data table, you can map the column names of the data table to entity fields. Note: Mapping entity fields to columns is optional and used when entity enrichment is performed. For more information, see Enrich entity graph with a data table.
-In the following example data table, the `Userid` and `Role` columns are mapped to `entity.user.userid` and `entity.user.attribute.role.name`, respectively:   Userid  (map to entity.user.userid)  Email  Role  (map to entity.user.attribute.role.name)    jack  jack123@gmail.com  administrator    tony  tony123@gmail.com  engineer
+In the following example data table, the `Userid` and `Role` columns are mapped to `entity.user.userid` and `entity.user.attribute.role.name`, respectively:    Userid(map to entity.user.userid) Email Role(map to entity.user.attribute.role.name)     jack  jack123@gmail.com  administrator    tony  tony123@gmail.com  engineer
 You can map a data table column to an entity proto field using the `mapped_column_path` field of the `DataTable` resource.
 For columns without a defined entity path, such as `Email` in this example table, you must manually specify a data type. As with reference lists, the supported data types for data tables are `number`, `string`, `regex`, and `cidr`.
 You can include both mapped and unmapped columns in a data table by specifying a `join` condition.
 Unmapped columns are stored in the `additional` field of the entity the table joins to. These are added as key-value pairs, where the `key` is the column name and the `value` is the corresponding row value.
 ### Add a new row to a data table
-To add a new row, do the following:   On the Details tab, select the Table edit mode.  Right-click an existing row and select Add row above. Enter data for a new row. The first row is treated as a table header. Be sure to match each data item to the appropriate data column and data type. Click Save.  Note: Rows are saved in a random order in the data table.
+To add a new row, do the following:   On the Details tab, select the Table edit mode.  Right-click an existing row and select Add row above. Enter data for a new row. The first row is treated as a table header. Be sure to match each data item to the appropriate data column and data type. Click Save.  Note: Rows are saved in a random order in the data table.Note: When adding rows to a table with a column configured as both `key_column: true` and `repeated_values: true`, remember that row uniqueness is based on the entire set of values in the key column.
 ### Edit a row in a data table
 To edit a row, do the following:  Click the field you want to change. The field becomes editable. Make your changes.  Click Save.
 ### Search data table rows
@@ -71,10 +71,10 @@ dataTableOperationErrors
 ### Example: filter syntax
 The following Chronicle API example shows how to use the `filter` syntax to search for `google.com` in data table rows:
 ```
-curl -X GET \
-  -H "Authorization: Bearer $(gcloud auth print-access-token)" \
-  -H "Content-Type: application/json" \
-  "https://staging-chronicle.sandbox.googleapis.com/v1alpha/projects/{$PROJECT}/locations/${REGION}/instances/${INSTANCE}/dataTables/${DATA_TABLE_NAME}/dataTableRows?filter=google.com"
+  curl -X GET \
+    -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+    -H "Content-Type: application/json" \
+    "https://staging-chronicle.sandbox.googleapis.com/v1alpha/projects/{$PROJECT}/locations/${REGION}/instances/${INSTANCE}/dataTables/${DATA_TABLE_NAME}/dataTableRows?filter=google.com"
 
 ```
 ## Use data tables in Google SecOps
@@ -108,7 +108,7 @@ To use a data table column of type `CIDR` or `regex` for row-based comparison, u
 ```
 net.ip_in_range_cidr($e.principal.ip, %<data_table_name>.<column_name>)
 
-  re.regex($e.principal.hostname, %<data_table_name>.<column_name>)
+re.regex($e.principal.hostname, %<data_table_name>.<column_name>)
 
 ```
 #### Column-based comparison to link UDM events to data tables
@@ -178,13 +178,7 @@ You must include at least one `join` condition between UDM fields and data table
 When a join occurs, the linked data table rows are visible in Search. For more information, see View data table rows in Search.
 Placeholders are supported for data tables in the `event` section of a query, but they must be connected to a UDM event or a UDM entity.
 The following example uses a data table column of `string` type.
-This YARA-L query example checks whether a user login event matches a row in the `example_table`.
-One condition is that the `user ID` exists in the `example_table`.
-Both conditions must match on the same row in the `example_table` for the rule to trigger.
-```
-// Check if a user exists in a data table and that the user is active for all user login events.
-
-```
+This YARA-L query example checks whether a user login event matches a row in the `example_table`.  One condition is that the `user ID` exists in the `example_table`.  Both conditions must match on the same row in the `example_table` for the rule to trigger.
 Rule example:
 ```
 // Check if user exists in a data table and is active in all user login events.
@@ -228,9 +222,7 @@ $e.principal.hostname = %example_table.hostname
 
 ```
 The following example illustrates how a data table and UDM event data work together.
-Based on the logic in the preceding YARA-L query, a user with `user ID 32452` surfaces in the detection as the user's `hostname` from the system, and matches the `hostname` in the data table.
-Data table    uid  title  hostname    32452  HR  host1    64452  Finance  host2   46364  IT  host3
-UDM event table    principal  metadata  security_result  principal    32452  USER_LOGIN  ALLOW  host1    64589  USER_LOGIN  ALLOW  host9    87352  USER_LOGIN  ALLOW  host4
+Based on the logic in the preceding YARA-L query, a user with `user ID 32452` surfaces in the detection as the user's `hostname` from the system, and matches the `hostname` in the data table.    Data table    uid  title  hostname      32452  HR  host1    64452  Finance  host2    46364  IT  host3        UDM event table    principal  metadata  security_result  principal      32452  USER_LOGIN  ALLOW  host1    64589  USER_LOGIN  ALLOW  host9    87352  USER_LOGIN  ALLOW  host4
 ## Write results from YARA-L queries to data tables
 You can write the results from YARA-L queries to a data table. Using this feature, you can create data tables from your Google SecOps data and use those tables to filter and enhance other data.
 You can use the YARA-L query write syntax for the following:
@@ -239,8 +231,9 @@ Use data tables for threat intelligence, incident response, and other security u
 Data should conform to YARA-L syntax and conventions.
 ### Write detections and alerts to data tables using YARA-L
 You can use a YARA-L query to send detections and alerts to data tables. Note: This functionality is supported only in rules and search.
-Using the write_row function, you can overwrite a data table row with the matching key in the data table using the results from a rule. If the key is not found in the table, add a new row instead.
+Using the write_row function, you can overwrite a data table row with the matching key in the data table using the results from a rule. If the key is not found in the table, add a new row instead. Note: The behavior of `write_row` with key columns is affected by the `repeated_values` setting. If a key column also has `repeated_values: true`, row matching is based on the entire set of values in the key column.
 Specify the write_row function in the export section of a YARA-L query. Writing data to the data table must be the final action of the query. This results in the outcome variables being written to the data table.
+Example
 ```
 export:
   %<data_table_name>.write_row(
@@ -276,9 +269,10 @@ export:
 ```
 ### Modify a data table using YARA-L
 The following shows how to modify a data table using YARA-L:
-TableName: `ip_user_domain_table` (key columns for the primary key are defined at creation)   IP address  employee_id*  domain    192.0.2.10  Dana  altostrat.com    192.0.2.20  Quinn  altostrat.com    192.0.2.30  Lee  cymbalgroup.com
+TableName: `ip_user_domain_table` (key columns for the primary key are defined at creation)    IP address  employee_id*  domain      192.0.2.10  Dana  altostrat.com    192.0.2.20  Quinn  altostrat.com    192.0.2.30  Lee  cymbalgroup.com
 * indicates the primary key. Note: The primary key can be a combination of multiple columns, though it is a single column in this example.
 The following query captures unique combinations of `principal.ip`, `principal.user.employee_id`, and `target.domain`. It filters the results based on the prevalence of the `target.domain`:
+Example
 ```
 events:
   $e.principal.ip = $principal_ip
@@ -290,31 +284,31 @@ events:
 // condition:$e
 
 ```
-Query results:   ip  empid  domain    192.0.2.10  Dana  altostrat.com    192.0.2.30  Lee  examplepetstore.com    192.0.2.20  Quinn  altostrat.com
+Query results:    ip  empid  domain      192.0.2.10  Dana  altostrat.com    192.0.2.30  Lee  examplepetstore.com    192.0.2.20  Quinn  altostrat.com
 ### Example: Use write_row to write query output to a data table
 Rule example:
 ```
-  rule udm_write_data_table {
-  meta:
-      description = "Writeto data table"
-  events:
-    $e.principal.user.employee_id = $principal_user_employee_id
-    $e.target.domain.name = $target_domain
-    $e.target.domain.prevalence.day_count < 5
+rule udm_write_data_table {
+meta:
+    description = "Writeto data table"
+events:
+  $e.principal.user.employee_id = $principal_user_employee_id
+  $e.target.domain.name = $target_domain
+  $e.target.domain.prevalence.day_count < 5
 
-  outcome:
-    $hostname = $target_domain
-    $principal_emp_id = $principal_user_employee_id
-  
-  condition:
-    $e
+outcome:
+  $hostname = $target_domain
+  $principal_emp_id = $principal_user_employee_id
 
-  export:
-    %ips_with_hostnames.write_row(
-        employeeid:$principal_emp_id,
-        hostname:$hostname
-    )
-  }
+condition:
+  $e
+
+export:
+  %ips_with_hostnames.write_row(
+      employeeid:$principal_emp_id,
+      hostname:$hostname
+  )
+}
 
 ```
 Search example:
@@ -339,30 +333,30 @@ export:
 In the following example, `user` and `ip` are used as primary keys. Each detection that persists in the detections table results in one evaluation of the function call in the export section of the query.
 Rule example:
 ```
-  rule udm_write_data_table {
-  meta:
-    description = "Write data table"
-  events:
-    $e.metadata.event_type = "USER_LOGIN"
-    all $e.security_result.action != "BLOCK"
-    all $e.security_result.action != "UNKNOWN_ACTION"
+rule udm_write_data_table {
+meta:
+  description = "Write data table"
+events:
+  $e.metadata.event_type = "USER_LOGIN"
+  all $e.security_result.action != "BLOCK"
+  all $e.security_result.action != "UNKNOWN_ACTION"
 
-    $user = $e.principal.user.userid
-    $ip = $e.target.ip
-    $ts = $e.metadata.event_timestamp.seconds
+  $user = $e.principal.user.userid
+  $ip = $e.target.ip
+  $ts = $e.metadata.event_timestamp.seconds
 
-  match:
-    $user, $ip over 1h
+match:
+  $user, $ip over 1h
 
-  outcome:
-    $first_seen = min($ts)
+outcome:
+  $first_seen = min($ts)
 
-  condition:
-    $e
+condition:
+  $e
 
-  export:
-    %successful_logins.write_row(user:$user, ip:$ip)
-  }
+export:
+  %successful_logins.write_row(user:$user, ip:$ip)
+}
 
 ```
 Search example:
@@ -401,8 +395,8 @@ security_result: {
 }
 
 ```
-The following detections are returned when this query is executed as a rule:   Detection ID  Match $user  Match $ip    0  charlie  192.0.2.135    1  charlie  192.0.2.136
-The data table contains the following:   user  ip    charlie  192.0.2.135    charlie  192.0.2.136     Note: If you click Run test in the Rules Editor to check a rule, the example data doesn't persist in the data table.
+The following detections are returned when this query is executed as a rule:    Detection ID  Match $user  Match $ip      0  charlie  192.0.2.135    1  charlie  192.0.2.136
+The data table contains the following:    user  ip      charlie  192.0.2.135    charlie  192.0.2.136     Note: If you click Run test in the Rules Editor to check a rule, the example data doesn't persist in the data table.
 The following search query illustrates the support offered in Search for writing scalar values to data tables. Note: This is not supported in rules.
 ```
 events:
@@ -415,6 +409,7 @@ export:
 ## Enrich entity graph with a data table
 You can use data tables to add, remove, or replace the entities presented in an entity graph from rules. Use functions in the rule `setup` section to indicate how the data table should be merged with, appended to, or used to remove entities from entity events referenced in the `events` section. Note: This is not supported with Search.
 You can use the following rule template to modify an entity graph:
+Rule template
 ```
 rule entity_graph_template {
 
@@ -456,13 +451,14 @@ With the `graph_override` function, fields present in both the entity graph and 
 Only those columns of the data table that are mapped override the columns of the entity graph. The columns that are unmapped are added to the `additional` field of the entity graph on which the data table is joined.
 #### Example: Match on single join
 In the following example, the rows in the entity graph that match the join condition between the data table column and the entity graph field (`$g1.graph.entity.ip = %example_table.my_ip`) are overridden by the data table.
+Example
 ```
 rule rule_override {
   meta:
-    description = "Override entity context with data table before joining with UDM event"
+  description = "Override entity context with data table before joining with UDM event"
 
   setup:
-    //Rows in the entity graph that match the join condition are overridden by the data table
+  //Rows in the entity graph that match the join condition are overridden by the data table
     graph_override ($g1.graph.entity.ip = %example_table.my_ip)
 
   events:
@@ -488,14 +484,15 @@ rule rule_override {
 
 ```
 To use an unmapped column (say "Owner") of the data table, then an equivalent statement for `$g1.graph.entity.owner = "alice" is $g1.graph.additional.fields["Owner"] = "alice"`. This is because all unmapped columns of the data table go into the `additional` field of the entity graph `($g1)`.
-The following tables illustrate an override operation where rows in the entity graph are enriched when the IP field in the data table matches the IP field in the entity graph.   Existing entity graph    Hostname  IP  MAC    ftp01  10.1.1.4  …:01    www01  10.1.1.5  …:02      Data table    Hostname  IP  MAC  Owner    ftp01  10.1.1.4  …:bb  alice    h1  10.1.1.6  …:cc  bob    h2  10.1.1.7  …:dd  chris    h3  10.1.1.4  …:ee  doug
-Enriched entity graph    Hostname  IP  MAC  Owner    ftp01  10.1.1.4  …:bb  alice    www01  10.1.1.5  …:02      h3  10.1.1.4  …:ee  doug
+The following tables illustrate an override operation where rows in the entity graph are enriched when the IP field in the data table matches the IP field in the entity graph.    Existing entity graph    Hostname  IP  MAC      ftp01  10.1.1.4  …:01    www01  10.1.1.5  …:02        Data table    Hostname  IP  MAC  Owner      ftp01  10.1.1.4  …:bb  alice    h1  10.1.1.6  …:cc  bob    h2  10.1.1.7  …:dd  chris    h3  10.1.1.4  …:ee  doug
+Enriched entity graph    Hostname  IP  MAC  Owner      ftp01  10.1.1.4  …:bb  alice    www01  10.1.1.5  …:02      h3  10.1.1.4  …:ee  doug
 #### Example: Match on multiple joins
 In the following example, the rows in the entity graph that match the multiple join conditions (`$g1.graph.entity.ip = %example_table.my_ip` and `$g1.graph.entity.hostname = %example_table.my_hostname`) are overridden by the data table.
+Example
 ```
 rule rule_override {
 meta:
-    description = "Override Entity context with Data Table before joining with UDM event"
+  description = "Override Entity context with Data Table before joining with UDM event"
 setup:
   // example with more than one condition
   graph_override ($g1.graph.entity.ip = %example_table.my_ip and
@@ -519,20 +516,21 @@ condition:
 }
 
 ```
-The following tables illustrate an override operation in which the rows of the entity graph are enriched when both the IP field and the hostname field in the data table match the IP field and the hostname field in the entity graph.   Existing entity graph    Hostname  IP  MAC    ftp01  10.1.1.4  …:01    www01  10.1.1.5  …:02      Data table    Hostname  IP  MAC  Owner    ftp01  10.1.1.4  …:bb  alice    h1  10.1.1.5  …:cc  bob    h2  10.1.1.6  …:dd  chris    h3  10.1.1.4  …:ee  doug      Enriched entity graph    Hostname  IP  MAC  Owner    ftp01  10.1.1.4  …:bb  alice    www01  10.1.1.5  …:02
+The following tables illustrate an override operation in which the rows of the entity graph are enriched when both the IP field and the hostname field in the data table match the IP field and the hostname field in the entity graph.    Existing entity graph    Hostname  IP  MAC      ftp01  10.1.1.4  …:01    www01  10.1.1.5  …:02        Data table    Hostname  IP  MAC  Owner      ftp01  10.1.1.4  …:bb  alice    h1  10.1.1.5  …:cc  bob    h2  10.1.1.6  …:dd  chris    h3  10.1.1.4  …:ee  doug        Enriched entity graph    Hostname  IP  MAC  Owner      ftp01  10.1.1.4  …:bb  alice    www01  10.1.1.5  …:02
 ### Append data from the data table to entity graph
 With the `graph_append` function, no join condition is required.
 In the following example, all rows in the data table are appended to the rows in the entity graph. Note: There is no deduplication of the rows appended to the entity graph. This means that if a row is present in both the entity graph and the data table, then both rows are present in the enriched entity graph.
+Example
 ```
 rule rule_append {
 meta:
   description = "Data table append entity"
-   
+
 setup:
   graph_append [$g1, %example_table]
 
 events:
-    // filter UDM events
+  // filter UDM events
   $e.metadata.event_type = "NETWORK_CONNECTION"
   $e.security_result.action = "ALLOW"
 
@@ -548,10 +546,11 @@ condition:
 }
 
 ```
-The following example table illustrates an append operation where the rows of the data table are appended to the rows in the entity graph:   Existing entity graph    Hostname  IP  MAC    ftp01  10.1.1.4  …:01    www01  10.1.1.5  …:02      Data table    IP  MAC  Owner    10.1.1.4  …:01  alice    10.1.1.6  …:cc  bob    10.1.1.7  …:dd  chris    10.1.1.4  …:ee  doug      Enriched entity graph    Hostname  IP  MAC  Owner    ftp01  10.1.1.4  …:01      www01  10.1.1.5  …:02        10.1.1.4  …:bb  alice      10.1.1.6  …:cc  bob      10.1.1.7  …:dd  chris      10.1.1.4  …:ee  doug
+The following example table illustrates an append operation where the rows of the data table are appended to the rows in the entity graph:    Existing entity graph    Hostname  IP  MAC      ftp01  10.1.1.4  …:01    www01  10.1.1.5  …:02        Data table    IP  MAC  Owner      10.1.1.4  …:01  alice    10.1.1.6  …:cc  bob    10.1.1.7  …:dd  chris    10.1.1.4  …:ee  doug        Enriched entity graph    Hostname  IP  MAC  Owner      ftp01  10.1.1.4  …:01      www01  10.1.1.5  …:02        10.1.1.4  …:bb  alice      10.1.1.6  …:cc  bob      10.1.1.7  …:dd  chris      10.1.1.4  …:ee  doug
 ### Use graph_exclude to remove rows from entity graph
 With the `graph_exclude` function, rows in the entity graph that match the join condition are removed from the entity graph.
 In the following example, all rows in the entity graph that match the given join condition (between the data table column and the entity graph field) are removed. No rows from the data table are added to the entity graph.
+Example
 ```
 rule rule_exclude {
 
@@ -569,11 +568,11 @@ rule rule_exclude {
         $iocip over 1h
 
     condition:
-        $e and $g1
+      $e and $g1
 }
 
 ```
-The following tables illustrate an exclude operation in which the rows of the entity graph that match the IP field of the data table are removed:   Existing entity graph    Hostname  IP  MAC    ftp01  10.1.1.4  …:01    www01  10.1.1.5  …:02      Data table    IP  MAC  Owner    10.1.1.4  …:bb  alice    10.1.1.6  …:cc  bob    10.1.1.7  …:dd  chris      Enriched entity graph    Hostname  IP  MAC    www01  10.1.1.5  …:02
+The following tables illustrate an exclude operation in which the rows of the entity graph that match the IP field of the data table are removed:    Existing entity graph    Hostname  IP  MAC      ftp01  10.1.1.4  …:01    www01  10.1.1.5  …:02        Data table    IP  MAC  Owner      10.1.1.4  …:bb  alice    10.1.1.6  …:cc  bob    10.1.1.7  …:dd  chris        Enriched entity graph    Hostname  IP  MAC      www01  10.1.1.5  …:02
 ## API rate limits
 The following queries per minute (QPM) quotas are enforced per project and user when calling the Google SecOps Data Table and Data Table Row REST API endpoints:    Resource API Operation Rate Limit (STANDARD)     DataTables `CreateDataTable` (`data_table/create_requests`) 60 QPM   DataTables `GetDataTable` (`data_table/get_requests`) 120 QPM   DataTables `ListDataTables` (`data_table/list_requests`) 120 QPM   DataTables `UpdateDataTable` (`data_table/update_requests`) 60 QPM   DataTables `DeleteDataTable` (`data_table/delete_requests`) 60 QPM   DataTableRows `CreateDataTableRow` (`data_table_row/create_requests`) 60 QPM   DataTableRows `GetDataTableRow` (`data_table_row/get_requests`) 120 QPM   DataTableRows `ListDataTableRows` (`data_table_row/list_requests`) 120 QPM   DataTableRows `UpdateDataTableRow` (`data_table_row/update_requests`) 60 QPM   DataTableRows `DeleteDataTableRow` (`data_table_row/delete_requests`) 60 QPM   DataTableRows `BulkCreateDataTableRows` (Sync / Async) 30 QPM   DataTableRows `BulkReplaceDataTableRows` (Sync / Async) 30 QPM   DataTableRows `BulkUpdateDataTableRows` (Sync / Async) 10 QPM   DataTableRows `BulkDeleteDataTableRows` (Sync / Async) 30 QPM   DataTableRows `BulkGetDataTableRows` (`data_table_row/bulk_get_requests`) 120 QPM
 ## Limitations
@@ -629,20 +628,8 @@ When you update a row, the new values for all non-key columns replace the old on
 You can apply only one enrichment operation (either `override`, `append`, or `exclude`) to a single entity graph variable.
 Each enrichment operation can use only one data table.
 You can define a maximum of two enrichment operations of any type in the `setup` section of a YARA-L rule.
-In the following example, an `override` operation is applied to the entity graph variable `$g1` and an `append` operation is applied to the entity graph variable `$g2`.
-```
-    setup:
-    graph_override($g1.graph.entity.user.userid = %table1.myids)
-    graph_append [$g2, %table1]
-
-```
-In the preceding example, the same data table (`table1`) is used to enhance different entity graphs. You can also use different data tables to enhance the different entity graphs, as follows:
-```
-    setup:
-    graph_override($g1.graph.entity.user.userid = %table1.myids)
-    graph_append [$g2, %table2]
-
-```
+In the following example, an `override` operation is applied to the entity graph variable `$g1` and an `append` operation is applied to the entity graph variable `$g2`.  `none setup: graph_override($g1.graph.entity.user.userid = %table1.myids) graph_append [$g2, %table1]`
+In the preceding example, the same data table (`table1`) is used to enhance different entity graphs. You can also use different data tables to enhance the different entity graphs, as follows:  `none setup: graph_override($g1.graph.entity.user.userid = %table1.myids) graph_append [$g2, %table2]`
 ### Limitations using data tables with Search
 The following limitations apply to data tables when used with Search:
 You can't run search queries on data tables using the Chronicle API. Queries are only supported through the web interface.
@@ -667,4 +654,4 @@ For example, the following is not supported:
 
 ```
 ### Limitations when renaming or deleting data tables with Chronicle API or Terraform
-Renaming is not supported through the platform or the API. You can't delete a data table (through the platform or the API) if it is currently being referenced by a rule. In Terraform, renaming a data table triggers a destroy and re-create operation. If the data table is referenced by a rule, this operation will fail because the API blocks the deletion of the old table. Data loss risk in Terraform: Even if a data table is not referenced by a rule, attempting to rename it via Terraform carries significant data loss risks. If a search or rule is actively updating the old data table, those updates will be lost when Terraform destroys the old table and creates the new one, as the new table will not retain that data. Recommended workaround:  Create a new data table with the new name.  Update the rule(s) to start using the new data table.  Delete the old data table.
+Renaming is not supported through the platform or the API. You can't delete a data table (through the platform or the API) if it is referenced by a rule. In Terraform, renaming a data table triggers a destroy and re-create operation. If the data table is referenced by a rule, this operation will fail because the API blocks the deletion of the old table. Data loss risk in Terraform: Even if a data table is not referenced by a rule, renaming it using Terraform results in permanent data loss. Terraform destroys the existing table and replaces it with a new, empty table that doesn't retain any data from the original. Recommended workaround:  Create a new data table with the new name.  Update the rule(s) to start using the new data table.  Delete the old data table.

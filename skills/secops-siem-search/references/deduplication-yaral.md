@@ -11,7 +11,7 @@ We recommend to always use the shortest possible time range suitable for your in
 Deduplication behavior depends on whether your query uses aggregations and applies to the following types of search and dashboard queries.
 ### Aggregated search queries
 Aggregated search queries include `match`, `match` and `outcome`, or `aggregated outcome` sections. Deduplication occurs after outcomes are determined.
-For these queries, add the following fields to the `dedup` section:  Fields from the `match` section *Fields from the `outcome` section
+For these queries, add the following fields to the `dedup` section:  Fields from the `match` section Fields from the `outcome` section
 ### UDM search queries
 UDM search queries exclude the `match`, `outcome`, or aggregated `outcome` sections. Note: UDM search queries can include an `outcome` section as long as there aren't any aggregates and there isn't a `match` section.
 To deduplicate UDM searches, add these fields to the `dedup` section:  Any non-repeated, non-array, and non-grouped event fields. Placeholder fields from the `events` section. Outcome variables from the `outcome` section (if there are no aggregates).
