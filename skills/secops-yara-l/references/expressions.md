@@ -119,6 +119,7 @@ Because `or` is defined explicitly, the surrounding predicates are grouped and e
 When you use data table lookups (the `in %list` syntax) within the `events` section, the following syntax constraints apply:
 Type exclusivity: You can't mix standard field comparisons (for example, `$field = "value"`) and data table lookups within the same logical block.
 Operator restriction: Data table lookups can only be joined with other data table lookups using the `OR` operator. The `AND` operator isn't supported for these expressions.
+Event variable exclusivity with `OR`: When using the `OR` operator to combine data table lookups, all lookups within the `OR` expression must reference fields from the same event variable. For example, `($e.user in %table1 OR $e.group in %table2)` is valid. However, expressions like `($e.user in %table OR $g.user in %table)` are not supported. This is because lookups across different event variables (for example, `$e` and `$g`) in an `OR` condition lack a common equality anchor, which causes the compiler to fail at runtime with a `RULE ERROR: error processing rule`.
 Example: Invalid results in a syntax error
 ```
 // Invalid: Mixing a field comparison with a data table lookup
@@ -132,6 +133,12 @@ Example: Valid example
 ```
 // Valid: Multiple data table lookups joined by OR
 ($field in %list_A OR $field in %list_B)
+
+```
+Example: Invalid cross-variable OR
+```
+// Invalid: OR condition across different event variables
+($e.user in %table OR $g.user in %table)
 
 ```
 If your logic requires both a standard field check and a data table lookup, you must define them as separate, independent predicates within the `events` section.

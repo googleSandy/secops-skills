@@ -75,7 +75,7 @@ Purpose: Email address Encoding: Standard email address format. Example: johns@t
 ### Noun.file
 Purpose: Detailed file metadata. Type: Object See Population of File metadata.
 ### Noun.hostname
-Purpose: Client hostname or domain name field. Do not include if a URL is present. Encoding: Valid RFC 1123 hostname. Examples:  userwin10 www.altostrat.com
+Purpose: Client hostname or domain name field. Do not include if a URL is present. Encoding: Valid RFC 1123 hostname. Validation restriction: Hostname strings must not exceed 255 bytes in length to conform to search indexing limits. Examples:  userwin10 www.altostrat.com
 ### Noun.platform
 Purpose: Platform operating system. Encoding: Enum Possible values:  LINUX MAC WINDOWS UNKNOWN_PLATFORM
 ### Noun.platform_patch_level
@@ -85,12 +85,12 @@ Purpose: Platform operating system version. Encoding: Alphanumeric string with p
 ### Noun.process
 Purpose: Detailed process metadata. Type: Object See Population of Process metadata.
 ### Noun.ip
-Purpose:  Single IP address associated with a network connection. One or more IP addresses associated with a participant device at the time of the event (for example, if an EDR product knows all of the IP addresses associated with a device, it can encode all of these within IP fields).  Encoding: Valid IPv4 or IPv6 address (RFC 5942) encoded in ASCII. Repeatability:  If an event is describing a specific network connection (for example, srcip:srcport > dstip:dstport), the vendor must provide only a single IP address. If an event is describing general activity occurring on a participant device but not a specific network connection, the vendor might provide all of the associated IP addresses for the device at the time of the event.  Examples:  192.168.1.2 2001:db8:1:3::1
+Purpose:  Single IP address associated with a network connection. One or more IP addresses associated with a participant device at the time of the event (for example, if an EDR product knows all of the IP addresses associated with a device, it can encode all of these within IP fields).  Encoding: Valid IPv4 (4-byte) or IPv6 (16-byte) address string (RFC 5942) encoded in ASCII. Repeatability:  If an event is describing a specific network connection (for example, srcip:srcport > dstip:dstport), you must provide only a single IP address. If an event is describing general activity occurring on a participant device but not a specific network connection, you can provide all of the associated IP addresses for the device at the time of the event.  Examples:  192.168.1.2 2001:db8:1:3::1
 ### Noun.port
 Purpose: Source or destination network port number when a specific network connection is described within an event. Encoding: Valid TCP/IP port number from 1 through 65,535.
 Examples:  80 443  Note: If a port number is specified, there must be one and only one IP address specified in the same Noun.
 ### Noun.mac
-Purpose: One or more MAC addresses associated with a device. Encoding: Valid MAC address (EUI-48) in ASCII. Repeatability: Vendor might provide all of the associated MAC addresses for the device at the time of the event. Examples:  00:24:98:7B:19:02 00:00:5e:00:53:2a
+Purpose: One or more MAC addresses associated with a device. Encoding: Valid 6-byte MAC address conforming to 48-bit Extended Unique Identifier (EUI-48) format encoded in ASCII. Repeatability: You can provide all of the associated MAC addresses for the device at the time of the event. Examples:  00:24:98:7B:19:02 00:00:5e:00:53:2a
 ### Noun.administrative_domain
 Purpose: Domain that the device belongs to (for example, the Windows domain). Encoding: Valid domain name string (128 characters maximum). Example: corp.altostrat.com
 ### Noun.registry
@@ -111,7 +111,7 @@ Purpose: Mechanism(s) used for authentication. Encoding: Enumerated type. Possib
 ## Population of DHCP metadata
 The Dynamic Host Control Protocol (DHCP) metadata fields capture DHCP network management protocol log information.
 ### Dhcp.client_hostname
-Purpose: Hostname for the client. See RFC 2132, DHCP Options and BOOTP Vendor Extensions, for more information. Encoding: String.
+Purpose: Hostname for the client. See RFC 2132, DHCP Options and BOOTP Vendor Extensions, for more information. Encoding: String. Validation restriction: Hostname option strings must not exceed 255 bytes in length to conform to search indexing limits.
 ### Dhcp.client_identifier
 Purpose: Client identifier. See RFC 2132, DHCP Options and BOOTP Vendor Extensions, for more information. Encoding: Bytes.
 ### Dhcp.file
@@ -147,7 +147,7 @@ Purpose: IP address for the relay agent. Encoding: Valid IPv4 or IPv6 address (R
 ### Dhcp.siaddr
 Purpose: IP address for the next bootstrap server. Encoding: Valid IPv4 or IPv6 address (RFC 5942) encoded in ASCII.
 ### Dhcp.yiaddr
-Purpose: Your IP address. Encoding: Valid IPv4 or IPv6 address (RFC 5942) encoded in ASCII.
+Purpose: Your IP address. Encoding: Valid IPv4 or IPv6 address (RFC 5942) encoded in ASCII.  Note: When Dhcp.type specifies ACK, OFFER, or DECLINE, you must provide both a valid 4-byte IPv4 address in Dhcp.yiaddr or Dhcp.requested_address AND a corresponding MAC address. For REQUEST, RELEASE, WIN_DELETED, or WIN_EXPIRED message opcodes, you must provide a valid 4-byte IPv4 address in Dhcp.ciaddr or Dhcp.yiaddr.
 ## Population of DHCP Option metadata
 The DHCP option metadata fields capture the DHCP option log information.
 ### Option.code
@@ -183,7 +183,7 @@ Purpose: Stores the additional domain name servers that can be used to verify th
 ## Population of DNS Question metadata
 The DNS question metadata fields capture the information contained within the question section of a domain protocol message.
 ### Question.name
-Purpose: Stores the domain name. Encoding: String.
+Purpose: Stores the domain name. Encoding: String. Validation restriction: Domain query strings cannot remain empty and must be 255 octets (bytes) or less pursuant to RFC 1035 regulations and search indexing limits.
 ### Question.class
 Purpose: Stores the code specifying the class of the query. Encoding: 32-bit integer.
 ### Question.type
@@ -246,7 +246,7 @@ Purpose: Size of the file. Encoding: 64-bit unsigned integer. Example: 342135
 ### Ftp.command
 Purpose: Stores the FTP command. Encoding: String. Examples:  binary delete get put
 ## Population of Group metadata
-Information about an organizational group.
+Information about an organizational group. To represent a valid organizational group identity during normalization, you must parameterize at least one core group attribute by specifying either an email address in Group.email_addresses or a Windows Security Identifier in Group.windows_sid.
 ### Group.creation_time
 Purpose: Group creation time. Encoding: RFC 3339, as appropriate for JSON or Proto3 timestamp format.
 ### Group.email_addresses
@@ -259,13 +259,13 @@ Purpose: Globally unique user object identifier for the product, such as an LDAP
 Purpose: Microsoft Windows Security Identifier (SID) group attribute field. Encoding: String.
 ## Population of HTTP metadata
 ### Http.method
-Purpose: Stores the HTTP request method. Encoding: String. Examples:  GET HEAD POST
+Purpose: Stores the HTTP request method. When traffic occurs over HTTP or HTTPS transport protocols, you must specify an active request method; you cannot leave the method set to METHOD_UNSPECIFIED. Encoding: String. Examples:  GET HEAD POST
 ### Http.referral_url
 Purpose: Stores the URL for the HTTP referer. Encoding: Valid RFC 3986 URL. Example: https://www.altostrat.com
 ### Http.response_code
 Purpose: Stores the HTTP response status code, which indicates whether a specific HTTP request has been successfully completed. Encoding: 32-bit integer. Examples:  400 404
 ### Http.user_agent
-Purpose: Stores the User-Agent request header that includes the application type, operating system, software vendor or software version of the requesting software user agent. Encoding: String. Examples:  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.26 (KHTML, like Gecko) Chrome/41.0.2217.0 Safari/527.33
+Purpose: Stores the User-Agent request header that includes the application type, operating system, software vendor or software version of the requesting software user agent. User-Agent header strings must consist entirely of valid UTF-8 encoded character arrays. Encoding: String. Examples:  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.26 (KHTML, like Gecko) Chrome/41.0.2217.0 Safari/527.33
 ## Population of Location metadata
 ### Location.city
 Purpose: Stores the name of the city. Encoding: String. Examples:  Sunnyvale Chicago Málaga
@@ -344,6 +344,7 @@ Purpose: Name of the security threat. Encoding: String. Examples:  W32/File-A Sl
 ### SecurityResult.url_back_to_product
 Purpose: URL to direct you to the source product console for this security event. Encoding: String.
 ## Population of User metadata
+Note: All core user account parameters—specifically User.userid, User.windows_sid, User.employee_id, and every individual email address inside User.email_addresses—have a mandatory structural length ceiling of 256 characters. Supplying an account identity string longer than 256 characters causes indexing verification to reject the payload. In addition, to clear core user identity checks during normalization, you must populate at least one of these four core properties.
 ### User.email_addresses
 Purpose: Stores the email addresses for the user. Encoding: Repeated String. Example: johnlocke@company.example.com
 ### User.employee_id
@@ -357,7 +358,7 @@ Purpose: Stores the last name for the user. Encoding: String. Example: Locke.
 ### User.group_identifiers
 Purpose: Stores the group ID(s) (a GUID, LDAP OID, or similar) associated with a user. Encoding: Repeated String. Example: admin-users.
 ### User.phone_numbers
-Purpose: Stores the phone numbers for the user. Encoding: Repeated String. Example: 800-555-0101
+Purpose: Stores the phone numbers for the user. Encoding: Repeated String. Example: 18005550101
 ### User.title
 Purpose: Stores the job title for the user. Encoding: String. Example: Customer Relationship Manager.
 ### User.user_display_name
@@ -401,7 +402,7 @@ Purpose: Specifies whether to display the alert in Enterprise Insights. Encoding
 ### idm.is_alert
 Purpose: Identifies whether the event is an alert. Encoding: Boolean.
 ## Required and optional fields for entity types
-Entity type Entity-specific requirements     `IP_ADDRESS`   `entity.ip` must contain at least one valid IP address.     `FILE`   `entity.file` must be present and contain at least one field.     `DOMAIN_NAME`   `entity.hostname` must be present and represent a valid hostname. `Optional`: If `entity.domain.whois_server` is populated, the `entity.domain` message must have no more than 50 fields set.     `URL`   `entity.url` must be present and not empty.     `MUTEX`   `entity.resource` must be present. `entity.resource.resource_type` must be `MUTEX`. `entity.resource.name` must be present and not empty.     `USER`   `entity.user` must be present. `entity.user` must have at least one email address specified.     `RESOURCE`   `entity.resource` must be present. `entity.resource.resource_type` must be either `MUTEX` or `STORAGE_OBJECT`.  If `resource_type` is `MUTEX`: See `MUTEX` requirements. If `resource_type` is `STORAGE_OBJECT`:  `entity.resource.resource_subtype` must be present and not empty. At least one of the following must be present and not empty: `entity.registry.registry_key` `entity.registry.registry_value_data` `entity.registry.registry_value_name`      `CIDR_BLOCK`   `entity.network.ip_subnet_range` must be present and include a valid CIDR in the following format: `ip_address/prefix_length`.
+Entity type Entity-specific requirements     `IP_ADDRESS`   `entity.ip` must contain at least one valid IPv4 or IPv6 address.     `FILE`   `entity.file` must be present and contain at least one field.     `DOMAIN_NAME`   `entity.hostname` must be present and represent a valid hostname up to 255 bytes in length. `Optional`: If `entity.domain.whois_server` is populated, the `entity.domain` message must contain no more than 50 inferred fields.     `URL`   `entity.url` must be present and not empty.     `MUTEX`   `entity.resource` must be present. `entity.resource.resource_type` must be set to `MUTEX`. `entity.resource.name` must be present and not empty.     `USER`   `entity.user` must be present. For context entities, `entity.user` must specify at least one core identity field: `user.userid`, `user.windows_sid`, `user.employee_id`, or an email address in `user.email_addresses`. Each core identifier must not exceed 256 characters. In addition, you must provide either `product_object_id` in `entity.user` or `product_entity_id` in `metadata`. For Indicator of Compromise (IOC) entities, `entity.user` must have at least one email address specified in `user.email_addresses`.     `RESOURCE`   `entity.resource` must be present. For context entities, `entity.resource.resource_type` must be specified and not empty, and you must provide either `product_object_id` in `entity.resource` or `product_entity_id` in `metadata`. For Indicator of Compromise (IOC) entities, `entity.resource.resource_type` must be set to either `MUTEX` or `STORAGE_OBJECT`.  If `resource_type` is `MUTEX`: Follow the `MUTEX` requirements. If `resource_type` is `STORAGE_OBJECT`:  `entity.resource.resource_subtype` must be present and not empty. At least one of the following fields in `entity.registry` must be present and not empty: `entity.registry.registry_key` `entity.registry.registry_value_data` `entity.registry.registry_value_name`      `CIDR_BLOCK`   `entity.network.ip_subnet_range` must be present and include a valid Classless Inter-Domain Routing (CIDR) notation in the following format: `ip_address/prefix_length`.     `ASSET`   `entity.asset` must be present. `entity.asset` must contain at least one core identity field: `asset.hostname`, `asset.asset_id`, an IP address in `asset.ip`, or a MAC address in `asset.mac`. Any IP addresses provided must be valid IPv4 or IPv6 formats. You must provide either `product_object_id` in `entity.asset` or `product_entity_id` in `metadata`.     `GROUP`   `entity.group` must be present. `entity.group` must specify at least one core identity field: an email address in `group.email_addresses` or a Windows Security Identifier in `group.windows_sid`. You must provide either `product_object_id` in `entity.group` or `product_entity_id` in `metadata`.     `AI`   `entity.ai` must be present.
 ## Required and optional fields for each event type
 This section describes the required and optional fields that should be populated for each UDM event type.
 For details about particular UDM fields (for example, enum numbers), refer to the Unified Data Model field list.
