@@ -14,6 +14,14 @@ The following sections list the high-performance UDM fields to use as filters in
 `target.asset.hostname` `target.file.md5` `target.file.sha1` `target.file.sha256` `target.hostname` `target.ip` `target.process.file.md5` `target.process.file.sha1` `target.process.file.sha256` `target.user.email_addresses` `target.user.product_object_id` `target.user.userid` `target.user.windows_sid`
 ### Additional fields
 `about.file.md5` `about.file.sha1` `about.file.sha256` `intermediary.hostname` `intermediary.ip` `network.dns.questions.name` `network.email.from` `network.email.to` `observer.hostname` `observer.ip`
+## How to query entity and context data
+If you search for entity or context log types (such as `AZURE_AD_CONTEXT` or `WORKSPACE_USERS`) using `metadata.log_type = "<LOG_TYPE>"`, the search returns no results even if raw logs are visible in Raw Log Search. This is because UDM search only queries UDM event records.
+To search for entity and context data, use the `graph` syntax:
+To search for entity or context log type, query the `graph` metadata fields. For example:
+`graph.metadata.event_metadata.log_type = "<LOG_TYPE>"`
+To search for entity fields, use the prefix `graph.entity.noun.field`. For example:
+`graph.entity.user.email_addresses = "foo_email"`
+For more information, see Conduct a search for entity context data.
 ## Construct effective search queries for performance
 Writing optimized queries is key to maximize speed and minimize resource consumption across your security data. All query conditions must strictly adhere to this fundamental structure:
 `udm-field operator value`
@@ -22,6 +30,7 @@ For example: `principal.hostname = "win-server"` Note: The more focused and prec
 Because Google SecOps can ingest a large amount of data during a search, minimizing the time range and narrowing the scope of your query can improve search performance.
 ## Use regular expressions in search query
 You can use standard logical and comparison operators when constructing your UDM search queries to build complex expressions:  Logical operators: Use `AND`, `OR`, and `NOT` to combine conditions. `AND` is assumed if you omit an operator between two conditions. Operator precedence: Use parentheses () to override the default order of precedence. There is a maximum limit of 169 logical operators (`OR`, `AND`, `NOT`) that you can use within parentheses. Comparison operators: Depending on the UDM field type (string, integer, timestamp), field operators can include: `=`, `!=`, `>=`, `>`, `<`, `<=`
+Google SecOps uses the RE2 regular expression engine. Note: For predictable performance, the RE2 engine intentionally omits certain advanced features, such as lookahead and lookbehind assertions. For more information, see RE2 syntax.
 Alternatively, for efficient searching of a large set of values, you can use the reference lists. Note: Queries that contain multiple regular expressions may take longer to complete.
 ## Use `nocase` as a search modifier
 You can append the `nocase` modifier to a string comparison condition to make the search case-insensitive, which ignores capitalization.
@@ -62,4 +71,4 @@ To search UDM events for ingested logs with older event timestamps, you can use 
 The following fields are intentionally excluded from search filters:  `metadata.id` `metadata.product_log_id` `*.timestamp`
 Although these fields contain important metadata, their unique values introduce high cardinality and variance in the statistics, which negatively impacts search performance.
 ## Troubleshooting
-If you receive a generic error message, such as "Error: Search has encountered an error and could not load data", take the following steps to resolve the issue. If the error persists, contact Customer Support.  Connect to Google SecOps from a different network. For example, use a cloud VM to help identify any network issues. Make sure Chronicle API calls are allowed by your organization's firewall or proxy configuration or policy. Verify that no data limit is configured for Search API calls, as searches can return large datasets. Check for any configured timeouts. Search queries can run asynchronously and may require more time to return data. If timeouts are set, ensure they allow a sufficient duration, such as 60 minutes, before the query times out.
+If you receive a generic error message, such as "Error: Search has encountered an error and couldn't load data", take the following steps to resolve the issue. If the error persists, contact Customer Support.  Connect to Google SecOps from a different network. For example, use a cloud VM to help identify any network issues. Make sure Chronicle API calls are allowed by your organization's firewall or proxy configuration or policy. Verify that no data limit is configured for Search API calls, as searches can return large datasets. Check for any configured timeouts. Search queries can run asynchronously and may require more time to return data. If timeouts are set, ensure they allow a sufficient duration, such as 60 minutes, before the query times out.

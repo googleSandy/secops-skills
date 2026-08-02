@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/asset-namespaces
 
 # Manage asset namespaces
-Supported in:    Google secops   SIEM
+Supported in:    Google secops   SIEM     Caution: The Ingestion API is deprecated and will be discontinued on July 20, 2027. To ingest logs into Google SecOps, use the Chronicle API instead. For details on how to migrate, see Migrate from legacy SIEM API to Chronicle API.
 When you search for an asset in Google Security Operations, for example using an IP address or a hostname, you are able to see all the activity associated with that asset. Sometimes there are multiple assets associated with the same IP address or hostname (for example, from overlapping RFC 1918 IP address assignments on different network segments).
 The asset namespacing feature lets you classify categories of assets sharing a common network environment, or namespace, and then conduct searches for those assets within the Google SecOps user interface based on their namespace. For example, you could create namespaces for cloud networks, corp versus prod segmentation, merger and acquisition networks, and so on.
 ## Create and assign namespace to data
