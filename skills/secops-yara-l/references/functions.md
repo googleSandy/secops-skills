@@ -998,6 +998,7 @@ re.regex($e.field, `regex`)
 ```
 #### Description
 This function returns `true` if the string contains a substring that matches the regular expression provided. It is unnecessary to add `.*` to the beginning or at the end of the regular expression.
+The `re.regex` function uses the RE2 regular expression engine. Note: For predictable performance, the RE2 engine intentionally omits certain advanced features, such as lookahead and lookbehind assertions. For more information, see RE2 syntax.
 ##### Notes
 To match the exact string or only a prefix or suffix, include the `^` (starting) and `$` (ending) anchor characters in the regular expression. For example, `/^full$/` matches `"full"` exactly, while `/full/` could match `"fullest"`, `"lawfull"`, and `"joyfully"`. If the UDM field includes newline characters, the `regexp` only matches the first line of the UDM field. To enforce full UDM field matching, add a `(?s)` to the regular expression. For example, replace `/.*allUDM.*/` with `/(?s).*allUDM.*/`. You can use the `nocase` modifier after strings to indicate that the search should ignore capitalization.
 #### Param data types
@@ -1687,6 +1688,44 @@ strings.from_hex("1234") // returns 1234 bytes
 This example shows non-ASCII characters conversion.
 ```
 strings.from_hex("筒纸.中国") // returns empty bytes
+
+```
+.supported-container { display: flex; gap: 7px; }
+### strings.length
+Supported in:    Rules   Search
+```
+strings.length(string_value)
+
+```
+#### Description
+Returns the number of characters in the input string.
+#### Param data types
+`STRING`
+#### Return type
+`INT`
+#### Code samples
+##### Example 1
+The following is an example with a string test.
+```
+strings.length("str") = 3
+
+```
+##### Example 2
+The following is an example with an empty string as input.
+```
+strings.length("") = 0
+
+```
+##### Example 3
+The following is an example with a special char string.
+```
+strings.length("!@#$%^&*()-_") = 12
+
+```
+##### Example 4
+The following is an example with a string with spaces.
+```
+strings.length("This is a test string") = 21
 
 ```
 .supported-container { display: flex; gap: 7px; }

@@ -2,7 +2,8 @@
 
 # Manage rule exclusions
 Supported in:    Google secops   SIEM
-This document explains how to programmatically manage rule exclusions in Google Security Operations using the API. Exclusions serve as filters that you define based on Unified Data Model (UDM) fields to prevent specific detections from generating alerts. By identifying known or safe activities, these filters stop unnecessary noise in your dashboard.
+This document explains how to programmatically manage rule exclusions in Google Security Operations using the API. Exclusions serve as filters that you define based on Unified Data Model (UDM) fields to prevent specific detections from generating alerts. By identifying known or safe activities, these filters stop unnecessary noise in your dashboard.  Caution: UDM-field exclusions are evaluated against raw events. If you are attempting to exclude specific UDM values from a composite rule (which triggers based on other detections rather than raw events), you must apply the exclusion to the foundational underlying rules that feed into the composite rule.
+To find the foundational rule, you can inspect the composite rule definition in the Google SecOps console (under Content Hub > Curated Detections) and review the `events:` section of the YARA-L logic to identify the foundational rule names.
 ## Create an exclusion with outcome filters
 You can create a new exclusion rule programmatically to suppress specific detection findings that match your defined criteria, thereby reducing noise and prioritizing high-fidelity alerts.
 Use the `POST` endpoint to define the suppression logic. All filters with the `outcomeFilters` array are linked by an implicit `AND` clause.
@@ -248,3 +249,5 @@ Exclusions don't support a time to live (TTL) configuration. However, you can cr
 ```
 This example confirms that only detections created by events with a timestamp before the end of the year are suppressed.
 Note: This might not display properly in the Edit Exclusions window of the user interface because it only supports `string` fields.
+Composite rules: UDM-field exclusions are evaluated against raw events. If you are attempting to exclude specific UDM values from a composite rule (which triggers based on other detections rather than raw events), you must apply the exclusion to the foundational underlying rules that feed into the composite rule.
+To find the foundational rule, you can inspect the composite rule definition in the Google SecOps console (under Content Hub > Curated Detections) and review the `events:` section of the YARA-L logic to identify the foundational rule names.

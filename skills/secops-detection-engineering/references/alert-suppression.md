@@ -65,7 +65,8 @@ rule rule_noisy_winshares {
 ```
 This configuration lets analysts investigate the initial activity without processing duplicate alerts for the same user and host during the suppression window.
 ## Suppress alerts using rule exclusions
-An exclusion prevents specific detections by filtering matches before they trigger an alert. If a match satisfies the exclusion logic, the system suppresses the detection. Events that meet the rule logic, but don't meet the exclusion criteria, continue to trigger detections normally. Once applied, exclusions remain active until you manually disable them. Note: Exclusions are only available for curated rules. For custom rules, you can add suppression logic directly to the rule text.
+An exclusion prevents specific detections by filtering matches before they trigger an alert. If a match satisfies the exclusion logic, the system suppresses the detection. Events that meet the rule logic, but don't meet the exclusion criteria, continue to trigger detections normally. Once applied, exclusions remain active until you manually disable them. Note: Exclusions are only available for curated rules. For custom rules, you can add suppression logic directly to the rule text.  Caution: UDM-field exclusions are evaluated against raw events. If you are attempting to exclude specific UDM values from a composite rule (which triggers based on other detections rather than raw events), you must apply the exclusion to the foundational underlying rules that feed into the composite rule.
+To find the foundational rule:  Navigate to Content Hub in the Google SecOps console. Click the Curated Detections tab (or search for the specific rule pack). Locate the composite rule and click View & Manage. Select Rule Definition to view the underlying YARA-L source code. Review the `events:` section of the YARA-L logic to identify the foundational rule names.
 You can view, manage, and audit the complete list of exclusions and the associated metadata on the Exclusions tab on the Rules and Detections page. You can also use the Test Exclusion feature to assess how specific filters impact your detection volume before applying them.
 To create exclusions using the API, see Manage rule exclusion using the API.
 ### Use cases
@@ -100,7 +101,10 @@ To archive an exclusion, click more_vert Menu > Archive.
 To restore an exclusion, click more_vert Menu > Unarchive.
 To create and manage rule exclusions using API, see Manage rule exclusion through API.
 ### Limitations
-When you configure exclusions, note these functional differences between the console and the API:
+When you configure exclusions, note the following limitations:
+Composite rules: UDM-field exclusions are evaluated against raw events. If you are attempting to exclude specific UDM values from a composite rule (which triggers based on other detections rather than raw events), you must apply the exclusion to the foundational underlying rules that feed into the composite rule.
+To find the foundational rule:  Navigate to Content Hub in the Google SecOps console. Click the Curated Detections tab (or search for the specific rule pack). Locate the composite rule and click View & Manage. Select Rule Definition to view the underlying YARA-L source code. Review the `events:` section of the YARA-L logic to identify the foundational rule names.
+Additionally, note these functional differences between the console and the API:
 Rule scope: In the console, you can apply exclusions to multiple curated rules simultaneously, but you can only apply to a single custom rule at a time.
 Outcome variables: To create exclusions that use logic based on outcome variables, you must use the API.
 ## Suppress alerts through SOAR playbooks
