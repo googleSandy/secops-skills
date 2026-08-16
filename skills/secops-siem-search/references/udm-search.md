@@ -38,7 +38,7 @@ Data type: Format the data value based on the data type:
 Enumerated values: Use a valid enumerated value defined for the selected UDM field.
 For example: A text value, all caps enclosed in double quotes:
 `metadata.event_type = "NETWORK_CONNECTION"`
-Additional values: Use the `field[key\] = value` format to search within `additional` and `labels` fields.
+Additional values: Use the `field[key] = value` format to search within `additional` and `labels` fields.
 For example:
 `additional.fields["key"]="value"`
 Boolean values: Use `true` or `false` (case-insensitive, no quotes needed).

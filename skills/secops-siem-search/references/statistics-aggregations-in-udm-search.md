@@ -278,4 +278,4 @@ On the Visualize tab, do the following: a. Select a chart type from the Chart ty
 On the Add to dashboard screen, do the following: a. Enter a chart name, description, and time range. b. Choose to add the chart to an existing dashboard or create a new dashboard.
 Click Add to Dashboard to add the chart to dashboard.
 ## Limitations
-The following limitations apply to statistical query execution:  Queries can't process data older than 90 days (a 3-month lookback period). Statistical queries return a maximum of 10,000 results.
+The following limitations apply to statistical query execution:  Queries can't process data older than 90 days (a 3-month lookback period). Statistical queries return a maximum of 100,000 results (UI and long-running operation API only).

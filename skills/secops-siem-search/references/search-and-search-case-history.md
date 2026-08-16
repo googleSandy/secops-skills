@@ -13,6 +13,7 @@ Correlate case data with other security telemetry like UDM events and entities t
 SIEM: Security Information and Event Management. Refers to tools and processes for collecting and analyzing security data from various sources to detect threats. SOAR: Security Orchestration, Automation, and Response. Refers to technologies that help security teams automate, consolidate, and streamline security operations. UDM (Unified Data Model): A standardized data format used within Google SecOps to represent security events from various sources consistently. Case Viewer: A feature within SIEM Search results that allows opening a detailed view of a selected case. Column Manager: A tool to customize the columns displayed in the search results table. Aggregation Panel: Provides summaries and distributions of field values from the search results.
 ## Query cases and case history
 This section provides examples of how to construct queries for cases and case history in SIEM Search.
+For detailed schema definitions, see the Cases and alerts schema and Case history schema references.
 ### Formulate basic case queries
 Action/Goal: Find all open cases. Query: `case.status = "OPENED"` Anticipated failure: Incorrect syntax or no matching open cases. Corrective step: Double-check the query syntax and ensure there are indeed open cases in the system.
 ### Search by specific activity type

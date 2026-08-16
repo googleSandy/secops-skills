@@ -833,7 +833,7 @@ $successful_login_count = count($success.metadata.id)
   
 ## Composite detections
  
-Composite detections enhance threat detection by using composite rules. These composite rules use detections from other rules as their input. This enables the detection of complex threats that individual rules might not detect. For more information, see Composite detections overview. Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.    Topic Examples     High-risk filtering Administrative user detection   Aggregation and thresholding Risk aggregation   Tactic aggregation MITRE Tactic aggregation   Sequential composite detections Brute-force attempt followed by successful login   Context-aware detections Threat intelligence enrichment   Co-occurrence detections Privilege escalation and exfiltration co-occurrence    
+Composite detections enhance threat detection by using composite rules. These composite rules use detections from other rules as their input. This enables the detection of complex threats that individual rules might not detect. For more information, see Composite detections overview. Note: This feature is covered by Pre-GA Offerings Terms of the Google SecOps Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.    Topic Examples     High-risk filtering Administrative user detection   Aggregation and thresholding Risk aggregation   Tactic aggregation MITRE Tactic aggregation   Sequential composite detections Brute-force attempt followed by successful login   Context-aware detections Threat intelligence enrichment   Co-occurrence detections Privilege escalation and exfiltration co-occurrence    
 ### High-risk filtering
  
 Use case: Filter existing detections for high-risk attributes, such as activity involving administrative accounts. 
@@ -871,7 +871,7 @@ $d
  
 ### Search
 
-The following statistical search identifies and aggregates activity for high-privilege accounts. It's designed to surface all unique rule names that have triggered detections involving "admin" or "root" users. 
+The following statistical search identifies and aggregates activity for high-privilege accounts. It's designed to find all unique rule names that have triggered detections involving "admin" or "root" users. 
 In this specific query, the time window is removed to perform a single statistical analysis across all detections within the selected timeframe. Additionally, since this is an unaggregated search focused on existing detection data, the events section, event variables, and condition section are not required. 
 ```
 $rule_name = detection.detection.rule_name
@@ -1184,11 +1184,25 @@ condition:
 ```
 ### Search
 
- ``` $rule_name = $d.detection.detection.rule_name 
-$gcti.graph.metadata.entity_type = "IP_ADDRESS" $gcti.graph.metadata.vendor_name = "Google Cloud Threat Intelligence" $gcti.graph.metadata.source_type = "GLOBAL_CONTEXT" $gcti.graph.metadata.product_name = "GCTI Feed" $gcti.graph.metadata.threat.threat_feed_name = "Tor Exit Nodes" 
-$detection_ip = $d.detection.detection.variables["principal_ips"] $detection_ip = $gcti.graph.entity.ip 
-match: $detection_ip, $rule_name over 1h 
-condition: $d and $gcti ``` 
+```
+$rule_name = $d.detection.detection.rule_name
+
+$gcti.graph.metadata.entity_type = "IP_ADDRESS"
+$gcti.graph.metadata.vendor_name = "Google Cloud Threat Intelligence"
+$gcti.graph.metadata.source_type = "GLOBAL_CONTEXT"
+$gcti.graph.metadata.product_name = "GCTI Feed"
+$gcti.graph.metadata.threat.threat_feed_name = "Tor Exit Nodes"
+
+$detection_ip = $d.detection.detection.variables["principal_ips"]
+$detection_ip = $gcti.graph.entity.ip
+
+match:
+  $detection_ip, $rule_name over 1h
+
+condition:
+  $d and $gcti
+
+```
 ### Dashboard
 Note: Dashboard support for this detection source is unavailable.
 ### Co-occurrence detections
@@ -1375,7 +1389,7 @@ outcome:
 ```
 ### Dashboard
 
-A dashboard variant isn't applicable for this example as the primary intent is to tag and enrich individual events. While a dashboard could aggregate these events (for example, calculating the total count of events per severity tag), doing so would obscure the granular, row-level detail that this unaggregated search is designed to surface.
+A dashboard variant isn't applicable for this example as the primary intent is to tag and enrich individual events. While a dashboard could aggregate these events (for example, calculating the total count of events per severity tag), doing so would obscure the granular, row-level detail that this unaggregated search is designed to find.
 ### Network-based risk scoring
 Use case: Identify high-risk data transfers by calculating the cumulative volume of network traffic across a group of events. This allows you to identify threats where the total data threshold exceeds a specific limit (for example, `1024` bytes) while simultaneously factoring in the vulnerability severity of the involved assets.
 Key logic: Uses the `sum()` aggregate function in the `outcome` section to combine `sent_bytes` and `received_bytes` across all events in a `match` window. For Rules, the query uses an if statement to apply a higher risk score if that sum exceeds a defined threshold.
@@ -1570,7 +1584,7 @@ condition:
 Use case: Finalizing the optimization of a query to improve processing speed. By removing the grouping requirement, the query now triggers a detection immediately upon the arrival of a single matching event, which is significantly more efficient for the Rules Engine.
 Key logic: Deletes the `match` section and removes the `aggregate` function (for example, `max()`) from the `outcome` variable assignment. The logic within the if statement remains the same, but is now applied to a single event rather than a group.
 You can refactor the query by deleting the `match` section. Note: You must also remove the aggregate in the `outcome` section because the query is now a single-event. For more information on aggregations, see outcome aggregations.
-#### Example: Outcome refactor (: #outcome-post-refactor)
+#### Example: Outcome refactor
 ### Rule
 
 ```

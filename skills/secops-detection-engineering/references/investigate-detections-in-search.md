@@ -29,6 +29,7 @@ Aggregations panel: Provides a summary view of query results by grouping field v
 Column manager: Customizes the data table interface by letting you select specific fields for display.
 CSV download: Exports the current result set into a comma-separated values (CSV) file for external use.
 Pagination: Divides large result sets into manageable chunks to optimize rendering and navigation without overwhelming the display.
+For a detailed breakdown of the fields available when querying detections, see the Detections schema reference.
 ### Sample search queries
 This section lists sample queries to search on detections.
 Find all detections from a specific rule:
@@ -132,7 +133,7 @@ Sample query:
 
 ```
 ## Latency and limits
-The system supports a maximum of 100,000 results for a standard search on detections, and a maximum of 10,000 results for a stats search.
+The system supports a maximum of 100,000 results for a standard search on detections, and a maximum of 100,000 results for a stats search (UI and long-running operation API only).
 The maximum time range supported for a query is one year.
 Joins involving detection fields are not supported.
 Detection search is subject to the standard search limits and quotas.
