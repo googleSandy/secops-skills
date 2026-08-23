@@ -32,6 +32,9 @@ If the pipeline finds file hash metadata, it adds that metadata to the file or `
 ### IP geolocation enrichment
 Geographic aliasing provides geolocation data for external IP addresses. For each unaliased IP address in the `principal`, `target`, or `src` field for a UDM event, an `ip_geo_artifact` subprotocol buffer is created with the associated location and ASN information.
 Geographic aliasing doesn't use lookback or caching. Due to the high volume of events, Google SecOps maintains an index in memory.
+#### IP geolocation inconsistencies
+Google proprietary IP geolocation technology uses a combination of networking data and other inputs and methods to provide IP address location and network resolution for users. Other organizations might use different signals or methods, which might occasionally lead to different results.
+If you experience an inconsistency in IP geolocation results that Google provides, open a customer support case so that Google can investigate and, if appropriate, correct its records.
 ## Enrich events with VirusTotal file metadata
 Google SecOps enriches file hashes into UDM events and provides additional context during an investigation. Hash aliasing enriches UDM events by combining all types of file hashes and providing information about a file hash during a search.
 Google SecOps integrates VirusTotal file metadata and relationship enrichment to identify patterns of malicious activity and track malware movements across a network. Note: VirusTotal aggregates information from multiple AV vendors. As a result, there may be a delay in enrichment as the industry reaches consensus regarding malice. Be aware that VirusTotal enrichment doesn't include advanced GTI functionality (for example, GTI Score).Note: This data is available only for certain VirusTotal and Google SecOps licenses. Check your entitlements with your account manager.

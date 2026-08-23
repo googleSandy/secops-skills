@@ -170,7 +170,7 @@ RESULT_ID",
 },
 {
 "name": "projects/PROJECT_NUMBER/locations/
-LOCATION/instances/INSTANCE_ID
+LOCATION/instances/INSTANCE_ID</span>
 /searchSessions/SEARCH_SESSION_ID/searchedResults/RESULT_ID", "resultRow": {
 "eventRecord": {
 //... Similar UDM event structure...
@@ -179,7 +179,7 @@ LOCATION/instances/INSTANCE_ID
 },
 {
 ""name": "projects/PROJECT_NUMBER/locations/
-LOCATION/instances/INSTANCE_ID
+LOCATION/instances/INSTANCE_ID</span>
 /searchSessions/SEARCH_SESSION_ID/searchedResults/RESULT_ID", "resultRow": {
 "eventRecord": {
 //... Similar UDM event structure...
