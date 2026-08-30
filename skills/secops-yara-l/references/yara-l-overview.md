@@ -50,7 +50,7 @@ security_result.action = "FAIL"
 principal.user.userid != ""
 
 match:
-  principal.$user.userid
+  principal.user.userid
 
 outcome:
   $failed_login_count = count(metadata.id)

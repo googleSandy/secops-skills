@@ -58,7 +58,7 @@ The Revert to previous dialog appears. You can click Compare Parsers on the dial
 Click Confirm to revert the parser to its previous version.
 The parser is reverted to its previous version after 20 minutes.
 ### Analyze the impact of the upcoming parser version
-Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.
+Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms. If this feature isn't visible in your environment, see Manage preview features or contact your system administrator.
 Note: This feature is not available to all customers in all regions.
 The impact check lets you assess the potential impact of the upcoming parser version on your detection rules before applying the changes. For any negatively affected rules, you can follow the links to investigate and update your rules accordingly.
 For single-event rules, the analysis checks the detections that your detection rules generated over the last 30 days. It runs both the current and the upcoming parser versions on the events corresponding to those detections. This process regenerates the detections to check for mismatches.

@@ -632,13 +632,11 @@ In the following example, an `override` operation is applied to the entity graph
 In the preceding example, the same data table (`table1`) is used to enhance different entity graphs. You can also use different data tables to enhance the different entity graphs, as follows:  `none setup: graph_override($g1.graph.entity.user.userid = %table1.myids) graph_append [$g2, %table2]`
 ### Limitations using data tables with Search
 The following limitations apply to data tables when used with Search:
-You can't run search queries on data tables using the Chronicle API. Queries are only supported through the web interface.
 A single query execution can output a maximum of 1 million rows to a data table or 1 GB, whichever limit comes first.
 Search output to a data table skips event rows if they exceed 5 MB.
 Entity enrichment is not supported with Search.
 Data tables are not supported for customer-managed encryption keys (CMEK) users.
 Writes are limited to 6 per minute per customer.
-API support is not available for Search-related data table operations.
 Data table and data table joins are only supported with UDM events, and not with entities.
 Supported: `%datatable1.column1 = %datatable2.column1`
 Not supported: `graph.entity.hostname = %sample.test`

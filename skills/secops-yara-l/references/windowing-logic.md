@@ -200,7 +200,7 @@ $user over 10m
 ```
   
 ### Tumbling windows
- Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms. 
+ Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms. If this feature isn't visible in your environment, see Manage preview features or contact your system administrator. 
 Note: This feature is not available to all customers in all regions. 
 A tumbling window segments data into fixed-size, non-overlapping, and continuous time intervals. Each event's timestamp falls into exactly one window. There is no overlap between tumbling windows. This contrasts with a hop window or a sliding window, which can have overlapping time intervals. 
 To implement a tumbling window, use the `by` operator in the `match` section. Tumbling windows divide time into continuous, back-to-back blocks, for example:  `by 1h`: Creates windows for each hour (for example, `[00:00:00-00:59:59]`, `[01:00:00-01:59:59]`). `by 10m`: Creates windows for each 10-minute interval (for example, `[00:00:00-00:09:59]`, `[00:10:00-00:19:59]`).  

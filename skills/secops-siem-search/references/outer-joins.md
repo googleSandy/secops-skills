@@ -3,7 +3,7 @@
 # Correlate data using outer joins
 Supported in:
 Google secops   SIEM
-Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.
+Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms. If this feature isn't visible in your environment, see Manage preview features or contact your system administrator.
 This document describes outer joins (left join and right join). Join operations are used to correlate and combine data from multiple sources based on common field values. By combining related security events and entities into a single, comprehensive view, you can provide effective threat detection and investigation.
 Unlike standard (inner) joins, which require matching entries in both data sources, an outer join retrieves all records from one side of the join, even if there are no matching entries in the other. Unmatched fields from the other side are typically filled with `null`. This prevents you from losing data that doesn't have a match.
 ## How outer joins work

@@ -6,14 +6,18 @@ This document describes Google's recommended best practices for using the Search
 ## Use specific filters in queries for maximum speed and performance
 The single most effective way to improve search performance is to build queries using specific, optimized Unified Data Model (UDM) fields. These fields are optimized for fast retrieval, ensuring that your searches run quickly and use fewer computational resources.
 The following sections list the high-performance UDM fields to use as filters in your queries.
+### Metadata fields
+`metadata.event_timestamp.seconds` `metadata.event_type` `metadata.log_type` `metadata.product_event_type` `metadata.product_name` `metadata.vendor_name`
 ### Principal fields
-`principal.asset.hostname` `principal.asset.ip` `principal.asset.mac` `principal.file.md5` `principal.file.sha1` `principal.file.sha256` `principal.hostname` `principal.ip` `principal.mac` `principal.process.file.md5` `principal.process.file.sha1` `principal.process.file.sha256` `principal.process.parent_process.file.md5` `principal.process.parent_process.file.sha1` `principal.process.parent_process.file.sha256` `principal.user.email_addresses` `principal.user.product_object_id` `principal.user.userid` `principal.user.windows_sid`
+`principal.application` `principal.asset_id` `principal.file.md5` `principal.file.sha1` `principal.file.sha256` `principal.hostname` `principal.ip` `principal.mac` `principal.process.file.md5` `principal.process.file.sha1` `principal.process.file.sha256` `principal.process.pid` `principal.user.email_addresses` `principal.user.userid`
 ### Source fields
-`source.user.userid` `src.asset.hostname` `src.hostname` `src.ip`
+`src.asset_id` `src.hostname` `src.ip` `src.mac` `src.user.userid`
 ### Target fields
-`target.asset.hostname` `target.file.md5` `target.file.sha1` `target.file.sha256` `target.hostname` `target.ip` `target.process.file.md5` `target.process.file.sha1` `target.process.file.sha256` `target.user.email_addresses` `target.user.product_object_id` `target.user.userid` `target.user.windows_sid`
-### Additional fields
-`about.file.md5` `about.file.sha1` `about.file.sha256` `intermediary.hostname` `intermediary.ip` `network.dns.questions.name` `network.email.from` `network.email.to` `observer.hostname` `observer.ip`
+`target.application` `target.asset_id` `target.file.md5` `target.file.sha1` `target.file.sha256` `target.hostname` `target.ip` `target.mac` `target.process.file.md5` `target.process.file.sha1` `target.process.file.sha256` `target.user.email_addresses` `target.user.employee_id` `target.user.userid` `target.user.windows_sid`
+### Network fields
+`network.dhcp.chaddr` `network.dhcp.ciaddr` `network.dhcp.client_hostname` `network.dhcp.yiaddr` `network.dns.answers.class` `network.dns.answers.name` `network.dns.answers.type` `network.dns.questions.class` `network.dns.questions.name` `network.dns.questions.type` `network.email.from` `network.email.to` `network.http.method`
+### Security result fields
+`security_result.action` `security_result.category` `security_result.rule_name`
 ## How to query entity and context data
 If you search for entity or context log types (such as `AZURE_AD_CONTEXT` or `WORKSPACE_USERS`) using `metadata.log_type = "<LOG_TYPE>"`, the search returns no results even if raw logs are visible in Raw Log Search. This is because UDM search only queries UDM event records.
 To search for entity and context data, use the `graph` syntax:
