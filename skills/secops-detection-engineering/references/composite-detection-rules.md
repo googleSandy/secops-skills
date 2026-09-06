@@ -18,7 +18,7 @@ Example: Suppose a detection rule produces the following information:
 Outcome variable: `dest_domain = "cymbal.com"`
 UDM field: `target.hostname = "cymbal.com"`
 In the composite rule, you can access this data using the following paths:
-`detection.detection.outcomes["dest_domain"]` to access the `dest_domain` outcome variable.
+`detection.detection.variables["dest_domain"].string_val` to access the `dest_domain` outcome variable.
 `detection.collection_elements.references.event.target.hostname` to access the `target.hostname` UDM field.
 `detection.time_window.start_time.seconds` to access the detection's start timestamp.
 The Collection API and the `SecurityResult` API provide access to both:  Detection metadata and outcome values (`detection.detection`) Underlying UDM events from referenced rules (`collection_elements`)
@@ -89,16 +89,16 @@ Timestamp comparisons: Compare the timestamps of detections within your rule log
 
 events:
     $d1.detection.detection.rule_name = "fileEvent_rule"
-    $userid = $d1.detection.detection.outcomes["user"]
-    $hostname = $d1.detection.detection.outcomes["hostname"]
+    $userid = $d1.detection.detection.variables["user"].string_val
+    $hostname = $d1.detection.detection.variables["hostname"].string_val
 
     $d2.detection.detection.rule_name = "processExecution_rule"
-    $userid = $d2.detection.detection.outcomes["user"]
-    $hostname = $d2.detection.detection.outcomes["hostname"]
+    $userid = $d2.detection.detection.variables["user"].string_val
+    $hostname = $d2.detection.detection.variables["hostname"].string_val
 
     $d3.detection.detection.rule_name = "networkEvent_rule"
-    $userid = $d3.detection.detection.outcomes["user"]
-    $hostname = $d3.detection.detection.outcomes["hostname"]
+    $userid = $d3.detection.detection.variables["user"].string_val
+    $hostname = $d3.detection.detection.variables["hostname"].string_val
 
 $d3.detection.collection_elements.references.event.metadata.event_timestamp.seconds > $d2.detection.collection_elements.references.event.metadata.event_timestamp.seconds
 

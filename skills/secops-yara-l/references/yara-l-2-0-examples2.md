@@ -132,8 +132,8 @@ outcome:
 
 ```
 ### Network range and logic
-Use case: Filtering activity based on specific IP subnets (CIDR) and matching against multiple possible hostnames.
-Key concepts:  `net.ip_in_range_cidr()`: This function checks if a given IP address is contained within a given Classless Inter-Domain Routing (CIDR) Subnet for subnet matching and the or operator for string arrays. Logical operator `OR`: Used to combine multiple conditions. Conditions within the event section are implicitly combined with `AND` The `OR` operator checks against multiple possible hostnames.
+Use case: Filter activity based on specific IP subnets (CIDR) and matching against multiple possible hostnames.
+Key logic: Use the `net.ip_in_range_cidr()` function for subnet matching and the `OR` operator to check against multiple possible hostnames.  `net.ip_in_range_cidr()`: This function checks if a given IP address is contained within a given Classless Inter-Domain Routing (CIDR) subnet. Logical operator `OR`: Used to combine multiple conditions. Conditions within the event section are implicitly combined with `AND`. The `OR` operator checks against multiple possible hostnames.
 #### Example: Single-event matching (IP range)
 ### Rule
 
@@ -211,21 +211,18 @@ $host = /.*HoSt.*/ nocase
 re.regex(network.email.from, `.*altostrat\.com`) nocase
 match:
  $host over 10m
- ```
 
 ```
- 
 ### Dashboard
 
-The following logic identifies patterns of interest by aggregating `hostname` and `email` telemetry into 10-minute (`10m`) buckets. When used in a Dashboard, this logic lets analysts visualize the communication frequency from specific assets (matching `host`) to the `altostrat.com` domain. This view is essential for monitoring internal data movement trends and identifying top talkers across critical infrastructure. 
+The following logic identifies patterns of interest by aggregating `hostname` and `email` telemetry into 10-minute (`10m`) buckets. When used in a Dashboard, this logic lets analysts visualize the communication frequency from specific assets (matching `host`) to the `altostrat.com` domain. This view is essential for monitoring internal data movement trends and identifying top talkers across critical infrastructure.
 ```
 principal.hostname = $host
 $host = /.*HoSt.*/ nocase
 re.regex(network.email.from, `.*altostrat\.com`) nocase
 
 match:
-$host over 10m
-  ```
+  $host over 10m
 
 ```
 #### Example: Hostname regular expression
@@ -387,7 +384,8 @@ condition:
 }
 
 ```
-The following explanation describes how this rule works:  Groups events with username (`$user`) and returns it (`$user`) when a match is found. Timespan is five minutes (`5m`); only events that are less than 5 minutes (`5m`) apart are correlated. Searches for an event group (`$udm`) whose event type is `USER_LOGIN`. For that event group, the rule calls the user ID as `$user` and the login city as `$city`. Returns a match if the distinct number of `city` values (denoted by `#city`) is greater than `1` in the event group (`$udm`) within the 5-minute (`5m`) time range.
+The following explanation describes how this rule works:  Groups events with username (`$user`) and returns it (`$user`) when a match is found. Timespan is five minutes (`5m`); only events that are less than 5 minutes (`5m`) apart are correlated. Searches for an event group (`$udm`) whose event type is `USER_LOGIN`. For that event group, the rule calls the user ID as `$user` and the login city as `$city`.
+Returns a match if the distinct number of `city` values (denoted by `#city`) is greater than `1` in the event group (`$udm`) within the 5-minute (`5m`) time range.
 ### Search
 
 The following example query runs an equivalent statistical search to identify impossible travel patterns. It groups `USER_LOGIN` events by user within a five-minute (`5m`) window and filters the results to display only instances where multiple distinct cities are detected for a single identity.
@@ -421,8 +419,8 @@ condition:
 
 ```
 ### Rapid user creation and deletion
-Use case: Identifies burner accounts created and then deletes them within a 4-hour window.
-Key logic: Joins two event types (`USER_CREATION` and `USER_DELETION`) on a shared `$user` variable and compares timestamps.
+Use case: Identify burner accounts created and then deleted within a 4-hour window.
+Key logic: Join two event types (`USER_CREATION` and `USER_DELETION`) on a shared `$user` variable and compare their timestamps.
 #### Example: Rapid user creation and deletion
 ### Rule
 
@@ -831,9 +829,306 @@ $successful_login_count = count($success.metadata.id)
 
 ```
   
+## Context-aware analytics
+ 
+You can use YARA-L rules to evaluate UDM event data against Indicator of Compromise (IOC) context data. This context data is stored as entity contexts in Google SecOps. 
+The examples in this section demonstrate how to create context-aware analytics by joining event fields with IOC feeds, such as Google Safe Browsing and custom feeds. Note: By default, entity graph records (especially for custom feeds) may have a limited validity window (for example, +/- 5 days from ingestion). If you are ingesting custom IOCs, ensure they are periodically refreshed or include a `metadata.threat` block to bypass the default expiration period, depending on your feed configuration.Tip: As a best practice, emit the specific feed name (for example, `array_distinct($gcti.graph.metadata.feed)`) in your rule's `outcome` section to help trace detection alerts back to their source.    Topic Examples      File hash matching against indicators of compromise   Suspicious process launch; Safe Browsing threat lists     IP address matching against indicators of compromise   Tor exit node detection; Multiple failed logins from Tor network     Domain matching against indicators of compromise   Low prevalence domains     URL matching against indicators of compromise   Malicious URL match from threat feed     Concurrent multi-feed matching   Tor exit node and Remote Access Tool detection     
+### File hash matching against indicators of compromise
+ 
+Use case: Detect execution or presence of files identified as Indicators of Compromise (IOCs) in threat feeds. 
+Key logic: Join UDM process or file events with file entities (hashes) from IOC feeds in the Entity Graph. Note: Ensure that the hash type (for example, MD5, SHA-1, or SHA256) recorded in your event data matches the hash type available in your threat intelligence feed.Tip: You can also use hash feeds (such as the Benign Binaries feed) in reverse to reduce false positives by filtering out known benign operating system files from your detection logic. 
+#### Example: Suspicious process launch
+  
+### Rule
+
+The following rule evaluates UDM process data against generic IOC context data. It searches for a process launch event and joins the file hash from the event with a file hash found in an IOC entity graph. 
+```
+rule ProcessLaunch {
+meta:
+events:
+$ioc.graph.metadata.vendor_name = "ACME"
+$ioc.graph.metadata.product_name = "IOCs"
+$ioc.graph.metadata.entity_type = "FILE"
+$ioc.graph.entity.file.sha256 = $hash
+
+$process.metadata.event_type = "PROCESS_LAUNCH"
+$process.principal.hostname = $hostname
+(
+not $process.target.process.file.sha256 = "" and
+$process.target.process.file.sha256 = $hash
+)
+
+match:
+$hash over 15m
+
+condition:
+$ioc and $process
+}
+
+```
+  
+#### Example: Safe Browsing threat lists
+  
+### Rule
+
+Google SecOps ingests data from threat lists related to file hashes, which are stored as entities. The following rule detects the execution of a file that Google Safe Browsing deems malicious. 
+```
+rule safe_browsing_file_execution {
+meta:
+author = "Google Security Operations"
+description = "Example usage of Safe Browsing data, to detect execution of a file that's been deemed malicious"
+severity = "LOW"
+
+events:
+// find a process launch event, match on hostname
+$execution.metadata.event_type = "PROCESS_LAUNCH"
+$execution.principal.hostname = $hostname
+
+// join execution event with Safe Browsing graph
+$sb.graph.entity.file.sha256 = $execution.target.process.file.sha256
+
+// look for files deemed malicious
+$sb.graph.metadata.entity_type = "FILE"
+$sb.graph.metadata.threat_intel.severity = "SEVERITY_HIGH"
+$sb.graph.metadata.product_name = "Google Safe Browsing"
+$sb.graph.metadata.source_type = "GLOBAL_CONTEXT"
+
+match:
+$hostname over 1h
+
+outcome:
+$risk_score = max(if($sb.graph.metadata.threat_intel.severity = "SEVERITY_HIGH", 90, 0))
+
+condition:
+$execution and $sb
+}
+
+```
+  
+### IP address matching against indicators of compromise
+ 
+Use case: Detect network communication with known malicious IP addresses stored in threat feeds. 
+Key logic: Join UDM network events with IP address entities from IOC feeds in the Entity Graph. Note: Ensure that IP address formats are consistent between the event data and the IOC feed. For example, Google SecOps does not automatically shorten or expand IPv6 addresses; the format must match exactly depending on how the data is parsed. 
+#### Example: Tor exit node detection
+  
+### Rule
+
+Identify network traffic originating from or connecting to known Tor exit nodes. This example joins UDM events with the Tor Exit Nodes feed from the GCTI Feed, which is available to all customers. 
+```
+rule TorExitNodeMatch {
+meta:
+author = "Google Security Operations"
+description = "Detects traffic from known Tor exit nodes."
+severity = "MEDIUM"
+
+events:
+// Event based on IP
+$principal_ip = $e.principal.ip
+
+// Filter Entity Graph to extract feed specific details
+$gcti.graph.metadata.entity_type = "IP_ADDRESS"
+$gcti.graph.metadata.feed = "Tor Exit Nodes"
+$gcti.graph.metadata.product_name = "GCTI Feed"
+
+// Join the IP data
+$principal_ip = $gcti.graph.entity.ip
+
+match:
+$principal_ip over 30m
+
+outcome:
+$threat_feed = array_distinct($gcti.graph.metadata.feed)
+
+condition:
+$e and $gcti
+}
+
+```
+  
+#### Example: Multiple failed logins from Tor network
+  
+### Rule
+
+Detect multiple failed login attempts from a Tor network. This example correlates `login_failure` events with the Tor Exit Nodes feed and applies a frequency threshold using the count syntax (`#`). 
+```
+rule TorMultiLoginFailure {
+meta:
+author = "Google Security Operations"
+description = "Detects multiple failed logins from a Tor network."
+severity = "HIGH"
+
+events:
+$failed_login_event.metadata.product_name = "login"
+$failed_login_event.metadata.product_event_type = "login_failure"
+$failed_login_event.metadata.vendor_name = "Google Workspace"
+$sus_ip = $failed_login_event.principal.ip
+$sus_target_account = $failed_login_event.target.user.email_addresses
+$sus_target_account != ""
+
+$gcti.graph.metadata.entity_type = "IP_ADDRESS"
+$gcti.graph.metadata.feed = "Tor Exit Nodes"
+$gcti.graph.metadata.product_name = "GCTI Feed"
+
+// Join the IP data
+$sus_ip = $gcti.graph.entity.ip
+
+match:
+$sus_ip over 1h
+
+outcome:
+$event_count = count_distinct($failed_login_event.metadata.id)
+
+condition:
+$failed_login_event and #failed_login_event >= 10 and $gcti
+}
+
+```
+  
+### Domain matching against indicators of compromise
+ 
+Use case: Detect network activity to domains flagged as Indicators of Compromise (IOCs) or domains with low prevalence. 
+Key logic: Join UDM network events with domain entities from IOC feeds or prevalence data in the Entity Graph using the domain name or hostname. 
+#### Example: Low prevalence domains
+  
+### Rule
+
+The following rule generates a detection alert by comparing a low prevalence domain against a known IOC. It joins a DNS query event with prevalence data and an IOC entity from the ET_PRO_IOC feed. 
+```
+rule network_prevalence_uncommon_domain_ioc_match {
+
+meta:
+author = "Google Security Operations"
+description = "Lookup Network DNS queries against Entity Graph for low prevalence domains with a matching IOC entry."
+severity = "MEDIUM"
+
+events:
+$e.metadata.event_type = "NETWORK_DNS"
+$e.network.dns.questions.name = $hostname
+
+//only match FQDNs, such as: exclude chrome dns access tests and other internal hosts
+$e.network.dns.questions.name = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/
+
+//prevalence entity graph lookup
+$p.graph.metadata.entity_type = "DOMAIN_NAME"
+$p.graph.entity.domain.prevalence.rolling_max > 0
+$p.graph.entity.domain.prevalence.rolling_max <= 3
+$p.graph.entity.domain.name = $hostname
+
+//ioc entity graph lookup
+$i.graph.metadata.vendor_name = "ET_PRO_IOC"
+$i.graph.metadata.entity_type = "DOMAIN_NAME"
+$i.graph.entity.hostname = $hostname
+
+match:
+$hostname over 10m
+
+outcome:
+$risk_score = max(
+//increment risk score based upon rolling_max prevalence
+if ( $p.graph.entity.domain.prevalence.rolling_max = 3, 50) +
+if ( $p.graph.entity.domain.prevalence.rolling_max = 2, 70) +
+if ( $p.graph.entity.domain.prevalence.rolling_max = 1, 90)
+)
+
+condition:
+$e and $p and $i
+}
+
+```
+  
+### URL matching against indicators of compromise
+ 
+Use case: Detect network activity involving malicious URLs stored in threat feeds. 
+Key logic: Join UDM network events containing URL data with URL entities from IOC feeds in the Entity Graph. Note: URL matching requires exact string matches. Because URLs can have high entropy (for example, inclusion of protocol, port, or trailing slashes), ensure that the custom threat feed data matches the format of the parsed UDM event data (for example, `target.url`). You can use parser extensions to normalize URL fields if necessary. 
+#### Example: Malicious URL match from threat feed
+  
+### Rule
+
+The following rule detects network events where the requested URL matches a known malicious URL from a threat intelligence feed. It correlates the event's `target.url` with URL entities in the Entity Graph. 
+```
+rule ioc_url_threat_feed_match {
+meta:
+author = "Google Security Operations"
+description = "Matches network events against known malicious URLs from threat intelligence feeds."
+severity = "HIGH"
+
+events:
+// Filter for network traffic containing URL information
+$network_event.metadata.event_type = "NETWORK_HTTP" or $network_event.metadata.event_type = "NETWORK_CONNECTION"
+$url = $network_event.target.url
+
+// Entity Graph Join: URL Indicators
+$ioc.graph.metadata.entity_type = "URL"
+$ioc.graph.metadata.product_name = "GCTI Feed"
+$ioc.graph.metadata.feed = "Malicious URLs"
+$ioc.graph.entity.url = $url
+
+match:
+$url over 5m
+
+outcome:
+$risk_score = 85
+$threat_feed = array_distinct($ioc.graph.metadata.feed)
+$principal_ip = array_distinct($network_event.principal.ip)
+$principal_user = array_distinct($network_event.principal.user.userid)
+
+condition:
+$network_event and $ioc
+}
+
+```
+  
+### Concurrent multi-feed matching
+ 
+Use case: Correlate advanced threats by matching multiple attributes (for example, IP address and file hash) against separate threat feeds within a single event query. 
+Key logic: Join a single UDM event with multiple Entity Graph placeholders, each filtering for a specific `threat_feed_name` (for example, Google Cloud Threat Intelligence feeds). 
+#### Example: Tor exit node and Remote Access Tool detection
+  
+### Rule
+
+The following rule flags network traffic that appears to be associated with Remote Monitoring and Management (RMM) and originates from or connects to a Tor exit node. It joins a `NETWORK_CONNECTION` event to both an IP feed (Tor Exit Nodes) and a File Hash feed (Remote Access Tools). 
+```
+rule tor_and_remote_access_tool_match {
+meta:
+author = "Google Security Operations"
+description = "Matches network connections involving both a Tor exit node and Remote Access Tool malware hashes."
+severity = "CRITICAL"
+
+events:
+// Filter for network connection events, often recorded by EDR agents
+$e.metadata.event_type = "NETWORK_CONNECTION"
+$target_ip = $e.target.ip
+$process_hash = $e.principal.process.file.sha256
+
+// IP Feed Join: Tor Exit Nodes
+$gcti_ip.graph.metadata.entity_type = "IP_ADDRESS"
+$gcti_ip.graph.metadata.product_name = "GCTI Feed"
+$gcti_ip.graph.metadata.feed = "Tor Exit Nodes"
+$gcti_ip.graph.entity.ip = $target_ip
+
+// Hash Feed Join: Remote Access Tools
+$gcti_hash.graph.metadata.entity_type = "FILE"
+$gcti_hash.graph.metadata.product_name = "GCTI Feed"
+$gcti_hash.graph.metadata.feed = "Remote Access Tools"
+$gcti_hash.graph.entity.file.sha256 = $process_hash
+
+match:
+$target_ip over 10m
+
+outcome:
+$risk_score = 95
+$ip_feed = array_distinct($gcti_ip.graph.metadata.feed)
+$hash_feed = array_distinct($gcti_hash.graph.metadata.feed)
+
+condition:
+$e and $gcti_ip and $gcti_hash
+}
+
+```
+  
 ## Composite detections
  
-Composite detections enhance threat detection by using composite rules. These composite rules use detections from other rules as their input. This enables the detection of complex threats that individual rules might not detect. For more information, see Composite detections overview. Note: This feature is covered by Pre-GA Offerings Terms of the Google SecOps Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms.    Topic Examples     High-risk filtering Administrative user detection   Aggregation and thresholding Risk aggregation   Tactic aggregation MITRE Tactic aggregation   Sequential composite detections Brute-force attempt followed by successful login   Context-aware detections Threat intelligence enrichment   Co-occurrence detections Privilege escalation and exfiltration co-occurrence    
+Composite detections enhance threat detection by using composite rules. These composite rules use detections from other rules as their input. This enables the detection of complex threats that individual rules might not detect. For more information, see Composite detections overview. Note: Evaluating single events against multiple comprehensive threat feeds simultaneously can be computationally expensive. As a performance best practice, maintain basic detection rules for high-volume telemetry and use composite rules to enrich or chain those detections with external IOC feeds.Note: This feature is covered by Pre-GA Offerings Terms of the Google Security Operations Service Specific Terms. Pre-GA features might have limited support, and changes to pre-GA features might not be compatible with other pre-GA versions. For more information, see the Google SecOps Technical Support Service guidelines and the Google SecOps Service Specific Terms. If this feature isn't visible in your environment, see Manage preview features or contact your system administrator.    Topic Examples     High-risk filtering Administrative user detection   Aggregation and thresholding Risk aggregation   Tactic aggregation MITRE Tactic aggregation   Sequential composite detections Brute-force attempt followed by successful login   Context-aware detections Threat intelligence enrichment   Co-occurrence detections Privilege escalation and exfiltration co-occurrence    
 ### High-risk filtering
  
 Use case: Filter existing detections for high-risk attributes, such as activity involving administrative accounts. 
@@ -1166,7 +1461,7 @@ events:
   $gcti.graph.metadata.vendor_name = "Google Cloud Threat Intelligence"
   $gcti.graph.metadata.source_type = "GLOBAL_CONTEXT"
   $gcti.graph.metadata.product_name = "GCTI Feed"
-  $gcti.graph.metadata.threat.threat_feed_name = "Tor Exit Nodes"
+  $gcti.graph.metadata.feed = "Tor Exit Nodes"
 
   $detection_ip = $d.detection.detection.variables["principal_ips"]
   $detection_ip = $gcti.graph.entity.ip
@@ -1191,7 +1486,7 @@ $gcti.graph.metadata.entity_type = "IP_ADDRESS"
 $gcti.graph.metadata.vendor_name = "Google Cloud Threat Intelligence"
 $gcti.graph.metadata.source_type = "GLOBAL_CONTEXT"
 $gcti.graph.metadata.product_name = "GCTI Feed"
-$gcti.graph.metadata.threat.threat_feed_name = "Tor Exit Nodes"
+$gcti.graph.metadata.feed = "Tor Exit Nodes"
 
 $detection_ip = $d.detection.detection.variables["principal_ips"]
 $detection_ip = $gcti.graph.entity.ip
@@ -1391,7 +1686,7 @@ outcome:
 
 A dashboard variant isn't applicable for this example as the primary intent is to tag and enrich individual events. While a dashboard could aggregate these events (for example, calculating the total count of events per severity tag), doing so would obscure the granular, row-level detail that this unaggregated search is designed to find.
 ### Network-based risk scoring
-Use case: Identify high-risk data transfers by calculating the cumulative volume of network traffic across a group of events. This allows you to identify threats where the total data threshold exceeds a specific limit (for example, `1024` bytes) while simultaneously factoring in the vulnerability severity of the involved assets.
+Use case: Identify high-risk data transfers by calculating the cumulative volume of network traffic across a group of events. This lets you identify threats where the total data threshold exceeds a specific limit (for example, `1024` bytes) while simultaneously factoring in the vulnerability severity of the involved assets.
 Key logic: Uses the `sum()` aggregate function in the `outcome` section to combine `sent_bytes` and `received_bytes` across all events in a `match` window. For Rules, the query uses an if statement to apply a higher risk score if that sum exceeds a defined threshold.
 #### Example: Network-based risk scoring rule
 ### Rule

@@ -89,6 +89,7 @@ rule google_safebrowsing_process_launch {
 }
 
 ```
+For detailed examples of context-aware analytics and IOC matching using YARA-L, see IP address matching against indicators of compromise.
 #### IOC matching with data tables and YARA-L rules
 You can use data tables within YARA-L rules to match against lists of IOCs. Data tables replace reference lists, which are deprecated. Data tables support multiple columns and data types like string, regex, and CIDR, letting you match on multiple IOCs in a single rule.
 Column-based comparison and row-based comparison are two methods for using Data Tables within YARA-L rules:  Column-based comparison checks if a field's value exists in any row of a specific data table column using the `in` keyword. This is useful for checking against a list of values in a single column. Row-based comparison joins UDM event fields to data table columns using equality or comparison operators. When multiple comparisons are made, all conditions must match on the same row in the data table. This process lets you do multi-column IOC matching. Rules that use row-based comparison require a `match` section.

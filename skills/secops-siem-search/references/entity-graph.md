@@ -144,6 +144,7 @@ graph.metadata.product_name = "GTI Feed"
 graph.metadata.threat.threat_feed_name = "Tor Exit Nodes"
 
 ```
+For examples of how to query this data in YARA-L rules, see Tor exit node detection.
 #### Data about benign operating system files
 Google SecOps ingests and stores file hashes from the GTI Benign Binaries data source. Google SecOps stores information ingested from this data source in the following UDM fields. Benign binaries data is timeless.        UDM field Description     `<variable_name>.graph.metadata.vendor_name` Stores the value `Google Threat Intelligence`.   `<variable_name>.graph.metadata.product_name` Stores the value `GTI Feed`.   `<variable_name>.graph.metadata.threat.threat_feed_name` Stores the value `Benign Binaries`.   `<variable_name>.graph.entity.file.sha256` Stores the SHA256 hash value of the file.   `<variable_name>.graph.entity.file.sha1` Stores the SHA-1 hash value of the file.   `<variable_name>.graph.entity.file.md5` Stores the MD5 hash value of the file.
 ##### Example search
