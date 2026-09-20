@@ -39,7 +39,8 @@ limit:
 When events contain multiple values, you must use aggregate functions to summarize the data.
 Search supports the following aggregate functions:
 ### `array`
-The `array` function returns all the values in the form of a list. It truncates the list to a maximum of 25 random elements.    Syntax Param data types Return type     `array(expression)` `STRING` `LIST`
+The `array` function returns all values in the form of a list.
+The maximum number of elements returned depends on where the query runs:  Search: truncates the list to a maximum of 1,000 random elements. Dashboards and Rules: truncates the list to a maximum of 25 random elements.     Syntax Param data types Return type     `array(expression)` `STRING` `LIST`
 #### Code Sample
 Return an array containing event types.
 ```
@@ -49,7 +50,8 @@ outcome:
 
 ```
 ### `array_distinct`
-The `array_distinct` function returns all the distinct values in the form of a list. It truncates the list to a maximum of 25 random elements. The deduplication to get a distinct list is applied before truncation. Note: Missing or uninitialized Unified Data Model (UDM) fields default to zero values (such as `""`, `0`, or `"UNKNOWN_ACTION"`) instead of `NULL`. Because `array_distinct` treats zero values as valid data, it includes them in the returned list. For example, an outcome array containing only the empty string (`[""]`) displays as `[Unknown]` in your detection timeline. To remove default values from your array, add a filter in the `events` section of your query. When filtering repeated fields, use the `any` keyword (for example, `any $e.security_result.description != ""`) to preserve all array indexes during aggregation.    Syntax Param data types Return type     `array_distinct(expression)` `STRING` `LIST`
+The `array_distinct` function returns all distinct values in the form of a list. The deduplication to produce a distinct list is applied before truncation.
+The maximum number of elements returned depends on where the query runs:  Search: Truncates the list to a maximum of 1,000 random elements. Dashboards and Rules: Truncates the list to a maximum of 25 random elements.  Note: Missing or uninitialized Unified Data Model (UDM) fields default to zero values (such as `""`, `0`, or `"UNKNOWN_ACTION"`) instead of `NULL`. Because `array_distinct` treats zero values as valid data, it includes them in the returned list. For example, an outcome array containing only the empty string (`[""]`) displays as `[Unknown]` in your detection timeline. To remove default values from your array, add a filter in the `events` section of your query. When filtering repeated fields, use the `any` keyword (for example, `any $e.security_result.description != ""`) to preserve all array indexes during aggregation.    Syntax Param data types Return type     `array_distinct(expression)` `STRING` `LIST`
 #### Code Samples
 Return distinct event types
 Return an array containing distinct event types.

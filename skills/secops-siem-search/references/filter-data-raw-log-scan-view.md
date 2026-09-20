@@ -8,6 +8,18 @@ Choose one of the following methods:
 When using the `raw=` format, use these parameters to filter raw logs:
 `parsed`: Filters logs based on their parsing status.  `parsed=true`: Returns only parsed logs. `parsed=false`: Returns only unparsed logs.
 `log_source=IN["log_source_name1", "log_source_name2"]`: Filters by log type.
+### How to find unparsed raw logs
+Unparsed logs don't generate UDM records. You can't query them using UDM fields (such as `metadata.log_type = "UNPARSED"`). To search for unparsed logs:  In the Google SecOps console, go to Investigation > SIEM Search. In the search box menu, change the search mode from UDM Search to Raw Log Search. Select your target time range (for example, Past 1 hour or Past 24 hours).
+Query for unparsed logs using the `parsed = false` filter:
+```
+raw = /.+/ parsed = false
+
+```
+To target specific feed log types, combine `parsed = false` with `log_source`:
+```
+raw = /.+/ parsed = false log_source IN ["CUSTOM_JSON", "OKTA"]
+
+```
 ## Use the Raw log search prompt (legacy method)
 To use the Raw Log Search prompt to filter raw logs, do the following:
 On the search bar, enter your search string or regular expressions, and then click Search.
