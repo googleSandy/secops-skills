@@ -24,7 +24,7 @@ The following sections detail how to use the search features.
 A search expression consists of a UDM field to search, an operator, and a data value to search for.
 If the query expression is valid, the Google SecOps console enables the Run search button.
 UDM queries are based on fields defined in the Unified Data Model field list. You can browse and select these UDM fields using Filters or Raw Log Search.
-To adjust the number of events returned, click more_vert More and select Search settings. For details, see Search settings.
+To adjust the number of events returned, click settings Settings next to Run search, and select Maximum Results. For details, see Search settings.
 To change the data range, open the Date range window.
 To use the search feature, complete the following steps:  Go to the Search page. In the Search field, enter a search expression. To search for events, enter a UDM field name in the Search field. As you type, the automatic completion feature suggests valid UDM fields based on your input.
 Once you have entered a valid UDM field, select a valid operator. The user interface displays the available valid operators based on the UDM field you entered. The following operators are supported:  `<, >` `<=, >=` `=, !=` `nocase` -- supported for strings
@@ -114,9 +114,9 @@ Use a block comment:
 Use a single-line comment:
 `additional.fields["pod_name"] != "" // my single-line comment`
 ## Search settings
-You can set the maximum number of search results in UDM search settings. These settings are user-specific.
-Click Search settings from the more_vertMore next to Run search.
-Select Max results to return. The options are `1K`, `30K`, `100K`, `1M` and `custom`, which can take values between `1` and `1M`. The default value is `1M`. Queries usually run faster when you choose a smaller result set size.
+You can define the maximum results to return for your searches. These settings are user-specific.  On the Search page, click settings Settings, and select Maximum Results. In the UDM Search Settings dialog, under Max Results to Return, choose one of the following options: 1k, 30k, 100k, 1M, or Custom.  You can set custom values between 1 and 1M. The default value is 30k.
+Click Apply.
+Tip: Queries usually run faster when you specify a smaller result size.
 ## Configure query editor behavior
 You can configure the query editor to automatically collapse after you run a search. This maximizes the screen space available for viewing your search results.
 To enable the auto-collapse feature, follow these steps:
@@ -170,8 +170,8 @@ Google SecOps supports returning and navigating up to 1 million results. This le
 ### Result limits for data sources
 The following table lists the maximum number of results returned for each data source:    Search type or Data source Maximum number of events or rows in search results     UDM 1,000,000   ECG 1,000,000   Data table 1,000,000   UDM to UDM join 1,000,000   UDM to ECG join 1,000,000   UDM to Data table join 1,000,000   Cases and case history 1,000,000   Stats 100,000   Detections 100,000    Note: The limits are the same whether you're using the platform or the API. See Asynchronous Search APIs for information about the API limits.
 ### Configure result limits
-Use the UDM search settings dialog to control the number of results a search returns.  Click settings on the Search page to view the UDM Search Settings dialog.
-Select the maximum result limit from the following options:  1k 30k (default) 100k 1M Custom
+Use the UDM Search Settings dialog to control the number of results a search returns.  Click settings Settings on the Search page, and select Maximum Results.
+Under Max Results to Return, select the maximum result limit from the following options:  1k 30k (default) 100k 1M Custom
 Selecting Custom displays a text field that lets you specify the number of results you want to display.
 Select how the results should be returned If a search exceeds the configured limit:  Sampled events (default): Shows a subset of the complete results. Most recent events: Shows only the newest results.
 Click Apply.
@@ -468,5 +468,5 @@ If you want the search to only be visible to you, click more_horizMore and click
 ## Factors that limit search results
 When conducting searches, the following factors can limit the number of results returned:
 Maximum search results: 1M events. When results exceed 1M, only 1M results are shown.
-Use search settings to specify a lower limit: By default, Google SecOps limits the number of events displayed to 30K. You can change the limit to any value between 1 and 1M from the search settings on the Results page.
-Search results are limited to 10K: If your search returns more than 10,000 results, the console displays only the first 10,000. This limitation doesn't alter the total number of returned events.
+Use search settings to specify a lower limit: By default, Google SecOps limits the number of events displayed to 30k. You can change the limit to any value between 1 and 1M from the UDM Search Settings dialog on the Search page.
+Search results are limited to 10k: If your search returns more than 10,000 results, the console displays only the first 10,000. This limitation doesn't alter the total number of returned events.
