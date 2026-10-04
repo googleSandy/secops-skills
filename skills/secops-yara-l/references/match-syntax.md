@@ -1,4 +1,4 @@
-# Source: https://docs.cloud.google.com/chronicle/docs/yara-l/match-syntax
+# Source: https://docs.cloud.google.com/chronicle/docs/yara-l/match-syntax?ddrp=1
 
 # Match section syntax
 Supported in:    Google secops   SIEM
