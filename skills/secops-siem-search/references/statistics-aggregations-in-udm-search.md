@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/statistics-aggregations-in-udm-search
 
 # Analyze search data with statistics
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This page describes how to run statistical queries on UDM events and group the results for analysis using YARA-L 2.0.
 When handling a large volume of UDM events generated in your environment, understanding the trends in your UDM search data is important. You can use statistics and aggregate functions to gain actionable insights from your UDM logs. UDM search supports all the aggregate functions in YARA-L 2.0. Note: Statistical queries for UDM events become available after ingestion processing completes, which introduces a delay before recent events appear in statistical query results.
 ## Use cases for statistical queries

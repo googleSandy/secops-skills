@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/investigate-user
 
 # Investigate users
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Google Security Operations User view enables customers to better understand how users within an enterprise are impacted by security events. By focusing on the behavior of individual users, security administrators can search for activity indicating an account compromise or other security concerns. Make sure you are ingesting and normalizing data from devices on your network, such as EDR, firewall, web proxy, user context, and authentication, etc.
 ## Search for a user
 To open User view in Google SecOps, enter the username or email address of a user within your enterprise in the Search field. If the user is present within your Google SecOps account, that user is displayed as a result. Click the username to pivot to User view. Note: UDM search provides enhanced capabilities that let you conduct more thorough investigations of the events and alerts within your Google SecOps instance than is possible using User view alone. For more information, see UDM search.

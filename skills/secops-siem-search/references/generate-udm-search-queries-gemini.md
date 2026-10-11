@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/generate-udm-search-queries-gemini
 
 # Generate search queries with Gemini
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document explains how you can use Gemini to generate search queries from the Gemini pane or when using Google Security Operations search.
 For best results, we recommend using the Gemini pane to generate search queries.
 Generate a search query using the Gemini pane

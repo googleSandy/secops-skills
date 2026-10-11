@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/manage-parser-updates
 
 # Manage prebuilt parsers
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document provides guidance on how to manage parsers within Google Security Operations. It details how to handle updates to prebuilt parsers, create parser extensions, and control access to parser management.
 ### What are parsers?
 In Google Security Operations, a parser is a set of instructions that transforms raw log data from various sources into the Unified Data Model (UDM) format. Normalizing raw logs into UDM is essential because it allows Google SecOps to analyze, search, and correlate security events effectively across all your ingested data, regardless of the original log format. For a general overview of log parsing, see Overview of log parsing.

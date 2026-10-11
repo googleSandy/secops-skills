@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/multievent-n-of
 
 # Use N OF syntax with event variables
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document explains how to use the N OF syntax to write flexible and conditional logic within the `condition` section of your query.
 The N OF syntax lets you combine multiple conditions, reducing the overall complexity of your query syntax:  Provides a way to specify that a minimum number of boolean expressions from a given list must evaluate to true. Avoids the need to specify every possible combination, reducing errors and effort.
 ## N OF syntax

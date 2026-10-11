@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/reparse-historical-data
 
 # Re-parse historical data (Log Replay)
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This guide is for security engineers and detection engineers who want to re-parse historical log data in Google Security Operations using Log Replay. It explains how to validate an active parser configuration and request a backend Log Replay task through Google Cloud Support to backfill updated Unified Data Model (UDM) field mappings across up to 180 days of historical telemetry. By following this method, you can apply updated prebuilt parsers, custom parsers, or parser extensions to stored raw logs when new mapping instructions otherwise apply forward to newly ingested logs only. Successful completion improves historical threat hunting and detection rule coverage without requiring manual log re-ingestion from source endpoints.
 ## Common use cases
 Re-parsing historical logs addresses the following operational scenarios:

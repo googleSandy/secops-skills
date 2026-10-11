@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/request-log-type
 
 # Request prebuilt and create custom log types
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document describes options to help you process log data that isn't processed by existing Google Security Operations parsers. In such cases, Google SecOps supports the creation of log types to enable parsing and ingestion.
 You can choose between the following log types:
 ## Prebuilt log types

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/configure-custom-parsers
 
 # Configure custom parsers
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document provides guidance on how to create custom parsers for cases where a prebuilt parser isn't available or when you want more control. Custom parsers appear in the parsers list, alongside prebuilt parsers.
 Common use cases include:
 Ingesting log data for a log type that doesn't have a prebuilt parser.

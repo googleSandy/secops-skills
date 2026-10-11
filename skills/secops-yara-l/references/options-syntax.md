@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/options-syntax
 
 # Options section syntax
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 The `options` section of a YARA-L query is only available for Rules.
 You can specify options using the syntax `key = value`, where `key` must be a predefined option name and `value` must be a valid value for the option:
 ```

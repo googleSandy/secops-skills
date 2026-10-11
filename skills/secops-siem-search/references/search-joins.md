@@ -2,7 +2,7 @@
 
 # Apply joins in search and dashboards
 Supported in:
-Google secops   SIEM
+Google SecOps   SIEM
 Joins help correlate data from multiple sources to provide more context for an investigation. By linking related events, entities, and other data, you can investigate complex attack scenarios and visualize trends.
 This document explains how to use the join operation in the Google SecOps Search field and dashboard panels. It covers the supported join types, use cases, and best practices.
 ## Core concepts of joins

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/events-syntax
 
 # Events section syntax
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 The `events` section must immediately follow the `meta` section in a rule. It defines which events the query should examine and what specific attributes those events must possess to be considered relevant for a potential detection.
 The `events` section is mandatory for rules, search, and dashboards.
 Use the `events` section to list the predicates specifying the following:  Variable declarations Event variable filters Event variable joins

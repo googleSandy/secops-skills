@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/udm-search-investigate-entity
 
 # Investigate an entity using UDM search
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 During an investigation, you can write a UDM Search query to display details about one or more entities (for example, an IP address, user, or asset) in addition to the events and alerts that match the search query terms.
 On systems that use data RBAC, you can only see data that matches your scopes. For more information, see data RBAC impact on Search.
 When a search query includes a condition that identifies a specific entity (for example, `principal.ip="10.0.31.20"`), the search results include details about the entity (if present in your enterprise) in addition to UDM events that match the entire search query.

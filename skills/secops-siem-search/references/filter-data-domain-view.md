@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/filter-data-domain-view
 
 # Filter data in Domain view
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Domain view lets you investigate whether or not specific domains are present within your enterprise and what impact they might have had on your assets.
 To access Domain view in Google Security Operations, complete the following steps:
 Enter the domain (ending with a known public suffix) or URL you need to investigate in the search bar. Click SEARCH.

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/multievent-or
 
 # Use or in the condition section
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document explains how to use the `or` operator to write flexible and concise detection logic within the `condition` section of your query.
 Using `or` between event or placeholder variables lets you combine multiple conditions, reducing the overall complexity of your query syntax:  Checks for the presence of either of the specified variables. For example, `$e1 or $e2` requires at least one instance of `$e1` or one instance of `$e2`.
 ## `or` syntax in condition section

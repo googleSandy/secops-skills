@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/filter-data-raw-log-scan-view
 
 # Filter data in raw log search
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document explains the available methods for filtering raw logs using the Search bar, which you can access on the landing page or the dedicated Search page.
 Choose one of the following methods:
 ## Use the `raw=` format

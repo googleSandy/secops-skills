@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/filter-data-ipaddress-view
 
 # Filter data in IP Address view
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 IP Address view lets you investigate whether or not specific IP addresses are present within your enterprise and what impact they might have had on your assets.
 Google Security Operations lets you investigate specific IP addresses to determine if any are present within your enterprise and what impact these outside systems might have had on your assets. IP Address view is derived from the same security information and data that you have forwarded to Google SecOps from your enterprise and can also examine using Asset view.
 From Asset view, you begin your investigation from within your enterprise and look outward. From IP Address view, you begin your investigation from outside your enterprise and look in.

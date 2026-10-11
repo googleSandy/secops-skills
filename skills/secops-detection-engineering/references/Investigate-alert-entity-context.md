@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/Investigate-alert-entity-context
 
 # Investigate alerts and entity context
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This guide is for investigators who want to identify correlated activities and evaluate risk profiles from alerts. You can use this guide to understand how to pivot from an alert to an entity's timeline. Successful investigation can reduce the time-to-triage for complex incidents and help you focus on high-impact threats first.
 ## Common use cases
 This section lists some common use cases.

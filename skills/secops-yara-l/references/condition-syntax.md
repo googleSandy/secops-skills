@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/condition-syntax
 
 # Condition section syntax
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document describes how you can use the `condition` section of a YARA-L 2.0 query.
 The impact of the `condition` section depends on whether you're executing an ad-hoc query or deploying a persistent rule as follows:  For Search and Dashboards: Acts as a post-filter, only returning and rendering records that satisfy the specified expressions. Detection Rules (required): Serves as the trigger logic. An alert only triggers if the conditions resolve to `true` for a given `match` window.
 Use the `condition` section to define expressions that filter events and placeholder variables. When used in a search or dashboard query, it only shows output that meets the conditions. When used in a detection rule, the conditions must be met to trigger an alert.

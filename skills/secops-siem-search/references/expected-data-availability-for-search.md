@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/expected-data-availability-for-search
 
 # Understand data availability for search
-Supported in:    Google secops
+Supported in:    Google SecOps
 This document details the data ingestion lifecycle, including end-to-end data flow and latency, and how these factors impact the availability of recently ingested data for querying and analysis.
 ## Ingest and process data in Google SecOps
 This section describes how Google SecOps ingests, processes, and analyzes security data.

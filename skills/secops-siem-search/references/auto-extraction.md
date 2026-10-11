@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/auto-extraction
 
 # Auto-extraction overview
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document provides an overview of how data is automatically extracted to enhance the ability to ingest, process, and analyze data.
 Google Security Operations uses prebuilt parsers to extract and structure log data using the Unified Data Model (UDM) schema. Managing and maintaining these parsers can be challenging due to several limitations: incomplete data extraction, the growing number of parsers to manage, and the requirement for frequent updates as log formats evolve.
 To address these challenges, you can use the auto extraction feature. This feature automatically extracts key-value pairs from JSON-formatted and XML-formatted logs ingested into Google SecOps. It also supports Syslog-formatted logs that include a JSON message. This extracted data is stored in a UDM, map-type field called `extracted`. You can then use this data within UDM search queries, Native Dashboards, and YARA-L rules.

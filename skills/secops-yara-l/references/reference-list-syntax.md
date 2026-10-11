@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/reference-list-syntax
 
 # Use reference lists and data tables in YARA-L 2.0
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Reference lists and data tables let you structure your logic by comparing event fields against custom datasets. Use these objects to manage high-volume indicators—such as known-bad IPs or approved hostnames—across Search, Dashboards, and detections without modifying underlying syntax.
 You can use reference lists or data tables in the `events` or `outcome` sections of a rule. See Reference lists and Use data tables for more information on reference list and data table behavior and syntax.
 ## Apply reference list and data table syntax

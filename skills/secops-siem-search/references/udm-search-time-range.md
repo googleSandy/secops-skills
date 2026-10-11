@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/udm-search-time-range
 
 # Manage search details
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Google Security Operations gives you the ability to search through up to a year of the enterprise data stored in your account. It also includes a number of tools that let you run multiple UDM search queries and later retrieve and share the results of those queries.
 ## Use UDM to search up to a year of data
 You can conduct a UDM search on up to one year of your UDM data. To adjust the time period for your UDM search, complete the following steps:  Go to Investigation > SIEM Search. Click the time selector field to open the time selector dialog. From the Range tab (the default tab), adjust the time range by selecting any of the options from Last 5 minutes to Last year. Use the Start and End fields to choose a more specific date range (for example, the first two weeks in November).  Adjust the times by selecting specific start and end values, for example, 03:00 and 08:30. Click Apply and then click Run Search.

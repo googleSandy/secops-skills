@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/using-parser-extensions
 
 # Develop parser extensions
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document explains how to create parser extensions to extract fields from raw log data and map them to destination UDM (Unified Data Model) fields within the Google Security Operations platform.
 The document outlines the parser extension creation process:  Create parser extensions. Prerequisites and limitations. Identify source fields in the raw log data. Select the appropriate destination UDM fields.
 Choose the appropriate parser extension definition approach:
@@ -29,10 +29,10 @@ The only exception is repeated fields, where you can configure the parser extens
 Parser extension takes precedence: Data mapping instructions in a parser extension take precedence over those in the default (or custom) parser for that log type. If there is a conflict in mapping instructions, the parser extension will overwrite the value set by the default.
 For example, if the default parser maps a raw log field to the `event.metadata.description` UDM field and the parser extension maps a different raw log field to that same UDM field, the parser extension overwrites the value set by the default parser.
 ### Repeated fields selector
-In both the Map data fields (no-code) and Write code snippet approaches, you can control how the parser extension saves values to repeated fields (fields that support an array of values, for example `principal.ip`). In the Extension definition panel, use the Repeated Fields field, which offers Append Values and Replace Values options.
+In both the Map data fields (no-code) and Write code snippet approaches, you can control how the parser extension saves values to repeated fields (fields that support an array of values, for example `principal.ip`). In the Extension (extension definition) panel, use the Repeated Fields field, which offers Append Values and Replace Values options.
 #### Append versus Replace Behavior
-Some UDM fields store an array of values, such as the principal.ip field. The Repeated fields selector lets you control how your parser extension stores newly extracted data in a repeated field:
-Append values:
+Some UDM fields store an array of values, such as the principal.ip field. The Repeated Fields selector lets you control how your parser extension stores newly extracted data in a repeated field:
+Append Values:
 The parser extension will append the newly extracted value to the array of existing values in the UDM field.
 Replace Values:
 The parser extension will replace the array of existing values in the UDM field with the newly extracted value.
@@ -66,7 +66,7 @@ Supported log types with a default parser.  If there is a default parser for the
 Supported log types without a default parser.  If there is no default parser for the log type, ensure there is a custom parser for the log type.
 ##### Ensure there is a custom parser for the log type
 To ensure there is a custom parser for a log type:  In the navigation bar, select SIEM Settings > Parsers.
-Search the Parsers table for the log type you want to extend.  If that log type doesn't have a default or custom parser yet, click CREATE PARSER, and follow the steps in, Create a custom parser based on mapping instructions. If that log type already has a custom parser, ensure the parser is active.
+Search the Parsers table for the log type you want to extend.  If that log type doesn't have a default or custom parser yet, click Add New Parser (or Create parser), and follow the steps in, Create a custom parser based on mapping instructions. If that log type already has a custom parser, ensure the parser is active.
 #### Ensure the parser is active for the log type
 To check if a parser is active for a log type, perform the following steps:  In the navigation bar, select SIEM Settings > Parsers.
 Search the Parsers table for the log type you want to extend.
@@ -74,8 +74,8 @@ If the parser for the log type is not active, activate it:  For default parsers 
 ### Identify the fields to extract from the raw logs
 Analyze the raw log you want to extract data from to identify the fields not extracted by the default (or custom) parser. Pay attention to how the default (or custom) parser extracts raw log fields and maps them to their corresponding UDM fields.
 To identify the specific fields you want to extract from the raw logs, you can use the search tools to identify the fields:
-To access the search tool, go to Investigation > SIEM Search. Type raw= before your search query. For details, see Conduct a raw log search.
-To access the legacy search tool, click Go to Legacy search at the top of the SIEM Search page. For details, see Search raw logs using raw log scan.
+To access the search tool, go to Investigation > SIEM Search. Type raw= before your search query. For details, see Search raw logs.
+To access the legacy search tool, click Go to Legacy search at the top of the SIEM Search page. For details, see Legacy method: Use the Raw Log Search prompt.
 For details about searching in the raw logs, see:  Regular expressions Sample regular expressions to search for Windows logs
 ### Select appropriate UDM Fields
 Now that you've identified the specific target fields to be extracted, you can match them to corresponding destination UDM fields. Establish a clear mapping between the raw log source fields and their destination UDM fields. You can map data to any UDM field that supports the standard data types or repeated fields.
@@ -92,7 +92,7 @@ In practice, the principal and target Noun objects are those most frequently uti
 It is recommended to understand the existing data mapping used by the default (or custom) parser, between the raw log source fields to their destination UDM fields.
 To view the data mapping between raw log source fields and destination UDM fields used in the existing default (or custom) parser:  In the navigation bar, select SIEM Settings > Parsers. Search the Parsers table for the log type you want to extend.
 Navigate to that row, then click the more_vert Menu > View.
-The Parser Code tab displays the data mapping between raw log source fields and destination UDM fields used in the existing default (or custom) parser.
+In the Prebuilt (or Custom) tab, the Parser Code section displays the data mapping between raw log source fields and destination UDM fields used in the existing default (or custom) parser.
 #### Use the UDM Lookup tool
 Use the UDM Lookup tool to help identify UDM fields that match the raw log source fields.
 Google SecOps provides the UDM Lookup tool to help you quickly find destination UDM fields. To access the UDM Lookup tool, go to Investigation > SIEM Search.
@@ -100,9 +100,9 @@ See these topics for details of how to use the UDM Lookup tool:  Find a UDM fiel
 ##### UDM Lookup tool example
 For example, if you have a source field in the raw log named "packets", use the UDM Lookup tool to find potential destination UDM fields with "packets" in their name:
 Go to Investigation > SIEM Search.
-In the SIEM Search page, enter "packets" in the Look up UDM fields by value field, then click UDM Lookup.
+In the SIEM Search page, click UDM Lookup.
 The UDM Lookup dialog opens. The search tool matches UDM fields either by field name or field value:  Lookup by field name - Matches the text string you enter to field names containing that text. Lookup by field value - Matches the value you enter to fields that contain that value in their stored log data.
-In the UDM Lookup dialog, select UDM Fields.
+In the UDM Lookup dialog, enter "packets" in the Look up UDM fields/values field and select UDM Fields.
 The search function will display a list of potential UDM fields containing the text "packets" in their UDM field names.
 Click each row one by one to view the description of each UDM field.
 #### Important UDM considerations to avoid errors
@@ -111,52 +111,52 @@ Similar-looking fields: UDM's hierarchical structure can lead to fields with sim
 When you can't find a suitable standard UDM field to store your data, use the `additional` object to store the data as a custom key-value pair. This lets you store valuable information in the UDM record, even if it doesn't have a matching UDM field.
 ### Choose a parser extension definition approach
 Before you choose a parser extension definition approach, you must have worked through these sections:  Create parser extensions Get started
-The next steps are to open the Parser extensions page and select the extension approach to use to define the parser extension:
-#### Open the Parser extensions page
-The Parser extensions page lets you define the new parser extension.
-You can open the Parser extensions page in the following ways, from the Settings menu, from a Raw log search, or from a legacy Raw log search:
+The next steps are to open the Parser Extension page and select the extension approach to use to define the parser extension:
+#### Open the Parser Extension page
+The Parser Extension page lets you define the new parser extension.
+You can open the Parser Extension page in the following ways, from the Settings menu, from a Raw Log Search, or from a legacy Raw Log Search:
 ##### Open from the Settings menu
-To open the Parser extensions page from the Settings menu:
+To open the Parser Extension page from the Settings menu:
 In the navigation bar, select SIEM Settings > Parsers.
 The Parsers table displays a list of default parsers by log type.
-Find the log type that you want to extend, click the more_vert Menu > Create Extension.
-The Parser extensions page opens.
-##### Open from a Raw log search
-To open the Parser extensions page from a Raw log search:  Go to Investigation > SIEM Search. In the search field, add the prefix `raw =` to your search argument and enclose the search term in quotation marks. For example, `raw = "example.com"`. Click Run Search. The results are displayed in the Raw Logs panel. Click a log (row) in the Raw Logs panel. The Event View panel is displayed. Click the Raw Log tab in the Event View panel. The raw log is displayed.
-Click the Manage Parser > Create Extension > Next.
-The Parser extensions page opens.
-##### Open from a legacy Raw log search
-To open the Parser extensions page from a legacy Raw log search:  Use the legacy Raw log search to search for records similar to those that will be parsed. Select an event from the Events > Timeline panel. Expand the Event Data panel.
-Click the Manage Parser > Create Extension > Next.
-The Parser extensions page opens.
-#### Parser extensions page
-The page displays the Raw log and Extension definition panels:
-Raw log panel:
-This displays sample raw log data for the selected log type. If you opened the page from the Raw log search the sample data is the result of your search. You can format the sample using the View as menu (RAW, JSON, CSV, XML, etc.) and the Wrap Text checkbox.
+Find the log type that you want to extend, click the more_vert Menu > Extend Parser > Create Extension.
+The Parser Extension page opens.
+##### Open from a Raw Log Search
+To open the Parser Extension page from a Raw Log Search:  Go to Investigation > SIEM Search. In the search field, add the prefix `raw =` to your search argument and enclose the search term in quotation marks. For example, `raw = "example.com"`. Click Run Search. The results are displayed in the Raw Logs panel. Click a log (row) in the Raw Logs panel. The Event Viewer panel is displayed. Click the Raw Log tab in the Event Viewer panel. The raw log is displayed.
+Click Manage Parser > Extend Parser > Create Extension (or select Create Extension > Next).
+The Parser Extension page opens.
+##### Open from a legacy Raw Log Search
+To open the Parser Extension page from a legacy Raw Log Search:  Use the legacy Raw Log Search to search for records similar to those that will be parsed. Select an event (or click the raw log icon) from the Timeline panel to open the raw log.
+Click Manage Parser > Extend Parser > Create Extension (or select Create Extension > Next).
+The Parser Extension page opens.
+#### Parser Extension page
+The page displays the Raw Log and Extension (extension definition) panels:
+Raw Log panel:
+This displays sample raw log data for the selected log type. If you opened the page from the Raw Log Search the sample data is the result of your search. You can format the sample using the View as menu (Raw, JSON, CSV, XML, or Hex/ASCII) and the Wrap Text checkbox.
 Check that the sample of raw log data displayed is representative of the logs that the parser extension will process.
-Click Preview UDM Output to see the UDM output for the sample raw log data.
-Extension definition panel:
-This lets you define a parser extension using one of two mapping instruction approaches: Map data fields (no-code) or Write code snippet. You can't use both approaches in the same parser extension.
+Click Preview UDM Output (or Show UDM Output) to see the UDM output for the sample raw log data.
+Extension (extension definition) panel:
+This lets you define a parser extension using one of two mapping instruction approaches: Map Data Fields (no-code) or Write Code Snippets (or Write code snippet). You can't use both approaches in the same parser extension.
 Depending on the approach you choose, you can either specify the source log data fields to extract from the incoming raw logs and map them to the corresponding UDM fields, or you can write a code snippet to perform these tasks and more.
 #### Select the extension approach
-Note: The Extension method field in the Parser extensions page refers to the "approach" you use to define the parser extension.
-In the Parser extensions page, Extension definition panel, in the Extension method field, select one of the following approaches to create the parser extension:
-Map data fields (no-code) approach:
+Note: The Extension Method field in the Parser Extension page refers to the "approach" you use to define the parser extension.
+In the Parser Extension page, Extension panel, in the Extension Method field, select one of the following approaches to create the parser extension:
+Map Data Fields (no-code) approach:
 This approach lets you specify the fields in the raw log and map them to destination UDM fields.
 This approach works with the following raw log formats:  Native JSON, native XML, or CSV. Syslog header plus native JSON, native XML, or CSV. You can create a data field type mapping instructions for raw logs in these formats: `JSON`, `XML`, `CSV`, `SYSLOG + JSON`, `SYSLOG + XML`, and `SYSLOG + CSV`.
 See the next steps, Create no-code (Map data fields) instructions.
-Write code snippet approach:
+Write Code Snippets (or Write code snippet) approach:
 This approach lets you use Logstash-like syntax to specify instructions to extract and transform values from the raw log and assign them to UDM fields in the UDM record.
 Code snippets use the same syntax and sections as default (or custom) parsers. For more information, see Parser syntax.
 This approach works with all supported data formats for that log type.
 See the next steps, Create code snippet instructions.
 ## Create no-code (Map data fields) instructions
-The no-code approach (also called the Map data fields method) lets you specify the paths of the raw log fields and map them to corresponding destination UDM fields.
-Before you create a parser extension using the no-code approach, you must have worked through these sections:  Create parser extensions Get started Select the extension approach, and select the Map data fields option.
+The no-code approach (also called the Map Data Fields method) lets you specify the paths of the raw log fields and map them to corresponding destination UDM fields.
+Before you create a parser extension using the no-code approach, you must have worked through these sections:  Create parser extensions Get started Select the extension approach, and select the Map Data Fields option.
 The next steps to define the parser extension are:  Set the Repeated fields selector Define a data mapping instruction for each field Submit and activate the parser extension
 ### Define a data mapping instruction for each field
 Define a data mapping instruction for each field you want to extract from the raw log. The instruction should specify the path of the origin field in the raw log and map it to the destination UDM field.
-If the raw log sample displayed in the Raw log panel contains a Syslog header, then the Syslog and Target fields are displayed. (Some log formats don't contain a Syslog header, for example, native JSON, native XML, or CSV.)
+If the raw log sample displayed in the Raw Log panel contains a Syslog header, then the Syslog and Target fields are displayed. (Some log formats don't contain a Syslog header, for example, native JSON, native XML, or CSV.)
 Google SecOps will need the Syslog and Target fields to pre-preprocess the Syslog header, to extract the structured portion of the log.
 Define these fields:
 Syslog: This is a user-defined pattern that preprocesses and separates a Syslog header from the structured portion of a raw log.
@@ -168,10 +168,10 @@ After entering values in the Syslog and Target fields, click the Validate button
 The validation process checks for both syntax and parsing errors, then returns either of the following:  Success: The data mapping fields appear. Define the remainder of the parser extension. Failure: An error message appears. Correct the error condition before continuing.
 Optionally, define a precondition instruction.
 A precondition instruction identifies a subset of the raw logs that the parser extension processes by matching a static value to a field in the raw log. If an incoming raw log meets the precondition criteria then the parser extension applies the mapping instruction. If the values don't match, the parser extension does not apply the mapping instruction.
-Complete the following fields:  Precondition Field: Field identifier in the raw log containing the value to be compared. Enter either the full path to the field if the log data format is JSON or XML, or the column position if the data format is CSV. Precondition Operator: Select `EQUALS` or `NOT EQUALS`. Precondition Value: The static value that will be compared with the Precondition Field in the raw log.
+Complete the following fields:  Precondition Field (or Precondition Column for CSV): Field identifier in the raw log containing the value to be compared. Enter either the full path to the field if the log data format is JSON or XML, or the column position if the data format is CSV. Precondition Operator: Select Equals or Not Equals. Precondition Value: The static value that will be compared with the Precondition Field in the raw log.
 For another example of a precondition instruction, see No-code - Extract fields with precondition value.
 Map the raw log data field to the destination UDM field:
-Raw Data Field: Enter either the full path to the field if the log data format is JSON (for example: `jsonPayload.connection.dest_ip`) or XML (for example: `/Event/Reason-Code`), or the column position if the data format is CSV (note: index positions start at 1).
+Raw Data Field (or Raw Data Column for CSV): Enter either the full path to the field if the log data format is JSON (for example: `jsonPayload.connection.dest_ip`) or XML (for example: `/Event/Reason-Code`), or the column position if the data format is CSV (note: index positions start at 1).
 Destination Field: Enter the fully qualified UDM field name where the value will be stored, for example `udm.metadata.collected_timestamp.seconds`.  Important: If the raw log is in JSON format, the data type of a log value must match the data type of its corresponding destination UDM field. For example, if the log records `packets sent` as a string (`"packets_sent":"16"`) and you attempt to map this to the `network.sent_bytes` UDM field, which has a `uint64` data type, the instruction will fail. This requirement does not apply to logs in CSV and XML format.
 To continue adding more fields, click Add, and enter all the mapping instruction details for the next field.
 For another example of mapping the fields, see No-code - Extract fields.
@@ -269,13 +269,13 @@ You should see the following minimum UDM fields, presented as a UDM Object:
 ```
 ## Create code snippet instructions
 The code snippet approach lets you use Logstash-like syntax to define how to extract and transform values from the raw log, and assign them to UDM fields in the UDM record.
-Before you create a parser extension using the code snippet approach, you must have worked through these sections:  Create parser extensions Get started Select the extension approach, and select the Write code snippet option.
+Before you create a parser extension using the code snippet approach, you must have worked through these sections:  Create parser extensions Get started Select the extension approach, and select the Write Code Snippets (or Write code snippet) option.
 The next steps to define the parser extension are:  For tips and best practices, see Tips and best practices when writing code snippet instructions. Create a code snippet instruction Submit a code snippet instruction
 ### Tips and best practices when writing code snippet instructions
 Code snippet instructions can fail due to issues like incorrect Grok patterns, failed rename or replace operations, or syntax errors. See the following for tips and best practices:  Common practices in parser code Parse unstructured text using a Grok function
 ### Create a code snippet instruction
 Code snippet instructions use the same syntax and sections as the default (or custom) parser:  Section 1. Extract data from the raw log. Section 2. Transform the extracted data. Section 3. Assign one or more values to a UDM field. Section 4. Bind UDM event fields to the `@output` key.
-To create a parser extension using the code snippet approach, do the following:  In the Parser extensions page, CBN Snippet panel, enter a code snippet to create the parser extension. Click Validate to validate the mapping instructions.
+To create a parser extension using the code snippet approach, do the following:  In the Parser Extension page, CBN Snippet panel, enter a code snippet to create the parser extension. Click Validate to validate the mapping instructions.
 #### Code snippet instruction examples
 Note: For the full list of examples, covering many log types and scenarios, see code snippet parser extension creation examples.
 The following example illustrates a code snippet.
@@ -346,28 +346,28 @@ Google SecOps validates the mapping instructions.  If the validation process suc
 ## Manage existing parser extensions
 You can view, edit, delete, and control access to existing parser extensions.
 ### View an existing parser extension
-In the navigation bar, select SIEM Settings > Parsers. In the Parsers list, find the parser (log type) that you want to view. Parsers with a parser extension are indicated by the `EXTENSION` text next to their name.
-Go to that row, then click the more_vert Menu > View Extension.
-The View Custom/Prebuilt Parser > Extension tab appears showing details about the parser extension. The summary panel displays the `LIVE` parser extension by default.
+In the navigation bar, select SIEM Settings > Parsers. In the Parsers list, find the parser (log type) that you want to view. Parsers with a parser extension are indicated by the `EXTENSION` (or `EXTN`) text next to their name.
+Go to that row, then click the more_vert Menu > Extend Parser > View Extension.
+The View Custom/Prebuilt Parser > Extension tab (or Extensions tab) appears showing details about the parser extension. The summary panel displays the `LIVE` parser extension by default.
 ### Edit a parser extension
-Open the View Custom/Prebuilt Parser > Extension tab, as described in View an existing parser extension.
-Click the Edit Extension button.
-The Parser extensions page appears.
+Open the View Custom/Prebuilt Parser > Extension tab (or Extensions tab), as described in View an existing parser extension.
+Click the Edit Extension (or Edit) button.
+The Parser Extension page appears.
 Edit the parser extension.
-To cancel editing and discard changes, click Discard Draft.
-To delete the parser extension at any time, click Delete Failed Extension.
+To cancel editing and discard changes, click Discard Draft (or Discard Extension).
+To delete the parser extension at any time, click Delete Failed Extension (or Delete Extension).
 When you are finished editing the parser extension, click Submit.
 The validation process runs to validate the new configuration. Note: While a parser extension is being validated, you cannot edit the data mapping instructions.
 ### Delete a parser extension
-Open the View Custom/Prebuilt Parser > Extension tab, as described in View an existing parser extension.
+Open the View Custom/Prebuilt Parser > Extension tab (or Extensions tab), as described in View an existing parser extension.
 Click the Delete Extension button.
 ### Control access to parser extensions
 By default, users with the Administrator role can access parser extensions. You can control who can view and manage parser extensions. For more information about managing Users and Groups, or assigning roles, see Role Based Access Control for more information.
 The new roles in Google SecOps are summarized in the following table.    Feature Action Description     Parser Delete Delete parser extensions.   Parser Edit Create and edit parser extensions.   Parser View View parser extensions.
 ### Remove UDM field mappings using parser extensions
-You can use parser extensions to remove an existing UDM field mapping.  Click SIEM Settings > Parsers. Use either of the following methods to view the Parser extension page:  For an existing extension, click more_vert Menu > Extend Parser > View Extension. For new parser extensions, click more_vert Menu > Extend Parser > Create Extension.
-Select Write code snippet as the extension method to add a custom code snippet that removes values for specific UDM fields.
-For an existing extension, on the Parser extension pane, click Edit and then add the code snippet.
+You can use parser extensions to remove an existing UDM field mapping.  Click SIEM Settings > Parsers. Use either of the following methods to view the Parser Extension page:  For an existing extension, click more_vert Menu > Extend Parser > View Extension. For new parser extensions, click more_vert Menu > Extend Parser > Create Extension.
+Select Write Code Snippets (or Write code snippet) as the extension method to add a custom code snippet that removes values for specific UDM fields.
+For an existing extension, in the Extension (or Extensions) tab, click Edit Extension (or Edit) and then add the code snippet.
 See Code snippet - Remove existing mappings for example snippets.
 Follow the steps in the Submit a code snippet instruction to submit the extension.
 ## Timezone handling and timestamp formatting
@@ -384,4 +384,4 @@ if [raw_log] =~ /EST/ {
 }
 
 ```
-Configure a feed timezone override: Go to SIEM Settings > Feeds, edit the target feed, enable Override timezone, and select the source IANA timezone (for example, `Europe/Paris`) to adjust timestamps automatically during ingestion.
+Configure a forwarder collector timezone override: Go to SIEM Settings > Forwarders, edit the target collector, enable Override timezone, and select the source IANA timezone from the Timezone menu (for example, `Europe/Paris`) to adjust timestamps automatically during ingestion.

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/composite-detection-rules
 
 # Construct composite detection rules
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document provides a technical guide on how to build a composite rule within the Google Security Operations platform, a process that involves connecting multiple YARA-L 2.0 rules to identify complex attack patterns. Composite detections are structured as multi-event rules, maintaining the same fundamental syntax as standard single-event rules. For more information, see Composite detections overview.
 ## Understand the rule structure
 Composite detection rules are always multi-event rules and follow the same structure and syntax as a single-event rule.

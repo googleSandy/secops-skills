@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/filter-data-user-view
 
 # Filter data in User view
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Google Security Operations User view lets you better understand how users within an enterprise might be impacted by security events. By focusing on the behavior of individual users, security administrators can search for activity indicating an account compromise or other security concern.
 To open User view, enter the username or email address of a user within your enterprise in the search field. Note: If the user is present within your Google SecOps account, that user is displayed as a result.
 Click SEARCH to pivot to User view.

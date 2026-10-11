@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/nested-if
 
 # Use nested if statements for more complex logic
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 You can use `if` statements in both the `outcome` and `events` sections. You can also use `if` statements within the `then` `else` clauses of another `if` statement. This capability lets you introduce more complicated logic to your query.
 This syntax is supported in Rules, Search, and Dashboards.
 ## Syntax

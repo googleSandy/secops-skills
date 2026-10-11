@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/investigate-file
 
 # Investigate a file
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 You can use Google Security Operations to search your data for a specific file based on its MD5, SHA-1, or SHA-256 hash value.
 If additional information is available for a file hash found within a customer's Google SecOps account, this additional information is added to the associated UDM events automatically. You can search for these UDM events manually using UDM Search or by using rules.
 ## View a file hash

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/alerts-iocs
 
 # Manage alerts and IOC matches
-Supported in:    Google secops   SIEM     Caution: The Ingestion API is deprecated and will be discontinued on July 20, 2027. To ingest logs into Google SecOps, use the Chronicle API instead. For details on how to migrate, see Migrate from legacy SIEM API to Chronicle API.
+Supported in:    Google SecOps   SIEM     Caution: The Ingestion API is deprecated and will be discontinued on July 20, 2027. To ingest logs into Google SecOps, use the Chronicle API instead. For details on how to migrate, see Migrate from legacy SIEM API to Chronicle API.
 The Alerts & IOCs page displays all the alerts and Indicators of Compromise (IOCs) that are impacting your enterprise.   To open the Alerts & IOCs page, click Detection > Alerts & IOCs.
 The page contains the Alerts tab and the IOC Matches tab:
 Use the Alerts tab to view the current alerts in your enterprise.
@@ -207,3 +207,5 @@ Use the Associations tab to view associations for any actor or malware to help i
 ## SOAR alerts
 For Google SecOps unified customers, SOAR alerts are shown on this page, and include a case ID. Click the case ID to open the Cases page. On the Cases page, you can get information on both the alert and its associated case and take response actions. For more information, see Cases Overview.
 To manage alert status or close an alert, do the following:  Go to the Cases page. In the Case details section > alert overview, click Go to case to access the case.
+## Limitations
+Google SecOps can handle up to 10,000 IOC matches at any one time. This limit applies to all search parameters that the Alerts & IOCs page exposes.

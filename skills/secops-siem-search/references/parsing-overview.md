@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/parsing-overview
 
 # Parsers overview
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document provides an overview of how Google Security Operations parses raw logs to the Unified Data Model (UDM) format.
 Google SecOps can receive log data originating from the following ingestion sources:  Google SecOps forwarder Chronicle API Feed Chronicle API Third-party technology partner
 In general, customers send data as original raw logs. Google SecOps uniquely identifies the device that generated the logs using the LogType. The LogType identifies both:  the vendor and device that generated the log, such as Cisco Firewall, Linux DHCP Server, or Bro DNS. which parser converts the raw log to structured UDM. There is a one-to-one relationship between a parser and a LogType. Each parser converts data received by a single LogType.

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/transition_spl_yaral
 
 # Transition from SPL to YARA-L 2.0
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This guide is intended for users who are already familiar with Splunk Search Processing Language (SPL). It provides a quick introduction to YARA-L 2.0: the core language for building searches, dashboards, and detection rules within Google Security Operations.
 ## Understand the YARA-L 2.0 structure
 YARA-L 2.0 is the unified query language used across Google SecOps for powerful threat searching, building real-time dashboards, and creating high-fidelity detection rules on all your enterprise log data as it's ingested.

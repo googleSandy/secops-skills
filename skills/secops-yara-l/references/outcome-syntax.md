@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/outcome-syntax
 
 # Outcome section syntax
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 The `outcome` section of a YARA-L query defines outcome variables that specify the output for a search and dashboard query and additional context and information to a detection when a rule is triggered. These variables can be used for various purposes such as displaying relevant data on dashboards and creating risk scores.
 ## Define outcome section
 Use the `$` character, followed by a variable name, to define an outcome variable in the `outcome` section of a single query. You can define up to 20 outcome variables. The variable names themselves are arbitrary. For rules, outcome values are computed and aggregated based on each detection.
@@ -50,7 +50,7 @@ To ensure consistency across the platform, we recommend using the following scor
 Because `risk_score` is an outcome variable, your rules can express nuance depending on factors such as threat intelligence or other concurrent conditions.
 Entity risk scores can be used to generate risk-based alerts in near real time. For more information Overview of Risk Analytics.
 ### risk_entity_to_score outcome variable
-In addition to the `risk_score` outcome variable, you can also specify the `risk_entity_to_score` outcome variable. This variable lets you explicitly designate which entity or entities from a rule detection should apply that detection's risk score.
+By default, Google SecOps assigns a detection's risk score to all entities in the sampled events. It also assigns the score to all entities captured in the `match` and `outcome` sections of the rule. To assign the risk score to specific entities instead, specify the `risk_entity_to_score` outcome variable in addition to `risk_score`. Risk scoring supports `user` and `asset` entities. It doesn't support `RESOURCE` or `GROUP` entity types.
 You can create multiple `risk_entity_to_score` variables by appending a unique string to the variable and assign the risk score to specific entities. For example:
 ```
 $risk_entity_to_score_source_asset = $e.principal.asset.hostname

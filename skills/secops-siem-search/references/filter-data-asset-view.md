@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/filter-data-asset-view
 
 # Filter data in Asset view
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Asset view lets you to investigate assets within your enterprise and whether or not they have interacted with suspicious domains. You can adjust Asset view to hide benign activity and help highlight the data relevant to an investigation.
 Complete the following steps to navigate to Asset view page:
 Enter the asset (ending with a known public suffix) or URL you need to investigate in the search bar at the top of the user interface. Click SEARCH.

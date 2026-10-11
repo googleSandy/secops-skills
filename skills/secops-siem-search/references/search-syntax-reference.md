@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/search-syntax-reference
 
 # Understand search syntax
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This guide is for security analysts who want to configure search expressions (data values, escapes, operators, and so on) in the query editor of the SIEM Search page.
 When writing YARA-L 2.0 or SQL search expressions in the Google Security Operations query editor, you must format your data values, operators, and string escape sequences according to the exact data type of the target UDM field. A search condition consists of a UDM field name, a comparison operator (`=`, `!=`, `>`, `<`, `<=`, `>=`), and a formatted data value.
 ## Format data values by data type

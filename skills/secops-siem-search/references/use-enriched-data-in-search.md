@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/use-enriched-data-in-search
 
 # Use context-enriched data in search
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 To enable security analysts during an investigation, Google Security Operations ingests contextual data from different sources, normalizes the ingested data, and provides additional context about artifacts in a customer environment. This document provides examples of how analysts can use contextually-enriched data in search.
 For more information about data enrichment, see How Google SecOps enriches event and entity data.
 ## Use VirusTotal-enriched metadata fields in search

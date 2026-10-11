@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/investigate-ipaddress
 
 # Investigate an IP address
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Google Security Operations enables you to investigate specific IP addresses to determine if any are present within your enterprise and what impact these outside systems might have had on your assets. The Google SecOps IP address view is derived from the same security information and data forwarded from your enterprise and can examine using Asset view. Make sure you are ingesting and normalizing data from devices on your network, such as EDR, firewall, web proxy, etc.
 From Asset view, you begin your investigation from within your enterprise and look outward. From IP address view, you begin your investigation from outside your enterprise and look in.
 To access IP address view in Google SecOps, complete the following steps:  On the Google SecOps landing page, enter the IP address in the search bar. Click Search. Click the IP address in the results to open IP address view.  Note: UDM search provides enhanced capabilities that let you conduct more thorough investigations of the events and alerts within your Google SecOps instance than is possible using IP address view alone. For more information, see UDM search.

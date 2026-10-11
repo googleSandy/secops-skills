@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/yara-l-2-0-metrics-search
 
 # Use metrics in search
-Use metrics in search  Supported in:    Google secops   SIEM     Note: For a list of equivalent event types that might be relevant to certain metric functions, see the Google Security Operations documentation on `Metadata.EventType`.
+Use metrics in search  Supported in:    Google SecOps   SIEM     Note: For a list of equivalent event types that might be relevant to certain metric functions, see the Google Security Operations documentation on `Metadata.EventType`.
 This document outlines the application of metrics functions within Search, a feature designed to facilitate the analysis of aggregated historical behavioral data using YARA-L 2.0. These functions let you derive high-level insights from large datasets by incorporating them directly into the `outcome` section of a search query.
 ## Function parameters
 Metrics functions can perform entity behavioral analytics within your searches. For example, you can construct a search query to determine the maximum number of daily bytes a specific IP address has sent within the past month. To represent the specific IP address, you can directly input the IP value in your search query instead of using placeholder variables.

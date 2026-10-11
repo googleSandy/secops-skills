@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/parser-extension-examples
 
 # Parser extension examples
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document provides examples of parser extension creation in different scenarios. To learn more about parser extensions, see Create parser extensions.
 ## Parser extension examples
 Use the following attribute tables to quickly find the sample code you need.

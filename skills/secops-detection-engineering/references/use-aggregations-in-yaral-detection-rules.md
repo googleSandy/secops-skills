@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/use-aggregations-in-yaral-detection-rules
 
 # Use aggregations in YARA-L queries
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This guide helps Security Engineers calculate averages or totals within a YARA-L query. It explains how to use the required syntax to prevent compiler errors.
 ## Common use cases
 The following scenarios represent the primary objectives for using aggregations within YARA-L.

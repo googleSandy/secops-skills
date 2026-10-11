@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/functions
 
 # Functions
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This section describes the YARA-L 2.0 functions that you can use in Rules, Search, and Dashboard queries.
 For details about aggregate functions, see Statistics and aggregations in search. Note: The use of the event variable `$e` is optional when YARA-L is used in Search and Dashboards. Both `principal.hostname` and `$e.principal.hostname` are supported in Search and Dashboards.
 You can use these functions in the following parts of a YARA-L query:  `events` section `BOOL_CLAUSE` of a conditional in the outcome section   .supported-container { display: flex; gap: 7px; }

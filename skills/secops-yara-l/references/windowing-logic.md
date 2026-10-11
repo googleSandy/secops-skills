@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/windowing-logic
 
 # Apply YARA-L 2.0 windowing logic
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This guide helps Security Engineers choose the correct window type for queries to avoid "variable not bounded" compiler errors. Transitioning from sliding windows to tumbling windows lets you build logic that depends on the absence of events, such as a missing heartbeat or a failed log source.
 ## Before you begin
 Confirm your account has one of the following roles to create and modify YARA-L queries:  Detection Engine Admin (`roles/chronicle.detectionEngineAdmin`) SecOps Editor (`roles/chronicle.editor`)

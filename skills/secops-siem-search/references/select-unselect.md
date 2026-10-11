@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/select-unselect
 
 # Control columns with select and unselect keywords
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 In Search and Dashboards, you can use the `select` and `unselect` keywords to customize the columns displayed in the Events table on the Results tab (in Search) and the tables within dashboard widgets.
 While the Timestamp and Event columns display by default, the `select` and `unselect` keywords let you add or remove specific Unified Data Model (UDM) fields, `outcome` variables, or `match` variables to refine your view.
 The `select` and `unselect` keywords are optional and are not available in Rules.  `select`: Specifies the list of UDM fields, `outcome` variables, or `match` variables to include in the query results. `unselect`: Specifies the list of UDM fields or variables to exclude from the query results.  Note: These keywords only alter how data is displayed; they don't change the underlying search logic.

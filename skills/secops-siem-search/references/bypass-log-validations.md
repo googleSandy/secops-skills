@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/bypass-log-validations
 
 # Bypass Log Validation for parser extensions and custom parsers
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 The custom parser and parser extension validation process typically enforces a rigorous check against sample logs from the preceding 30 days to ensure functional integrity. However, there are scenarios where customers may need to deploy an extension despite validation failures, such as when no logs have been ingested in the last 30 days or when current logs don't yet reflect a new format. Note: In addition to the API-based workflow to bypass mandatory log validation for parser extensions or custom parsers, you can skip log validation using the Google SecOps platform. To skip log validation using the Google SecOps platform, in the relevant Parser Extension or Custom Parser page, click Skip Log Validation > Confirm > Submit > Submit.
 This document outlines the API-based workflow to bypass mandatory log validation for parser extensions and custom parsers.
 Component  Definition    API Method  `CreateParserExtension` (for Extensions) or `CreateParser` (for Custom Parsers)    Bypass Flag  `validation_skipped`    Flag Type  Boolean (Default: false)    Scope  ParserExtension proto (for extensions) and Parser proto (for custom parsers )

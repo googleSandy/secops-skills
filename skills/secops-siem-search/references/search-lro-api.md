@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/search-lro-api
 
 # Asynchronous Search APIs
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 The Search platform in Google Security Operations lets you use asynchronous APIs for long-running queries that return large result sets of up to 1 million results. These APIs let you initiate searches across data sources, including Unified Data Model (UDM) events, detections, data tables, and Entity Context Graph (ECG), without blocking your application. When you run a search query using a long-running operation (LRO) API, you receive an operation ID. You can use this ID to monitor the operation status and get the results page by page.
 ## Prerequisites
 To use long-running operation APIs, the calling principal requires specific Identity and Access Management (IAM) permissions.

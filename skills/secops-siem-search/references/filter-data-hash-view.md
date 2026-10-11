@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/filter-data-hash-view
 
 # Filter data in Hash view
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Hash view lets you search and investigate files based on their hash value.
 ## Open Hash view
 You can open Hash view the following ways:  Search for the file hash directly Pivot to Hash view when viewing a process- or file-based event in Asset view

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/udm-overview2
 
 # UDM overview
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document provides an overview of the Unified Data Model (UDM). For more detail about UDM fields, including a description of each, see the UDM field list. For more information about parser mapping, see Important UDM fields for parser mapping.
 The UDM is a Google Security Operations standard data structure that stores information about data received from sources. It is also called the schema. Google SecOps stores the original data it receives in two formats, as the original raw log and as a structured UDM record. The UDM record is a structured representation of the original log.
 If a parser exists for the specified log type, the raw log is used to create a UDM record. Customers can also transform raw logs to structured UDM format before sending the data to Google SecOps using the Ingestion API.

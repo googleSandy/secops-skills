@@ -1,7 +1,7 @@
-# Source: https://docs.cloud.google.com/chronicle/docs/yara-l/match-syntax?ddrp=1
+# Source: https://docs.cloud.google.com/chronicle/docs/yara-l/match-syntax
 
 # Match section syntax
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 In YARA-L 2.0, the `match` section provides the mechanism for multi-event correlation. It defines the logic for grouping events into a single detection by linking common attributes, such as users, IP addresses, or file hashes, within a specific temporal boundary.
 You use the `match` section for the following use cases:  Link two or more distinct events within a rule. Aggregate data in Search and Dashboards, such as counting failed login attempts over a specific timeframe.
 ## Define correlation criteria

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/investigate-domain
 
 # Investigate domains
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Google Security Operations lets you to investigate specific domains to determine if any are present within your enterprise, and what impact these outside systems might have had on your assets.
 To access Domain view in Google SecOps, complete the following steps:
 Enter the domain (ending with a known public suffix) or URL in the search bar on the Google SecOps landing page. Note: The public suffix data list from publicsuffix.org includes both public and private domains as public suffixes. However, this function doesn't treat a private domain as a public suffix. For example, if us.com is listed as a private domain, calling the function with foo.us.com returns us.com—interpreted as the public suffix com plus the preceding label us—instead of foo.us.com (which would treat us.com as a private domain).

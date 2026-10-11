@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/event-processing/data-enrichment
 
 # Configure enrichment
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 Enrichment uses the following methods to add context to a Unified Data Model (UDM) indicator or event:  Identifies alias entities that describe an indicator, typically a UDM field. Populates the UDM message with additional details from the identified aliases or entities. Adds global enrichment data, such as GeoIP and VirusTotal, to UDM events.  Note: To prioritize fast delivery to downstream systems, Google SecOps might not enrich a small percentage of events (less than 1%) during its first pass. The system later reprocesses these events. In rare cases, some events might not be enriched.Note: To support full data coverage for rules, searches, or dashboards that depend on enriched fields, use real-time enrichment with data tables and entity graph joins.
 ## Viewing events
 View events in the Event Viewer's Event Fields tab. This tab displays UDM event fields in a hierarchical tree structure, labeled Selected. Each UDM field is labeled with an icon indicating whether the field contains enriched or unenriched data. The icon labels are the following:  U: Unenriched fields pull values directly from the original raw log during the normalization process. E: Enriched fields contain values that Google SecOps generates to provide additional context about artifacts in your environment.

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/repeated-fields
 
 # Repeated fields
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 In the Unified Data Model (UDM), some fields are labeled as repeated, which indicates that they are lists of values or other types of messages. This document provides information about how to use expressions, placeholders, array indexing, and repeated messages for repeated UDM fields.
 ## Boolean expressions and repeated fields
 Modified and unmodified boolean expressions can act on repeated fields.

@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/yara-l/expressions
 
 # Expressions, operators, and other constructs
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document includes information to help you build YARA-L rules and queries using expressions.
 ## Boolean expressions
 Boolean expressions are expressions with a boolean type, which includes comparison expressions, function expressions, and reference list or data table expressions. You can use boolean expressions in the `events` and `outcome` section in a YARA-L rule or query.

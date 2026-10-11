@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/search-and-search-case-history
 
 # Search cases overview
-Supported in:    Google secops
+Supported in:    Google SecOps
 This guide is for security analysts who want to analyze security telemetry, including Unified Data Model (UDM) events, entities, cases, and case history. It explains how to leverage SIEM Search within Google Security Operations to seamlessly correlate case details with other security data. By following this method, workflows are streamlined, reducing context switching between different interfaces. Successful completion accelerates incident response.
 ## Key terminology
 SIEM: Security Information and Event Management. Refers to tools and processes for collecting and analyzing security data from various sources to detect threats. SOAR: Security Orchestration, Automation, and Response. Refers to technologies that help security teams automate, consolidate, and streamline security operations. UDM (Unified Data Model): A standardized data format used within Google SecOps to represent security events from various sources consistently. Case Viewer: A feature within SIEM Search results that allows opening a detailed view of a selected case. Column Manager: A tool to customize the columns displayed in the search results table. Aggregation Panel: Provides summaries and distributions of field values from the search results.

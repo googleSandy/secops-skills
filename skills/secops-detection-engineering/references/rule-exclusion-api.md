@@ -1,7 +1,7 @@
 # Source: https://docs.cloud.google.com/chronicle/docs/investigation/rule-exclusion-api
 
 # Manage rule exclusions
-Supported in:    Google secops   SIEM
+Supported in:    Google SecOps   SIEM
 This document explains how to programmatically manage rule exclusions in Google Security Operations using the API. Exclusions serve as filters that you define based on Unified Data Model (UDM) fields to prevent specific detections from generating alerts. By identifying known or safe activities, these filters stop unnecessary noise in your dashboard.  Caution: UDM-field exclusions are evaluated against raw events. If you are attempting to exclude specific UDM values from a composite rule (which triggers based on other detections rather than raw events), you must apply the exclusion to the foundational underlying rules that feed into the composite rule.
 To find the foundational rule, you can inspect the composite rule definition in the Google SecOps console (under Content Hub > Curated Detections) and review the `events:` section of the YARA-L logic to identify the foundational rule names.
 ## Create an exclusion with outcome filters
