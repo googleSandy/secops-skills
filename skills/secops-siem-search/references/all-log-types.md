@@ -1,6 +1,6 @@
 # SecOps: All Supported Log Types
 
-> **Last Updated:** 2026-10-07  
+> **Last Updated:** 2026-10-13  
 > **Source:** https://docs.cloud.google.com/chronicle/docs/ingestion/parser-list/supported-default-parsers
 
 SecOps: All Supported Log Types
@@ -450,6 +450,7 @@ For premium/standard tier split see `premium-log-types.md` and `standard-log-typ
 | `GCP_SWP` | GCP Secure Web Proxy |
 | `GCP_THREATINTEL` | Google Threat Intelligence |
 | `GCP_VPC_FLOW` | VPC Flow Logs |
+| `GEMINI_CODE_ASSIST` | Gemini Code Assist |
 | `GITGUARDIAN_ENTERPRISE` | GitGuardian Enterprise |
 | `GITHUB` | GitHub |
 | `GITHUB_DEPENDABOT` | GitHub Dependabot |
@@ -458,7 +459,6 @@ For premium/standard tier split see `premium-log-types.md` and `standard-log-typ
 | `GMV_CHECKER` | GMV Checker ATM Security |
 | `GREYNOISE` | GreyNoise |
 | `GTB_DLP` | GTB Technologies DLP |
-| `GTI_IOC` | Google Threat Intelligence IOC |
 | `GUARDDUTY` | AWS GuardDuty |
 | `GUARDICORE_CENTRA` | Guardicore Centra |
 | `GUARDIUM` | IBM Guardium |
