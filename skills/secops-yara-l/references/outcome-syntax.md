@@ -85,7 +85,7 @@ rule suspicious_admin_privilege_escalation {
  outcome:
    // Multi-event rules require an aggregation function
    // For example, risk_score = max(0)
-   // See https://cloud.google.com/chronicle/docs/detection/yara-l-2-0-overview#outcome_conditionals_example_rule
+   // See https://docs.cloud.google.com/chronicle/docs/yara-l/yara-l-2-0-examples#outcome_conditionals_example_rule
    $risk_score = 80
    $risk_entity_to_score = $e.target.user.userid
    $source_ip = array_distinct($e.principal.ip)

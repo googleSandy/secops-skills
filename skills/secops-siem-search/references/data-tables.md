@@ -439,7 +439,7 @@ In the following example, `$g1` is the entity graph variable and `example_table`
 For the `append` function, data tables should include the following columns to validate the entity:
 `start_time` (mapped to `metadata.interval.start_time.seconds`)
 `end_time` (mapped to `metadata.interval.end_time.seconds`)
-Data table columns cannot be mapped to metadata fields using the web interface. For `append` use cases, data tables need to be created using Chronicle API (https://cloud.google.com/chronicle/docs/reference/rest/v1alpha/projects.locations.instances.dataTables/create)
+Data table columns cannot be mapped to metadata fields using the web interface. For `append` use cases, data tables need to be created using Chronicle API (https://docs.cloud.google.com/chronicle/docs/reference/rest/v1alpha/projects.locations.instances.dataTables/create)
 `graph_exclude`: Remove the rows in the entity graph that match the `join` condition.
 For example: `[graph_exclude](?tab=t.0#heading=h.o0qbb5paki6g)`
 The join condition must be an equality expression between the data table column and the entity graph field. For the `graph_override` and `graph_exclude` functions, the syntax to access a data table is as follows:
