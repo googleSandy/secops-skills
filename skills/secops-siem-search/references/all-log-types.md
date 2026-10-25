@@ -1,6 +1,6 @@
 # SecOps: All Supported Log Types
 
-> **Last Updated:** 2026-10-13  
+> **Last Updated:** 2026-10-22  
 > **Source:** https://docs.cloud.google.com/chronicle/docs/ingestion/parser-list/supported-default-parsers
 
 SecOps: All Supported Log Types
