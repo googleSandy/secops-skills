@@ -23,7 +23,7 @@ The following example shows a `SearchRequest` object:
 }
 
 ```
-The request requires the following key parameters:  `query`: The search query string. `time_range`: The time interval for the search. `dialect`: Specifies the language dialect as `YL2`. `result_limit`: Optional. The maximum number of rows to materialize. The default value is `10000`, and the maximum value is `1000000`.
+The request requires the following key parameters:  `query`: The search query string. `time_range`: The time interval for the search. `dialect`: Specifies the language dialect as `YL2`.  The `SQL` dialect isn't supported for asynchronous LRO result retrieval using `ListSearchedResults` (`searchedResults.list`). The `RAW_LOG` dialect is in Preview and might return a `501 UNIMPLEMENTED` error if it isn't enabled for your instance.  `result_limit`: Optional. The maximum number of rows to materialize. The default value is `10000`, and the maximum value is `1000000`. `simulated_data_visibility` (or `simulatedDataVisibility` in JSON): Optional. Controls whether search results include simulated events. Set to `SIMULATED_DATA_INCLUDED` to include simulated events in search results. If unspecified, this parameter defaults to `SIMULATED_DATA_EXCLUDED`, which excludes simulated events.
 This call returns a `google.longrunning.Operation` object.
 The following example shows a successful operation response:
 ```
@@ -78,12 +78,12 @@ The `SearchSession` resource name format is `projects/{project}/locations/{locat
 The successful response contains the following key fields:  `done`: When set to `true`, the operation is complete. `state`: When set to `SUCCEEDED`, the search finished successfully. `response.name`: The resource name of the `SearchSession`. Use this value as the parent property in the next step. `response.metadata.resultRowCount`: Indicates the total number of rows found. `response.metadata.moreDataAvailable`: Indicates that the number of available results exceeds the defined return limit.
 #### List LRO operations
 To list LRO operations, use the `ListOperations` method from the `google.longrunning.Operations` service. Use the `name` value from the previous response.  Endpoint: `GET /{$api_version}/projects/{project}/locations/{location}/instances/{instance}`
-To list all LRO operations from the past 24 hours, add the filter `name: "operations/s-lro"`.
+To list search LRO operations from the past 24 hours, specify the `name:"operations/s-lro-"` filter, including the trailing hyphen. Note: This filter is required when you call `ListOperations` (`operations.list`) to retrieve search operations. If you call `ListOperations` without this filter, the response returns only retrohunt operations and omits search operations. In addition, the `CancelOperation` (`operations.cancel`) and `DeleteOperation` (`operations.delete`) methods aren't supported for `s-lro-` search operations.
 The following example shows a successful `ListOperations` request:
 ```
 google.longrunning.ListOperationsRequest {
   name: "projects/PROJECT_NUMBER/locations/LOCATION/instances/INSTANCE_ID"
-  filter: "name:\"operations/lro\""
+  filter: "name:\"operations/s-lro-\""
   page_size: 100
 }
 
@@ -127,17 +127,17 @@ The following example shows a `ListSearchedResultsRequest` that retrieves three 
 
 ```
 The request supports the following query parameters:  `page_size`: The maximum number of results to return per page. The default value is 100, and the maximum value is 10000. `page_token`: The token from a previous `ListSearchedResultsResponse` used to retrieve the next page.
-`order_by`: Optional. The field is used to sort the results.
-`UDM events (eventRecord)`: Use paths within the `udm` field, for example, `udm.metadata.timestamp desc` or `udm.principal.hostname asc`. Column names including `hostname`, `user`, `process name`, and `event type` are also supported.
-The default value is `udm.metadata.event_timestamp`.
-`Entities / ECG (entityContextRecord)`: Use paths within the `entity` field, for example, `graph.entity.ip asc`.
+`order_by` (or `orderBy` in JSON): Optional. The field used to sort the results. When you omit `order_by`, UDM event results are sorted by `udm.metadata.event_timestamp` in descending order by default, returning the most recent events first. When you specify a field path in `order_by` without a direction suffix, such as `udm.principal.hostname`, results are sorted in ascending order by default. Don't append `asc`, because the `asc` suffix isn't supported and returns a `400 INVALID_ARGUMENT` error. To sort results in descending order, append the `desc` suffix to the field path, such as `udm.metadata.event_timestamp desc`. Multi-column sorting isn't supported.
+`UDM events (eventRecord)`: Use fully qualified paths within the `udm` field, such as `udm.metadata.event_timestamp desc` or `udm.principal.hostname`. Column names such as `hostname`, `user`, `process name`, and `event type` are also supported.
+The default sort order is `udm.metadata.event_timestamp` in descending order, which returns the most recent events first.
+`Entities / ECG (entityContextRecord)`: Use paths within the `entity` field, such as `graph.entity.ip` or `graph.entity.ip desc`.
 `data tables (dataTableRecord)`: Use the `%<table_alias>.<column_name>` format. For example, `%dt.user desc`.
 The default value is the first data table column.
 `Detections (DetectionRecord)`: Use the keyword `detection` followed by the path, for example, `detection.id`.
 Joins: For events and entities, use the placeholder variable that defines them. For all other sources, the format remains the same.
 For example:  ECG (UDM-ECG join): Entity: `$e1.graph.entity.hostname` UDM (All joins with UDM): `$e1.principal.ip` Data table (UDM-Data table join): `%<table_alias>.<column_name>`
 Predefined aliases such as `hostname`, `user`, `process name`, and `event type` are also supported. For these, use the format `$e1.hostname.at`.
-`skip`: Optional. The number of results to skip. Don't use if using `page_token`.
+`skip`: Optional. The number of results to skip. Don't use this parameter with `page_token`.  Default sorting (`udm.metadata.event_timestamp`) isn't unique across events that share the same timestamp. In addition, the sort order for the search results is set on the first `ListSearchedResults` (`searchedResults.list`) call. When you paginate with `skip`, especially across parallel requests, specify a unique sort field such as `udm.metadata.id` in the `order_by` parameter. Alternatively, fetch the first page before sending parallel `skip` requests so that the sort order is already set.
 The following example shows a successful `ListSearchedResultsResponse` response:
 ```
 {

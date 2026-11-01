@@ -174,6 +174,7 @@ outcome:
 ```
 Mathematical operations are allowed on the following types of operands as long as each operand and the entire arithmetic expression is properly aggregated (See Aggregations):  Numeric event fields Numeric placeholder variables defined in the `events` section Numeric outcome variables defined in the `outcome` section Functions returning ints or floats Aggregations returning ints or floats
 Modulus is not allowed on floats.
+Standard integer literals default to signed 64-bit integers (`INT64`), which are incompatible with unsigned 64-bit integer (`UINT64`) UDM fields, such as `network.received_bytes`, `network.sent_bytes`, and `principal.file.size`. Combining these types in arithmetic (`+`, `-`, `*`) or modulo (`%`) operations can cause a runtime error in the `outcome` section. To resolve this issue, use `cast.as_int()` or `cast.as_uint()` to match integer types. Explicit casting is required for the `%` operator. For arithmetic operations, you can also force integer constants to behave as floats using floating-point literals, such as `2.0` or `100.0`, or division coercion, such as `(2/1)`, in expressions without other `/` operators on the same line. For more information, see Arithmetic with unsigned event fields.
 ## Placeholder variables in outcomes
 When computing outcome variables, you can use placeholder variables which were defined in the events section of your query. In this example, assume that `$email_sent_bytes` was defined in the events section of the rule:
 ### Example: single-event with no match section
@@ -202,7 +203,7 @@ outcome:
 
   // Use placeholder in a mathematical computation.
   $total_bytes_exfiltrated = sum(
-    1024
+    1024.0
     + $email_sent_bytes
     + $file_event.principal.file.size
   )

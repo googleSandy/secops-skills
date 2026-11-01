@@ -17,7 +17,7 @@ Objective: Understand the full scope of an incident by tracking the alert's corr
 Workflow:
 Open the Alerts dashboard and view a high risk alert.
 Go the graph tab to view entity context graph (ECG) relationships.
-For each related entity, pivot to the Detections timeline in Risk Analytics.
+For each related entity, pivot to the Detections Timeline in Risk Analytics.
 Look for overlapping detection patterns to map how the threat may have spread.
 Outcome: A comprehensive map of the incident that identifies affected systems and accounts.
 ### Lateral movement investigation
@@ -45,7 +45,7 @@ Identify the related entities (for example, a specific hash, IP address, or asse
 Copy the Asset ID or Username.
 If the table contains Detections or Events, do the following:
 For detections, click the Detection row to view the underlying events.
-Click the event row to open the Event viewer tab.
+Click the event row to open the Event Viewer tab.
 In the Entities tab, identify the related entities (for example, a specific hash, IP address, or asset name).  Note: If only a hash is visible, run a UDM search to identify the specific asset associated with that hash.  Copy the Asset ID or Username identified in the alert.
 ### Pivot to risk analytics
 Use the identifier found in the alert to access the entity's broader risk profile within the analytics dashboard.
