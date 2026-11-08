@@ -275,7 +275,7 @@ To create visualizations, you need the `chronicle.nativeDashboards.create` and `
 ### Create and save visualizations to add to the dashboard
 To create and save visualizations to add to the dashboard, do the following:
 Write a YARA-L query with `match` and `outcome` sections.
-Select a date range, and then click the Run Search to run the query. View the results on the Statistics and Visualize tabs.
+Select a date range, and then click the Run Search to run the query. View the results on the Statistics and Visualize tabs. Note: The Visualize tab is displayed only when you run a search in Advanced Mode. The search-execution mode feature (Basic Mode and Advanced Mode) is in Public Preview. For more information, see Understand the search-execution modes.
 On the Visualize tab, do the following: a. Select a chart type from the Chart type list. b. Adjust settings under Data Settings to customize the chart.
 On the Add to dashboard screen, do the following: a. Enter a chart name, description, and time range. b. Choose to add the chart to an existing dashboard or create a new dashboard.
 Click Add to Dashboard to add the chart to dashboard.

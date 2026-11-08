@@ -138,59 +138,46 @@ Joins: For events and entities, use the placeholder variable that defines them. 
 For example:  ECG (UDM-ECG join): Entity: `$e1.graph.entity.hostname` UDM (All joins with UDM): `$e1.principal.ip` Data table (UDM-Data table join): `%<table_alias>.<column_name>`
 Predefined aliases such as `hostname`, `user`, `process name`, and `event type` are also supported. For these, use the format `$e1.hostname.at`.
 `skip`: Optional. The number of results to skip. Don't use this parameter with `page_token`.  Default sorting (`udm.metadata.event_timestamp`) isn't unique across events that share the same timestamp. In addition, the sort order for the search results is set on the first `ListSearchedResults` (`searchedResults.list`) call. When you paginate with `skip`, especially across parallel requests, specify a unique sort field such as `udm.metadata.id` in the `order_by` parameter. Alternatively, fetch the first page before sending parallel `skip` requests so that the sort order is already set.
-The following example shows a successful `ListSearchedResultsResponse` response:
+The following example shows a successful `ListSearchedResultsResponse` response (with additional UDM fields and repeated event structures omitted for brevity):
 ```
 {
-"searchedResults": [
-{
-"name":
-"projects/PROJECT_NUMBER/locations/LOCATION/instances/INSTANCE_ID/searchSessions/SEARCH_SESSION_ID/searchedResults/
-RESULT_ID",
-"resultRow": {
-"eventRecord": {
-"event": {
-"name":
-"projects/PROJECT_NUMBER/locations/LOCATION/instances/INSTANCE_ID/events/EVENT_ID",
-"udm": {
-"metadata": {
-"eventTimestamp": "2026-03-16T14:45:18Z",
-"eventType": "USER_LOGIN",
-"vendorName": "Microsoft",
-"productName": "Azure AD"
-}
-},
-//... other UDM fields
-}
-//... other UDM fields
-"eventLogToken":
-"EVENT_LOG_TOKEN"
-}
-},
-{ }
-},
-{
-"name": "projects/PROJECT_NUMBER/locations/
-LOCATION/instances/INSTANCE_ID</span>
-/searchSessions/SEARCH_SESSION_ID/searchedResults/RESULT_ID", "resultRow": {
-"eventRecord": {
-//... Similar UDM event structure...
-}
-}
-},
-{
-""name": "projects/PROJECT_NUMBER/locations/
-LOCATION/instances/INSTANCE_ID</span>
-/searchSessions/SEARCH_SESSION_ID/searchedResults/RESULT_ID", "resultRow": {
-"eventRecord": {
-//... Similar UDM event structure...
-}
-}
-}
-],
-"totalSize": 10000,
-"columnNames": [],
-"columnSchema": {},
-"nextPageToken": "CAKYASAB"
+  "searchedResults": [
+    {
+      "name": "projects/PROJECT_NUMBER/locations/LOCATION/instances/INSTANCE_ID/searchSessions/SEARCH_SESSION_ID/searchedResults/RESULT_ID",
+      "resultRow": {
+        "eventRecord": {
+          "event": {
+            "name": "projects/PROJECT_NUMBER/locations/LOCATION/instances/INSTANCE_ID/events/EVENT_ID",
+            "udm": {
+              "metadata": {
+                "eventTimestamp": "2026-03-16T14:45:18Z",
+                "eventType": "USER_LOGIN",
+                "vendorName": "Microsoft",
+                "productName": "Azure AD"
+              }
+            }
+          },
+          "eventLogToken": "EVENT_LOG_TOKEN"
+        }
+      }
+    },
+    {
+      "name": "projects/PROJECT_NUMBER/locations/LOCATION/instances/INSTANCE_ID/searchSessions/SEARCH_SESSION_ID/searchedResults/RESULT_ID",
+      "resultRow": {
+        "eventRecord": {}
+      }
+    },
+    {
+      "name": "projects/PROJECT_NUMBER/locations/LOCATION/instances/INSTANCE_ID/searchSessions/SEARCH_SESSION_ID/searchedResults/RESULT_ID",
+      "resultRow": {
+        "eventRecord": {}
+      }
+    }
+  ],
+  "totalSize": 10000,
+  "columnNames": [],
+  "columnSchema": {},
+  "nextPageToken": "CAKYASAB"
 }
 
 ```

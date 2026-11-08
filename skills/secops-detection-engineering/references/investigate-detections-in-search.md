@@ -20,7 +20,7 @@ SIEM Search: The unified multi-source investigation console used to query, corre
 You must have the standard SecOps Search permissions and roles assigned to your user account to execute queries and view detection details.
 ### How the Alerts & Detections tab works in Search
 On the SIEM Search page, rule detections are natively integrated alongside raw log telemetry and SOAR cases.
-When you type any search query (for example, `detection.detection.rule_name != ""` or `target.ip = "10.200.1.50"`) and click Run Search, the search engine evaluates your query across both historical UDM events (Events tab) and rule execution outputs (Alerts & Detections tab) simultaneously.
+When you type any search query (for example, `detection.detection.rule_name != ""` or `target.ip = "10.200.1.50"`) and click Run Search, the search engine evaluates your query across both historical UDM events (Events tab) and rule execution outputs (Alerts & Detections tab) simultaneously. Note: The Alerts & Detections tab is displayed only when you run a search in Advanced Mode. In Basic Mode, Google SecOps bypasses detection correlation and hides this tab. The search-execution mode feature (Basic Mode and Advanced Mode) is in Public Preview. For more information, see Understand the search-execution modes.
 #### Result tabs and detections scope
 The console displays three tabs with live record counts:  Events Alerts & Detections Cases
 Clicking the Alerts & Detections tab shifts your workspace view to show every alerting and non-alerting YARA-L 2.0 detection matching your query within the selected time range. You don't need to execute a separate query or switch to a different product tool to transition between raw log hunting (events) and rule output analysis (detections).

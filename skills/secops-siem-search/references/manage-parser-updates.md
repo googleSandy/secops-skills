@@ -18,7 +18,7 @@ Understanding parser types and their functions:    Parser type Description     P
 Google SecOps typically updates its prebuilt parsers during the fourth week of each month. These updates are first made available to customers for early access and testing. As upcoming parser updates become available, they are marked as Pending update in the parser list. You can examine the difference between the earlier and the newer parser versions, or make the parser update active early to test it, or skip the update and create a custom parser. Important: This feature requires automatic parser updates to be active. To turn on this setting, see Opt in and out of automatic parser updates.
 To view the pending update do the following:
 Log in to your Google SecOps instance.
-Select Settings > SIEM Settings > Parsers.
+Select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click filter_alt Filter.
 Select Prebuilt, Active, and Prebuilt Extended from the list.
 A list of active (default), prebuilt parsers displays. Upcoming parser updates are marked as Pending in the Update column.
@@ -49,7 +49,7 @@ The selected version is activated for the normalization process after 20 minutes
 ### Revert an early update of the prebuilt parser
 If you activated the parser update early, you can still revert to the previous version until the fourth week of the month, when the update is automatically activated.
 To switch back to the previous parser version, follow these steps:
-From the apps Application menu, select Settings > Parsers.
+From the left hand navigation menu, select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click more_vert Menu against the parser that you want to revert.
 Click View.
 The View prebuilt parser page appears.
@@ -63,7 +63,7 @@ Note: This feature is in Private Preview and is not available to all customers i
 The impact check lets you assess the potential impact of the upcoming parser version on your detection rules before applying the changes. For any negatively affected rules, you can follow the links to investigate and update your rules accordingly.
 For single-event rules, the analysis checks the detections that your detection rules generated over the last 30 days. It runs both the current and the upcoming parser versions on the events corresponding to those detections. This process regenerates the detections to check for mismatches.
 For multi-event rules, the analysis uses a sample of your events rather than all events to perform a heuristic analysis. If events don't match, this analysis marks the outcome as Potentially failing.
-To run an analysis of the impact of the upcoming parser version on your detection rules, do the following:  In the Google SecOps Console, go to Settings > SIEM Settings > Parsers. Select a specific Log type (prebuilt parser). Select one of the parser update options: Update to latest version, Rollback to last used version, or Opt-in to a Release Candidate. Go to the parser Impact tab and click Check impact on rules. The impact check may take some time to complete.
+To run an analysis of the impact of the upcoming parser version on your detection rules, do the following:  In the Google SecOps console, go to Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers. Select a specific Log type (prebuilt parser). Select one of the parser update options: Update to latest version, Rollback to last used version, or Opt-in to a Release Candidate. Go to the parser Impact tab and click Check impact on rules. The impact check may take some time to complete.
 Upon completion, the system displays the following:  Parser metadata and a list of rules that the new version affects, detailing the rule type and the UDM fields showing differences.
 The system categorizes any negatively affected rules as follows:  Failing: The new parser did not raise a detection, but the current parser did. Potentially failing: Rules (including multi-event) where UDM fields in the rule logic have changed. You must further investigate these rules.
 For each of these, follow the link to the rule editor to investigate and edit the rule to get it to work with the new parser version.
@@ -72,16 +72,16 @@ Google SecOps provides and maintains prebuilt parsers to make sure your logs are
 This section describes the full parser version management lifecycle in Google SecOps. This includes opting in and out of automatic updates, comparing the logic between versions, manually updating to new versions, and rolling back to previous versions. Note: You can preview Google prebuilt parsers to test new versions. However, you cannot use the preview tool to test an updated prebuilt parser while you have an active custom parser running. You must deactivate your custom parser and revert to using a prebuilt one.
 ### Opt in and out of automatic parser updates
 If you turn off automatic updates, the parser stays on its current version until you turn on auto-updates or manually update it. To turn off automatic updates, do the following:
-From the apps Application menu, select Settings > Parsers.
+From the navigation menu, go to Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click more_vertMenu for the required prebuilt parser.
 Click Turn off auto updates.
 When automatic updates are enabled, the parser updates with every new stable release. To turn on automatic updates, do the following:
-From the apps Application menu, select Settings > Parsers.
+From the navigation menu, go to Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click more_vertMenu for the required prebuilt parser.
 Click Turn on auto updates.  Important: Opting in to a preview parser requires that automatic updates are active and that the parser is on the latest version. Disabling updates removes the preview option and restores the last used stable version for that log type.
 ### Update a parser version manually
 If automatic updates are off, you can choose when to update a parser to a new version. This lets you review changes before applying them. Note: You can only upgrade to the latest parser version and not any versions in between. To update a parser, do the following:
-From the apps Application menu, select Settings > Parsers.
+From the navigation menu, select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click more_vertMenu for the required parser.
 Select Update to latest version.
 The Compare parsers page appears. You can view the following:
@@ -92,7 +92,7 @@ The date and time the parser code last updated.
 Click Update parser to update it to the latest version.
 ### Roll back a parser version
 You can revert a parser to the version that you last used, regardless of its automatic update status. To roll back a parser version, do the following:
-From the apps Application menu, select Settings > Parsers.
+From the navigation menu, select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click more_vertMenu for the required parser.
 Select Roll back to last used version.
 The Compare parsers page appears. You can view the following:

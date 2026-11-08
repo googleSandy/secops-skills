@@ -2,7 +2,7 @@
 
 # Search best practices
 Supported in:    Google SecOps   SIEM
-This document describes Google's recommended best practices for using the Search feature in Google Security Operations. Searches can require substantial computational resources if they're not carefully constructed. Performance also varies depending on the size and complexity of the data in your Google SecOps instance. Note: For raw log searches, the Search field is limited to 150 characters.
+This document describes Google's recommended best practices for using the Search feature in Google Security Operations. Searches can require substantial computational resources if they're not carefully constructed. Performance also varies depending on the size and complexity of the data in your Google SecOps instance. Tip: To accelerate interactive event retrieval and query iteration when you don't need timeline charts, prevalence scoring, or detection correlations, run your search in Basic Mode. The search-execution mode feature (Basic Mode and Advanced Mode) is in Public Preview. For more information, see Choose the search-execution mode and Understand the search-execution modes.Note: For raw log searches, the Search field is limited to 150 characters.
 ## Use specific filters in queries for maximum speed and performance
 The single most effective way to improve search performance is to build queries using specific, optimized Unified Data Model (UDM) fields. These fields are optimized for fast retrieval, ensuring that your searches run quickly and use fewer computational resources.
 The following sections list the high-performance UDM fields to use as filters in your queries.

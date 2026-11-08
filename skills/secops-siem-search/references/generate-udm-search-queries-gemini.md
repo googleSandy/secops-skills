@@ -24,6 +24,7 @@ If the search statement includes a time-based term, the time picker is automatic
 If the search statement can't be interpreted, you see the following message: "Sorry, no valid query could be generated. Try asking a different way."
 Review the generated search query. The syntax is Overview of YARA-L 2.0.
 Optional: Adjust the search time range.
+Select the search-execution mode: Basic Mode or Advanced Mode. Note: The search-execution mode feature is in Public Preview. For more information, see Understand the search-execution modes.
 Click Run Search.
 Review the search results to determine if the event is present. If needed, use search filters to narrow the list of results.
 Provide feedback about the query using the Generated Query feedback icons. Select one of the following:  If the query returns the expected results, click thumb_up Thumbs Up. If the query does not return the expected results, click thumb_down Thumbs Down. Optional: Include additional detail in the Feedback field.

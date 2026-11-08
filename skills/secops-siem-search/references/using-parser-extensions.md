@@ -65,10 +65,10 @@ Search for your log type in these lists:
 Supported log types with a default parser.  If there is a default parser for the log type, ensure the parser is active. If there is no default parser for the log type, ensure there is a custom parser for the log type.
 Supported log types without a default parser.  If there is no default parser for the log type, ensure there is a custom parser for the log type.
 ##### Ensure there is a custom parser for the log type
-To ensure there is a custom parser for a log type:  In the navigation bar, select SIEM Settings > Parsers.
+To ensure there is a custom parser for a log type:  In the navigation bar, select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Search the Parsers table for the log type you want to extend.  If that log type doesn't have a default or custom parser yet, click Add New Parser (or Create parser), and follow the steps in, Create a custom parser based on mapping instructions. If that log type already has a custom parser, ensure the parser is active.
 #### Ensure the parser is active for the log type
-To check if a parser is active for a log type, perform the following steps:  In the navigation bar, select SIEM Settings > Parsers.
+To check if a parser is active for a log type, perform the following steps:  In the navigation bar, select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Search the Parsers table for the log type you want to extend.
 If the parser for the log type is not active, activate it:  For default parsers see, Manage prebuilt parser updates. For custom parsers see, Configure custom parsers.
 ### Identify the fields to extract from the raw logs
@@ -90,7 +90,7 @@ UDM Nouns: A noun represents a participant or entity in a UDM event. A noun coul
 In practice, the principal and target Noun objects are those most frequently utilized. It is also important to note that the preceding descriptions constitute the recommended usage of Nouns. Actual usage may vary based on the implementation of a default or custom base parser.
 #### Understand the data mapping used by the existing parser
 It is recommended to understand the existing data mapping used by the default (or custom) parser, between the raw log source fields to their destination UDM fields.
-To view the data mapping between raw log source fields and destination UDM fields used in the existing default (or custom) parser:  In the navigation bar, select SIEM Settings > Parsers. Search the Parsers table for the log type you want to extend.
+To view the data mapping between raw log source fields and destination UDM fields used in the existing default (or custom) parser:  In the navigation bar, select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers. Search the Parsers table for the log type you want to extend.
 Navigate to that row, then click the more_vert Menu > View.
 In the Prebuilt (or Custom) tab, the Parser Code section displays the data mapping between raw log source fields and destination UDM fields used in the existing default (or custom) parser.
 #### Use the UDM Lookup tool
@@ -117,7 +117,7 @@ The Parser Extension page lets you define the new parser extension.
 You can open the Parser Extension page in the following ways, from the Settings menu, from a Raw Log Search, or from a legacy Raw Log Search:
 ##### Open from the Settings menu
 To open the Parser Extension page from the Settings menu:
-In the navigation bar, select SIEM Settings > Parsers.
+In the navigation bar, select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 The Parsers table displays a list of default parsers by log type.
 Find the log type that you want to extend, click the more_vert Menu > Extend Parser > Create Extension.
 The Parser Extension page opens.
@@ -279,14 +279,12 @@ To create a parser extension using the code snippet approach, do the following: 
 #### Code snippet instruction examples
 Note: For the full list of examples, covering many log types and scenarios, see code snippet parser extension creation examples.
 The following example illustrates a code snippet.
-This is an example the raw log:
+This is an example of the raw log (with additional `jsonPayload` fields omitted for brevity):
 ```
   {
       "insertId": "00000000",
       "jsonPayload": {
-          ...section omitted for brevity...
-          "packets_sent": "4",
-          ...section omitted for brevity...
+          "packets_sent": "4"
       },
       "timestamp": "2022-05-03T01:45:00.150614953Z"
   }
@@ -346,7 +344,7 @@ Google SecOps validates the mapping instructions.  If the validation process suc
 ## Manage existing parser extensions
 You can view, edit, delete, and control access to existing parser extensions.
 ### View an existing parser extension
-In the navigation bar, select SIEM Settings > Parsers. In the Parsers list, find the parser (log type) that you want to view. Parsers with a parser extension are indicated by the `EXTENSION` (or `EXTN`) text next to their name.
+In the navigation bar, select Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers. In the Parsers list, find the parser (log type) that you want to view. Parsers with a parser extension are indicated by the `EXTENSION` (or `EXTN`) text next to their name.
 Go to that row, then click the more_vert Menu > Extend Parser > View Extension.
 The View Custom/Prebuilt Parser > Extension tab (or Extensions tab) appears showing details about the parser extension. The summary panel displays the `LIVE` parser extension by default.
 ### Edit a parser extension
@@ -365,7 +363,7 @@ Click the Delete Extension button.
 By default, users with the Administrator role can access parser extensions. You can control who can view and manage parser extensions. For more information about managing Users and Groups, or assigning roles, see Role Based Access Control for more information.
 The new roles in Google SecOps are summarized in the following table.    Feature Action Description     Parser Delete Delete parser extensions.   Parser Edit Create and edit parser extensions.   Parser View View parser extensions.
 ### Remove UDM field mappings using parser extensions
-You can use parser extensions to remove an existing UDM field mapping.  Click SIEM Settings > Parsers. Use either of the following methods to view the Parser Extension page:  For an existing extension, click more_vert Menu > Extend Parser > View Extension. For new parser extensions, click more_vert Menu > Extend Parser > Create Extension.
+You can use parser extensions to remove an existing UDM field mapping.  Click Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers. Use either of the following methods to view the Parser Extension page:  For an existing extension, click more_vert Menu > Extend Parser > View Extension. For new parser extensions, click more_vert Menu > Extend Parser > Create Extension.
 Select Write Code Snippets (or Write code snippet) as the extension method to add a custom code snippet that removes values for specific UDM fields.
 For an existing extension, in the Extension (or Extensions) tab, click Edit Extension (or Edit) and then add the code snippet.
 See Code snippet - Remove existing mappings for example snippets.
@@ -384,4 +382,4 @@ if [raw_log] =~ /EST/ {
 }
 
 ```
-Configure a forwarder collector timezone override: Go to SIEM Settings > Forwarders, edit the target collector, enable Override timezone, and select the source IANA timezone from the Timezone menu (for example, `Europe/Paris`) to adjust timestamps automatically during ingestion.
+Configure a forwarder collector timezone override: Go to Settings > Data Management > Forwarders, edit the target collector, enable Override timezone, and select the source IANA timezone from the Timezone menu (for example, `Europe/Paris`) to adjust timestamps automatically during ingestion.

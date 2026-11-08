@@ -7,23 +7,23 @@ UDM field name formats:  For rules engine evaluation, the prefix begins with udm
 ## Population of Event metadata
 The event metadata section for UDM events stores general information about each event.
 ### Metadata.event_type
-Purpose: Specifies the type of the event. If an event has multiple possible types, this value must specify the most specific type. Required: Yes. Encoding: Must be one of the predefined UDM event_type enumerated types. Possible values: The following lists all of the possible values for event_type within the UDM.
+Purpose: Specifies the type of the event. If an event has multiple possible types, this value must specify the most specific type. Required: Yes. Encoding: Must be one of the predefined UDM `event_type` enumerated types. Possible values: The following sections list all possible values for `metadata.event_type` within the UDM. For the required and optional fields for each category, see Required and optional fields for each event type.
 #### Analyst events
 ANALYST_ADD_COMMENT ANALYST_UPDATE_PRIORITY ANALYST_UPDATE_REASON ANALYST_UPDATE_REPUTATION ANALYST_UPDATE_RISK_SCORE ANALYST_UPDATE_ROOT_CAUSE ANALYST_UPDATE_SEVERITY_SCORE ANALYST_UPDATE_STATUS ANALYST_UPDATE_VERDICT
 #### Device events
-DEVICE_CONFIG_UPDATE DEVICE_FIRMWARE_UPDATE DEVICE_PROGRAM_DOWNLOAD DEVICE_PROGRAM_UPLOAD
+Events related to firmware, configuration, or program updates on a device (such as an industrial control system or operational technology asset):  DEVICE_CONFIG_UPDATE DEVICE_FIRMWARE_UPDATE DEVICE_PROGRAM_DOWNLOAD DEVICE_PROGRAM_UPLOAD
 #### Email events
-EMAIL_UNCATEGORIZED EMAIL_TRANSACTION EMAIL_URL_CLICK
+Events related to email transactions and email security inspections:  EMAIL_UNCATEGORIZED EMAIL_TRANSACTION EMAIL_URL_CLICK (deprecated)
 #### Events that are unspecified
-EVENTTYPE_UNSPECIFIED
+Placeholder value for an uninitialized event type (events set to `EVENTTYPE_UNSPECIFIED` fail UDM validation):  EVENTTYPE_UNSPECIFIED
 #### File events performed on an endpoint
 FILE_UNCATEGORIZED FILE_COPY (for example, copying a file to a thumb drive) FILE_CREATION FILE_DELETION FILE_MODIFICATION FILE_MOVE FILE_OPEN (for example, opening a file might indicate a security breach) FILE_READ (for example, reading a password file) FILE_SYNC
 #### Events that don't fall into any other category
-Events that don't fall into any other category, including uncategorized Windows events:  GENERIC_EVENT
+Events that don't fall into any other category, including uncategorized operating system events:  GENERIC_EVENT
 #### Group activity events
-GROUP_UNCATEGORIZED GROUP_CREATION GROUP_DELETION GROUP_MODIFICATION
+Events related to creating, modifying, or deleting user or system groups:  GROUP_UNCATEGORIZED GROUP_CREATION GROUP_DELETION GROUP_MODIFICATION
 #### Mutex events
-MUTEX_UNCATEGORIZED MUTEX_CREATION
+Events related to creating or managing a mutual exclusion (mutex) object on an endpoint:  MUTEX_UNCATEGORIZED MUTEX_CREATION
 #### Network telemetry events
 Network telemetry events, which include raw protocol payloads, such as DHCP and DNS, as well as protocol summaries for protocols such as HTTP, SMTP, and FTP and flow and connection events from NetFlow and firewalls:  NETWORK_UNCATEGORIZED NETWORK_CONNECTION (for example, network connection details from a firewall) NETWORK_DHCP NETWORK_DNS NETWORK_FLOW (for example, aggregated flow statistics from Netflow) NETWORK_FTP NETWORK_HTTP NETWORK_SMTP
 #### Process events
@@ -31,23 +31,22 @@ Any events pertaining to a process such as a process launch, a process creating 
 #### Registry events
 Use the following REGISTRY events rather than the SETTING events when dealing with Microsoft Windows-specific registry events:  REGISTRY_UNCATEGORIZED REGISTRY_CREATION REGISTRY_MODIFICATION REGISTRY_DELETION
 #### Resource events
-RESOURCE_CREATION RESOURCE_DELETION RESOURCE_PERMISSIONS_CHANGE RESOURCE_READ RESOURCE_WRITTEN
+Events related to creating, reading, writing, deleting, or changing permissions on a resource:  RESOURCE_CREATION RESOURCE_DELETION RESOURCE_PERMISSIONS_CHANGE RESOURCE_READ RESOURCE_WRITTEN
 #### Scan-oriented events
-Scan-oriented events includes on-demand scans and behavioral detections performed by endpoint security products (EDR, AV, DLP). They are used only when attaching a SecurityResult to another event type (such as PROCESS_LAUNCH).
-Scan-oriented events:  SCAN_UNCATEGORIZED SCAN_FILE SCAN_HOST SCAN_NETWORK SCAN_PROCESS SCAN_PROCESS_BEHAVIORS SCAN_VULN_HOST SCAN_VULN_NETWORK
+Scan-oriented events include on-demand scans and behavioral detections performed by endpoint or network security products (such as EDR, antivirus, vulnerability scanners, or DLP):  SCAN_UNCATEGORIZED SCAN_FILE SCAN_HOST SCAN_NETWORK SCAN_PROCESS SCAN_PROCESS_BEHAVIORS (deprecated) SCAN_VULN_HOST SCAN_VULN_NETWORK
 #### Scheduled tasks events (Windows Task Scheduler, cron, etc.)
 SCHEDULED_TASK_UNCATEGORIZED SCHEDULED_TASK_CREATION SCHEDULED_TASK_DELETION SCHEDULED_TASK_DISABLE SCHEDULED_TASK_ENABLE SCHEDULED_TASK_MODIFICATION
 #### Service events
-SERVICE_UNSPECIFIED SERVICE_CREATION SERVICE_DELETION SERVICE_MODIFICATION SERVICE_START SERVICE_STOP
+Events related to creating, deleting, modifying, starting, or stopping an operating system or application service:  SERVICE_UNSPECIFIED SERVICE_CREATION SERVICE_DELETION SERVICE_MODIFICATION SERVICE_START SERVICE_STOP
 #### Setting events
-For setting event requirements, see Settings - required fields.
+For setting event requirements, see SETTING_UNCATEGORIZED, SETTING_CREATION, SETTING_MODIFICATION, SETTING_DELETION.
 Setting events, including when a system setting is changed on an endpoint:  SETTING_UNCATEGORIZED SETTING_CREATION SETTING_DELETION SETTING_MODIFICATION
 #### Status messages from security products
 Status messages from security products to indicate that agents are alive and to send version, fingerprint, or other types of data:  STATUS_UNCATEGORIZED STATUS_HEARTBEAT (indicates product is alive) STATUS_STARTUP STATUS_SHUTDOWN STATUS_UPDATE (software or fingerprint update)
 #### System audit log events
 SYSTEM_AUDIT_LOG_UNCATEGORIZED SYSTEM_AUDIT_LOG_WIPE
 #### User authentication activity events
-USER_UNCATEGORIZED USER_BADGE_IN (for example, when a user physically badges in to a site) USER_CHANGE_PASSWORD USER_CHANGE_PERMISSIONS USER_COMMUNICATION USER_CREATION USER_DELETION USER_LOGIN USER_LOGOUT USER_RESOURCE_ACCESS USER_RESOURCE_CREATION USER_RESOURCE_DELETION USER_RESOURCE_UPDATE_CONTENT USER_RESOURCE_UPDATE_PERMISSIONS USER_STATS
+USER_UNCATEGORIZED USER_BADGE_IN (for example, when a user physically badges in to a site) USER_CHANGE_PASSWORD USER_CHANGE_PERMISSIONS USER_COMMUNICATION USER_CREATION USER_DELETION USER_LOGIN USER_LOGOUT USER_RESOURCE_ACCESS USER_RESOURCE_CREATION USER_RESOURCE_DELETION USER_RESOURCE_UPDATE_CONTENT USER_RESOURCE_UPDATE_PERMISSIONS USER_STATS (deprecated)
 ### Metadata.collected_timestamp
 Purpose: Encodes the GMT timestamp when the event was collected by the vendor's local collection infrastructure. Encoding: RFC 3339, as appropriate for JSON or Proto3 timestamp format. Example:  RFC 3339: '2019-09-10T20:32:31-08:00' Proto3 format: '2012-04-23T18:25:43.511Z'
 ### Metadata.event_timestamp
@@ -67,7 +66,7 @@ Purpose: URL linking to a relevant website where you can view more information a
 ### Metadata.vendor_name
 Purpose: Specifies the product vendor's name. Encoding: Case-sensitive, alphanumeric string, punctuation allowed, 256 bytes maximum Examples:  CrowdStrike Symantec
 ## Population of Noun metadata
-In this section, the word Noun is a overarching term used to represent the entities; principal, src, target, intermediary, observer, and about. These entities have common attributes, but represent different objects in an event. For more information about entities and what each represents in an event, see Formatting log data as UDM.
+In this section, the word Noun is an overarching term used to represent the following entities: `principal`, `src`, `target`, `intermediary`, `observer`, and `about`. These entities have common attributes, but represent different objects in an event. For more information about entities and what each represents in an event, see Format a UDM event.
 ### Noun.asset_id
 Purpose: Vendor-specific unique device identifier (for example, a GUID that is generated when installing endpoint security software on a new device that is used to track that unique device over time). Encoding: (VendorName or VendorAbbreviation):ID where the VendorName or VendorAbbreviation is a case insensitive vendor name like `Carbon Black` or `CB` and ID is a vendor-specific customer identifier that is globally unique within their customer's environment (for example, a GUID or unique value identifying a unique device). VendorName is alphanumeric and no more than 32 characters long. ID can be a maximum of 128 characters in length and can include alphanumeric characters, dashes, and periods. Example: `CrowdStrike:0bce4259-4ada-48f3-a904-9a526b01311f` Example: `CS:0bce4259-4ada-48f3-a904-9a526b01311f`
 ### Noun.email
@@ -406,6 +405,27 @@ Entity type Entity-specific requirements     `IP_ADDRESS`   `entity.ip` must con
 ## Required and optional fields for each event type
 This section describes the required and optional fields that should be populated for each UDM event type.
 For details about particular UDM fields (for example, enum numbers), refer to the Unified Data Model field list.
+### DEVICE_CONFIG_UPDATE, DEVICE_FIRMWARE_UPDATE, DEVICE_PROGRAM_DOWNLOAD, DEVICE_PROGRAM_UPLOAD
+Required fields:  metadata: Include the required fields (`event_timestamp` and `event_type`). principal: Include at least one machine identifier (`principal.hostname`, `principal.ip`, `principal.mac`, or `principal.asset_id`).
+Optional fields:  principal.user: Populate if user information is available for the account that initiated the device update. target: Populate with details about the target device, firmware, configuration resource, or program file if different from `principal`. security_result: Describe any malicious or anomalous activity detected.
+##### UDM example for DEVICE_FIRMWARE_UPDATE
+The following example shows how to format a `DEVICE_FIRMWARE_UPDATE` event for the Google SecOps UDM:
+```
+{
+  "metadata": {
+    "event_timestamp": "2025-03-10T14:22:05.000000Z",
+    "event_type": "DEVICE_FIRMWARE_UPDATE"
+  },
+  "principal": {
+    "hostname": "plc-controller-01",
+    "ip": [
+      "10.20.30.40"
+    ]
+  }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device where the firmware update occurred.
 ### EMAIL_TRANSACTION, EMAIL_UNCATEGORIZED
 Required fields:  metadata: Include the required fields. principal: Populate with information about the machine that the email message originated from (for example, the IP address of the sender).
 Optional fields:  about: URLs, IPs, domains, and any file attachments embedded in the email body. Note that about.file.hash is not an Indexed field for file hashes. Hash views won't be populated from an attachment hash normalized to this field. securityResult.about: Bad URLs, IPs, and files embedded within the email body. network.email: Email sender or recipient information. Note that network.email is not an aliasing field. If you require aliasing and enrichment for Search or Detection, you will need to index into principal or target using a parser extension. principal: If there is client machine data on who sent the email, populate the server details in principal (for example, the client process, port numbers, username, etc.). target: If there is destination email server data, populate the server details in target (for example, the IP address). intermediary: If there is mail server data or mail proxy data, populate the server details in intermediary.
@@ -448,7 +468,7 @@ As shown in this example, the event is divided into the following UDM categories
 Required fields:  metadata: Include the required fields as described. principal:  At least one machine identifier. (Optional) Populate principal.process with information about the process performing the file copy operation.  src:  Populate src.file with information about the source file. If the file is remote (for example SMB share), src must include at least one machine identifier for the source machine storing the source file.  target:  Populate target.file with information about the target file. If the file is remote (for example SMB share), the target field must include at least one machine identifier for the target machine that holds the target file.
 Optional fields:  security_result: Describe the malicious activity detected. principal.user: Populate if user information is available about the process.
 ### FILE_MOVE, FILE_SYNC
-Required fields:  metadata: Background information about the event. principal: At least one machine identifier (for example, principal.hostname). src: Include src.file.full_path to represent the original file. target: Include target.file.full_path to represent the destination file.
+Required fields:  metadata: Background information about the event. principal: At least one machine identifier (for example, `principal.hostname`). src: Populate `src.file` (for example, `src.file.full_path`) to represent the original file. This field is required for `FILE_MOVE` and `FILE_COPY`. For `FILE_SYNC`, you must populate at least one of `src.file` or `target.file` (and `target` must be non-empty). target: Populate `target.file` (for example, `target.file.full_path`) to represent the destination file. This field is required for `FILE_MOVE` and `FILE_COPY`. For `FILE_SYNC`, you must populate at least one of `src.file` or `target.file`.
 ##### UDM example for FILE_MOVE
 The following example illustrates how an event of type FILE_MOVE would be formatted for the Google SecOps UDM:
 ```
@@ -474,6 +494,56 @@ The following example illustrates how an event of type FILE_MOVE would be format
 
 ```
 As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device where the file move occurred. src: Information about the source file. target: Information about the destination file.
+### GENERIC_EVENT
+Use `GENERIC_EVENT` only when an event doesn't fit any other UDM event type category.
+Required fields:  metadata: Include the required fields (`event_timestamp` and `event_type`).
+Optional fields:  metadata.product_event_type and metadata.description: Include the vendor-specific event name and human-readable description. principal, target, src, intermediary, observer, and about: Populate any entities involved in the event. `GENERIC_EVENT` doesn't enforce entity-specific field requirements beyond standard scalar type validation (such as valid IP addresses and hostnames up to 255 bytes). security_result: Describe any malicious or anomalous activity detected.
+##### UDM example for GENERIC_EVENT
+The following example shows how to format a `GENERIC_EVENT` event for the Google SecOps UDM:
+```
+{
+  "metadata": {
+    "event_timestamp": "2025-03-10T15:00:00.000000Z",
+    "event_type": "GENERIC_EVENT",
+    "product_event_type": "CustomAuditEvent",
+    "description": "Custom audit event recorded on host"
+  },
+  "principal": {
+    "hostname": "workstation-01"
+  }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information and vendor-specific description of the event. principal: Information about the device associated with the event.
+### GROUP_CREATION, GROUP_DELETION, GROUP_MODIFICATION, GROUP_UNCATEGORIZED
+Required fields:  metadata: Include the required fields (`event_timestamp` and `event_type`). principal: Include at least one user identifier in `principal.user` (`userid`, `windows_sid`, `email_addresses`, or `employee_id`). target: Populate `target.group` with details about the group being created, deleted, or modified (and `target.user` if a user is being added to or removed from the group). The `target` field must not be empty.
+Optional fields:  principal: Include machine identifiers for the device from which the group operation originated. target.group: Include group identifiers such as `group_display_name`, `product_object_id`, `windows_sid`, or `email_addresses`. security_result: Describe any malicious activity detected.
+##### UDM example for GROUP_MODIFICATION
+The following example shows how to format a `GROUP_MODIFICATION` event for the Google SecOps UDM:
+```
+{
+  "metadata": {
+    "event_timestamp": "2025-03-10T16:10:00.000000Z",
+    "event_type": "GROUP_MODIFICATION"
+  },
+  "principal": {
+    "user": {
+      "userid": "admin_user"
+    }
+  },
+  "target": {
+    "group": {
+      "group_display_name": "Domain Admins",
+      "windows_sid": "S-1-5-21-3623811015-3361044348-30300820-512"
+    },
+    "user": {
+      "userid": "jdoe"
+    }
+  }
+}
+
+```
+As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the user who modified the group. target: Information about the modified group and the affected user.
 ### MUTEX_CREATION, MUTEX_UNCATEGORIZED
 Required fields:  metadata: Include the required fields. principal:  At least one machine identifier. Populate principal.process with information about the process creating the mutex. UDM validation requires a process object in principal. You cannot pass UDM validation with a process only in target.  target:  Populate target.resource. Populate target.resource.type with MUTEX. Populate target.resource.name with the name of the mutex created.
 Optional fields:  security_result: Describe the malicious activity detected. principal.user: Populate if user information is available about the process.
@@ -640,7 +710,7 @@ target {
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Device details. target: Process details.
 ### PROCESS_MODULE_LOAD
-Required fields:  metadata: Include the required fields. principal:  At least one machine identifier. principal.process: Process loading the module.  target:  target.process: Includes information about the process. target.process.file: Module loaded (for example, the DLL or shared object).
+Required fields:  metadata: Include the required fields. principal:  Include at least one machine identifier (in either `principal` or `target`). principal.process: Populate with information about the process loading the module.  target:  target.process: Populate with information about the loaded module process, including at least one of `target.process.file` (for example, the DLL or shared object) or `target.process.product_specific_process_id`.
 Optional fields:  security_result: Describe the malicious activity detected. principal.user: Populate if user information is available about the process.
 ##### UDM example for PROCESS_MODULE_LOAD
 The following example illustrates how you would format a PROCESS_MODULE_LOAD event using the Google SecOps UDM syntax:
@@ -670,7 +740,7 @@ The following example illustrates how you would format a PROCESS_MODULE_LOAD eve
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Details about the device and the process loading the module. target: Process and module details.
 ### PROCESS_PRIVILEGE_ESCALATION
-Required fields:  metadata: Include the required fields. principal:  At least one machine identifier. principal.process: Process loading the module. principal.user: User loading the module.
+Required fields:  metadata: Include the required fields. principal:  Include at least one machine identifier (in either `principal` or `target`). principal.process: Populate with information about the process initiating the privilege escalation. principal.user: Populate with information about the user initiating the privilege escalation, including at least one user identifier.  target: Populate with information about the target of the privilege escalation (for example, `target.process` for the process with escalated privileges). The `target` field must not be empty.
 Optional fields:  security_result: Describe the malicious activity detected.
 ##### UDM example for PROCESS_PRIVILEGE_ESCALATION
 The following example illustrates how an event of type PROCESS_PRIVILEGE_ESCALATION would be formatted for the Google SecOps UDM:
@@ -862,7 +932,7 @@ extensions: {
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Device that received the malicious software. extensions: Vulnerability details.
 ### SCHEDULED_TASK_CREATION, SCHEDULED_TASK_DELETION, SCHEDULED_TASK_DISABLE, SCHEDULED_TASK_ENABLE, SCHEDULED_TASK_MODIFICATION, SCHEDULED_TASK_UNCATEGORIZED
-Required fields:  principal: For all SCHEDULED_TASK events, principal must include a machine identifier and a user identifier. target: Target must include a valid resource and a resource type defined as "TASK".
+Required fields:  principal: For all SCHEDULED_TASK events, principal must include a machine identifier and a user identifier. target: Include a valid `target.resource` with `target.resource.resource_type` set to `TASK`.
 Optional fields:  security_result: Describe the malicious activity detected.
 ##### UDM example for SCHEDULED_TASK_CREATION
 The following example illustrates how an event of type SCHEDULED_TASK_CREATION could be formatted for the Google SecOps UDM:
@@ -887,7 +957,7 @@ principal: {
 }
 target: {
   resource: {
-    type: "TASK"
+    resource_type: TASK
     name: "\\Adobe Acrobat Update Task"
   }
 }
@@ -904,9 +974,8 @@ security_result: {
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Device that scheduled the suspicious task. target: Software targeted by the suspicious task. intermediary: Intermediary involved with the suspicious task. security_result: Security details about the suspicious task.
 ### SETTING_UNCATEGORIZED, SETTING_CREATION, SETTING_MODIFICATION, SETTING_DELETION
 Required fields:
-principal: Must be present, non-empty, and include a machine identifier.
-Note, setting `resource.type` is deprecated. Use resource.resource_type.
-target: Must be present, non-empty, and include a resource with its type specified as SETTING
+principal: Must be present, non-empty, and include a machine identifier. Note: Setting `resource.type` is deprecated. Use `resource.resource_type`.
+target: Must be present, non-empty, and include a resource with `target.resource.resource_type` specified as `SETTING`.
 ##### UDM example for event type SETTING_MODIFICATION
 The following example illustrates how an event of type SETTING_MODIFICATION would be formatted for the Google SecOps UDM:
 ```
@@ -920,7 +989,7 @@ The following example illustrates how an event of type SETTING_MODIFICATION woul
     },
     "target": {
         "resource": {
-            "type": "SETTING",
+            "resource_type": "SETTING",
             "name": "foo.bar"
         }
     }
@@ -928,8 +997,9 @@ The following example illustrates how an event of type SETTING_MODIFICATION woul
 
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Information about the device on which the setting modification occurred. target: Details about the setting resource.
-### SERVICE_UNSPECIFIED, SERVICE_CREATION, SERVICE_DELETION, SERVICE_START, SERVICE_STOP
-Required fields:  target: Include the user identifier and specify either process or application. principal: Include at least one machine identifier (IP or MAC ADDRESS, hostname, or asset identifier).
+### SERVICE_UNSPECIFIED, SERVICE_CREATION, SERVICE_DELETION, SERVICE_MODIFICATION, SERVICE_START, SERVICE_STOP
+Required fields:  metadata: Include the required fields (`event_timestamp` and `event_type`). principal: Include at least one machine identifier (`principal.hostname`, `principal.ip`, `principal.mac`, or `principal.asset_id`). target: Specify at least one of `target.process` or `target.application`.
+Optional fields:  target.user: Populate if user information is available for the service account or target user. target.resource: Populate with service resource details (for example, `resource_type: SERVICE`).
 ##### UDM example for SERVICE_UNSPECIFIED
 The following example illustrates how an event of type SERVICE_UNSPECIFIED would be formatted for the Google SecOps UDM:
 ```
@@ -956,14 +1026,14 @@ metadata: {
    }
  application: "application.name"
    resource: {
-      type: "Service Type"
+      resource_type: SERVICE
       name: "RPC"
    }
  }
 
 ```
 As shown in this example, the event has been divided into the following UDM categories:  metadata: Background information about the event. principal: Device and location details. target: Hostname and user identifier. application: Application name and resource type.
-### STATUS_HEARTBEAT, STATUS_STARTUP, STATUS_SHUTDOWN, STATUS_UPDATE
+### STATUS_HEARTBEAT, STATUS_STARTUP, STATUS_SHUTDOWN, STATUS_UNCATEGORIZED, STATUS_UPDATE
 Required fields:  metadata: Include the required fields. principal: At least one machine identifier (IP or MAC ADDRESS, hostname, or asset identifier).
 ##### UDM example for STATUS_HEARTBEAT
 The following example illustrates how an event of type STATUS_HEARTBEAT would be formatted for the Google SecOps UDM:
@@ -1038,13 +1108,14 @@ The following example illustrates how an event of type USER_BADGE_IN would be fo
 ```
 As shown in this example, the event is divided into the following UDM categories:  metadata: Background information about the event. target: Information about the device or location where the badge-in occurred. extensions: Details regarding the authentication mechanism used.
 ### USER_CHANGE_PASSWORD, USER_CHANGE_PERMISSIONS
-Required fields:  metadata: Include the required fields. principal: If the user account is modified from a remote location, populate principal with information about the machine from where the user modification originated. target: Populate target.user with information about the user that has been modified. intermediary: For SSO logins, intermediary must include at least one machine identifier for the SSO server if available.
+Required fields:  metadata: Include the required fields. target: Must not be empty. Populate `target` with information about the modified user account (`target.user`) or the target machine, application, or resource where the change occurred. target.user or principal.user: Populate at least one of `target.user` (the user account that was modified) or `principal.user` (the user who initiated the change) with a user identifier (`userid`, `windows_sid`, `email_addresses`, or `employee_id`).
+Optional fields:  principal: If you provide the user identifier in `target.user`, `principal.user` is optional. If the user account is modified from a remote location, populate `principal` with information about the machine from which the modification originated. intermediary: For SSO logins, `intermediary` must include at least one machine identifier for the SSO server if available.
 ### USER_COMMUNICATION
 Required fields:  principal: Populate the principal.user field with details associated with user-initiated (sender) communication, such as a chat message in Google Chat or Slack, a video or voice conference in Zoom or Google Meet, or a VoIP connection.
 Optional fields:  target: (Recommended) Populate the target.user field with information about the target user (receiver) of the cloud communication resource. Populate the target.application field with information about the target cloud communication application.
 ### USER_CREATION, USER_DELETION
-Required fields:  metadata: event_timestamp. principal: Include information about the machine where the request to create or delete the user originated from. For a local user creation or deletion, principal must include at least one machine identifier for the originating machine. target: Location where the user is being created. Must also include user information (for example, target.user).
-Optional fields:  principal: User and process details for the machine where the user creation or deletion request was initiated. target: Information about the target machine (if different than the principal machine).
+Required fields:  metadata: Include `event_timestamp` and `event_type`. principal: Include at least one valid user identifier in `principal.user` (`userid`, `windows_sid`, `email_addresses`, or `employee_id`, up to 256 characters) for the account that initiated the creation or deletion. If `target.application` isn't set, `principal` must also include at least one machine identifier (`hostname`, `ip`, `mac`, or `asset_id`). target: Include at least one valid user identifier in `target.user` (up to 256 characters) for the user account being created or deleted. If `principal` doesn't include a machine identifier, populate `target.application`.
+Optional fields:  principal.process: Process details for the machine where the user creation or deletion request was initiated. target: Information about the target machine (if different from the principal machine).
 ### USER_LOGIN, USER_LOGOUT
 Required fields:  metadata: Include the required fields. principal: For remote user activity (for example, remote login), populate principal with information about the machine originating the user activity. For local user activity (for example, local login), don't set principal. target: Populate target.user with information about the user that has logged on or logged off. If principal is not set (for example, local login), target must also include at least one machine identifier identifying the target machine. For machine to machine user activity (for example, remote login, SSO, Cloud Service, VPN), target must include information on either the target application, target machine, or target VPN server. intermediary: For SSO logins, intermediary must include at least one machine identifier for the SSO server if available. network and network.http: If the login occurs over HTTP, you must place all available details in network.ip_protocol, network.application_protocol, and network.http. authentication extension: Must identify the type of authentication system that the event is related to (for example, machine, SSO, or VPN) and the mechanism employed (username and password, OTP, etc.). security_result: Add a security_result field to represent the login status if it fails. Specify security_result.category with the AUTH_VIOLATION value if authentication fails.
 ##### UDM example for USER_LOGIN
@@ -1082,5 +1153,5 @@ Optional fields:  target.application: (Recommended) Populate the target.applicat
 Required fields:  principal: Populate the principal.user field with details associated with the user whose permissions were updated within a cloud resource (for example, a Salesforce case, Office 365 calendar, Google Doc, or ServiceNow ticket). target: Populate the target.resource field with information about the target cloud resource.
 Optional fields:  target.application: (Recommended) Populate the target.application field with information about the target cloud application.
 ### USER_UNCATEGORIZED
-Required fields:  metadata: event_timestamp principal: Include information about the machine where the request to create or delete the user originated from. For a local user creation or deletion, principal must include at least one machine identifier for the originating machine. target: Location where the user is being created. Must also include user information (for example, target.user).
-Optional fields:  principal: User and process details for the machine where the user creation or deletion request was initiated. target: Information about the target machine (if different than the principal machine).        Send feedback
+Required fields:  metadata: Include `event_timestamp` and `event_type`. principal or target:  If `target` isn't populated, `principal` must include at least one valid user identifier in `principal.user` (`userid`, `windows_sid`, `email_addresses`, or `employee_id`, up to 256 characters) or at least one machine identifier (`hostname`, `ip`, `mac`, or `asset_id`). If `target` is populated, you must populate at least one of the following: a user identifier in `target.user`, a machine identifier in `target`, or a valid user identifier in `principal.user`.
+Optional fields:  principal.process: Process details associated with the user activity. security_result: Describe any malicious or anomalous activity detected.  Note: `USER_STATS` is deprecated.       Send feedback

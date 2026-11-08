@@ -17,7 +17,7 @@ Availability: The custom log types and parsers become available only to your org
 For information about corresponding prebuilt parsers and custom parsers, see Manage prebuilt and custom parsers.
 ## Create a custom log type
 To create a custom log type, do the following:
-Go to SIEM settings > Available Log Types. You can view available log types using the Search feature.
+Go to Settings > Data Management > Available Log Types. If you are on a SIEM-only platform, go to Settings > Available Log Types. You can view available log types using the Search feature.
 Click Create Custom Log Type.
 Under the Create a custom log type on your own, enter details for your log type.
 For example, to create a custom log type for Azure Key Vault logging, complete the following:

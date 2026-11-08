@@ -15,7 +15,7 @@ Alerts tab: Displays any alerts associated with the entities found in the search
 Overview tab: Presents information about the entity in the search query.
 Activity Over Time graph:
 Shows the number of Entities and the Entity Context that are valid within each time bucket. You can use the slider to zoom in or out of the time range.
-Total changed entities: The Entity Context Graph (ECG) stores data in time buckets within their validity period. It also copies this data forward to the next time bucket, provided the entity remains valid (based on `end_time`). This graph updates whenever an entity property changes between two time buckets.
+Total changed entities: The Entity Context Graph (ECG) stores data in time buckets within their validity period. It also copies this data forward to the next time bucket, provided the entity remains valid (based on `end_time`). This graph updates whenever an entity property changes between two time buckets.   Note: The Alerts & Detections tab, the Overview tab, and the Activity Over Time chart are displayed only when you run a search in Advanced Mode. The search-execution mode feature (Basic Mode and Advanced Mode) is in Public Preview. For more information, see Understand the search-execution modes.
 ## Use case: Investigate a compromised user account
 Consider the following scenario: a security analyst needs to investigate a potentially compromised user account (email@company.com). Follow these steps to investigate:
 Identify the compromised user: An alert flags user email@company.com has been identified as a suspicious account.

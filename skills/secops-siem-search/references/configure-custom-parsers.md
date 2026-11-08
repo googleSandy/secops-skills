@@ -13,8 +13,7 @@ When you create and manage custom parsers, consider the following operational bo
 You can create a custom parser by writing code that converts the original raw log to a UDM record.
 Additional reading:  For more information about the structure of a parser, see Overview of log parsing. For more information about parser syntax, see Parser syntax reference.
 When creating a parser, aim to populate as many important UDM fields as possible.
-Go to Settings.
-Go to SIEM Settings.
+Go to Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click Create Parser.
 Select an appropriate log source from the Log Source list.
 Select Start with Raw Logs Only to create a new parser according to your requirements.
@@ -31,7 +30,7 @@ Click Submit.
 The parser is activated for the normalization process after 20 minutes.
 ## Create a custom parser based on an existing parser
 Use an existing parser as a template to create a new custom parser. This method supports only the code-based approach. To get started, follow these steps:
-From the apps Application menu, select Settings > Parsers.
+Go to Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click Create Parser.
 Select an appropriate log source from the Log Source list.
 Select Start with an Existing Prebuilt Parser to use an existing parser as a base to create a new custom parser. Note: If the selected log source does not have a prebuilt parser then this option is not displayed.
@@ -46,13 +45,13 @@ The validation process may take a few minutes, so we recommend that you preview 
 Click Submit.
 The parser is activated for the normalization process after 20 minutes.
 ## Make a custom parser inactive
-From the apps Application menu, select Settings > Parsers.
+Go to Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click more_vert Menu against the parser that you want to make inactive and select Make inactive from the list.
 The Make parser inactive dialog appears.
 Click Make inactive.
 The custom parser is deactivated and the current prebuilt parser version is activated after 20 minutes. The prebuilt parser now becomes the default parser.
 ## Delete a custom parser
-From the apps Application menu, select Settings > Parsers.
+Go to Settings > Data Management > Parsers. If you are on a SIEM-only platform, go to Settings > Parsers.
 Click more_vert Menu against the custom parser that you want to delete and select Delete from the list. Note: You cannot delete a prebuilt parser.
 The Delete custom parser dialog appears.
 Click Delete.
